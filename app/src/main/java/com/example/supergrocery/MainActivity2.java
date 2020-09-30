@@ -7,6 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.supergrocery.Fragments.BasketFragment;
+import com.example.supergrocery.Fragments.DiscoverFragment;
+import com.example.supergrocery.Fragments.HomeFragment;
+import com.example.supergrocery.Fragments.ProfileFragment;
+import com.example.supergrocery.Fragments.ShopFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity2 extends AppCompatActivity {

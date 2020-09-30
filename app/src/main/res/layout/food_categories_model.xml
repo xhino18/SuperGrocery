@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/cardview_discount_products"
+        android:id="@+id/cardview_category_product"
         app:cardCornerRadius="30dp"
         android:layout_margin="5dp">
 
@@ -18,8 +18,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/plate"
-            android:id="@+id/imageview_discount_product"
+            android:id="@+id/iv_category_product"
             android:scaleType="fitXY">
 
         </ImageView>
@@ -29,7 +28,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="afasfasf"
+            android:id="@+id/tv_category_product_name"
             android:textAlignment="center"
             android:gravity="center"
             android:textStyle="bold">

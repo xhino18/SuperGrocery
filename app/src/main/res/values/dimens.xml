@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="iv_location_icon_left_margin">30dp</dimen>
+    <dimen name="lottie_animation_height">500dp</dimen>
+    <dimen name="tv_intro_text_size">40sp</dimen>
+    <dimen name="standart_elevation">20dp</dimen>
+    <dimen name="standart_left_margin">20dp</dimen>
+    <dimen name="standart_right_margin">20dp</dimen>
+    <dimen name="iv_menuicon_left_margin">30dp</dimen>
+    <dimen name="tv_address_location_left_margin">15dp</dimen>
+    <dimen name="tv_address_location_right_margin">20dp</dimen>
+    <dimen name="searchview_main_radius">10dp</dimen>
+    <dimen name="searchview_leftmargin">20dp</dimen>
+    <dimen name="searchview_rightmargin">20dp</dimen>
+    <dimen name="standart_topBottom_margin">10dp</dimen>
+    <dimen name="tv_categories_textSize">25sp</dimen>
+    <dimen name="recycleview_food_categories_width">110dp</dimen>
+    <dimen name="recycleview_food_categories_height">135dp</dimen>
+    <dimen name="tv_freeDelivery_textSize">25dp</dimen>
+    <dimen name="login_margin">40dp</dimen>
+</resources>

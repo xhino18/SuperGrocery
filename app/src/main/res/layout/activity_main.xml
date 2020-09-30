@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,9 +17,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
-                android:background="#FFFFFF"
+                android:background="@color/white"
                 android:orientation="vertical"
-                android:elevation="50dp">
+                android:elevation="@dimen/standart_elevation">
 
 
                 <RelativeLayout
@@ -37,17 +33,19 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="@dimen/standart_left_margin"
+                        android:layout_marginStart="@dimen/standart_left_margin"
                         android:src="@drawable/ic_baseline_menu_24">
 
                     </ImageView>
 
                     <ImageView
-                        android:id="@+id/iv_locationicon"
+                        android:id="@+id/iv_location_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginLeft="@dimen/iv_location_icon_left_margin"
+                        android:layout_marginStart="@dimen/iv_location_icon_left_margin"
                         android:layout_toEndOf="@id/iv_menuicon"
                         android:layout_toRightOf="@+id/iv_menuicon"
                         android:src="@drawable/ic_location">
@@ -59,12 +57,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="@dimen/tv_address_location_left_margin"
+                        android:layout_marginStart="@dimen/tv_address_location_left_margin"
+                        android:layout_marginRight="@dimen/tv_address_location_right_margin"
+                        android:layout_marginEnd="@dimen/tv_address_location_right_margin"
                         android:textColor="#03CDC6"
                         android:textStyle="bold"
-                        android:layout_toEndOf="@id/iv_locationicon"
-                        android:layout_toRightOf="@+id/iv_locationicon"
+                        android:layout_toEndOf="@id/iv_location_icon"
+                        android:layout_toRightOf="@+id/iv_location_icon"
                         android:text="jashfakhfkalsfj">
 
                     </TextView>
@@ -79,9 +79,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        app:cardCornerRadius="10dp">
+                        android:id="@+id/searchview_cardview"
+                        android:layout_marginLeft="@dimen/searchview_leftmargin"
+                        android:layout_marginStart="@dimen/searchview_leftmargin"
+                        android:layout_marginRight="@dimen/searchview_rightmargin"
+                        android:layout_marginEnd="@dimen/searchview_rightmargin"
+                        app:cardCornerRadius="@dimen/searchview_main_radius">
 
                         <SearchView
                             android:id="@+id/searchview_main"
@@ -118,8 +121,8 @@
                         app:piv_animationType="slide"
                         app:piv_dynamicCount="true"
                         app:piv_interactiveAnimation="true"
-                        app:piv_selectedColor="#A8504F4F"
-                        app:piv_unselectedColor="#80ACA9A9"
+                        app:piv_selectedColor="@color/selected_page_indicator"
+                        app:piv_unselectedColor="@color/unselected_page_indicator"
                         app:piv_viewPager="@id/viewPager">
 
                     </com.rd.PageIndicatorView>
@@ -129,12 +132,12 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginStart="@dimen/standart_left_margin"
+                    android:layout_marginLeft="@dimen/standart_left_margin"
+                    android:layout_marginTop="@dimen/standart_topBottom_margin"
+                    android:layout_marginEnd="@dimen/standart_right_margin"
+                    android:layout_marginRight="@dimen/standart_right_margin"
+                    android:layout_marginBottom="@dimen/standart_topBottom_margin">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -142,9 +145,10 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:fontFamily="sans-serif-light"
+                        android:id="@+id/tv_categories"
                         android:text="@string/categories"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_categories_textSize"
                         android:textStyle="bold">
 
                     </TextView>
@@ -157,7 +161,7 @@
                         android:layout_centerVertical="true"
                         android:paddingTop="8dp"
                         android:text="@string/see_all"
-                        android:textColor="#03CDC6"
+                        android:textColor="@color/colorPrimary"
                         android:textStyle="bold">
 
                     </TextView>
@@ -170,9 +174,11 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycleview_food_categories"
                         android:layout_width="wrap_content"
-                        android:layout_height="135dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_height="@dimen/recycleview_food_categories_height"
+                        android:layout_marginLeft="@dimen/standart_left_margin"
+                        android:layout_marginStart="@dimen/standart_left_margin"
+                        android:layout_marginRight="@dimen/standart_right_margin"
+                        android:layout_marginEnd="@dimen/standart_right_margin"
                         android:orientation="horizontal"
                         tools:listitem="@layout/food_categories_model">
 
@@ -186,21 +192,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="#FFFFFFFF"
+                android:layout_marginBottom="@dimen/standart_topBottom_margin"
+                android:background="@color/white"
                 android:orientation="vertical"
-                android:elevation="50dp">
+                android:elevation="@dimen/standart_elevation">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="@dimen/standart_left_margin"
+                    android:layout_marginLeft="@dimen/standart_left_margin"
+                    android:layout_marginTop="@dimen/standart_topBottom_margin"
+                    android:layout_marginEnd="@dimen/standart_right_margin"
+                    android:layout_marginRight="@dimen/standart_right_margin"
+                    android:layout_marginBottom="@dimen/standart_topBottom_margin"
                     android:orientation="vertical">
 
                     <TextView
@@ -208,8 +214,9 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/free_delivery"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
+                        android:id="@+id/tv_freeDelivery"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_freeDelivery_textSize"
                         android:textStyle="bold">
 
                     </TextView>
@@ -219,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="8dp"
                         android:text="@string/free_delivery_paragraph"
-                        android:textColor="#75000000"
+                        android:textColor="@color/black"
                         android:textStyle="bold">
 
                     </TextView>
@@ -228,10 +235,12 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview_free_delivery_products"
                     android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/standart_left_margin"
+                    android:layout_marginStart="@dimen/standart_left_margin"
+                    android:layout_marginRight="@dimen/standart_right_margin"
+                    android:layout_marginEnd="@dimen/standart_right_margin"
+                    android:layout_marginBottom="@dimen/standart_topBottom_margin"
                     android:orientation="horizontal"
                     tools:listitem="@layout/free_delivery_products_model">
 
@@ -244,5 +253,5 @@
         </LinearLayout>
 
 
-    </ScrollView>
-</LinearLayout>
+
+</ScrollView>
