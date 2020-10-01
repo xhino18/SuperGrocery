@@ -18,4 +18,6 @@
     <dimen name="recycleview_food_categories_height">135dp</dimen>
     <dimen name="tv_freeDelivery_textSize">25dp</dimen>
     <dimen name="login_margin">40dp</dimen>
+    <dimen name="standart_image_cardview_radius">15dp</dimen>
+    <dimen name="tv_freeDelivery_leftRight_margin">5dp</dimen>
 </resources>

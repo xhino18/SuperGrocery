@@ -1,14 +1,9 @@
 package com.example.supergrocery.Models;
 
-import com.example.supergrocery.Links;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-
-public class ModelCategoriesData {
-
-
+public class ModelDiscountedProductsData {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -18,9 +13,9 @@ public class ModelCategoriesData {
     @SerializedName("image")
     @Expose
     private String image;
-    @SerializedName("has_children")
+    @SerializedName("price")
     @Expose
-    private String hasChildren;
+    private Integer price;
 
     public Integer getId() {
         return id;
@@ -46,12 +41,11 @@ public class ModelCategoriesData {
         this.image = image;
     }
 
-    public String getHasChildren() {
-        return hasChildren;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setHasChildren(String hasChildren) {
-        this.hasChildren = hasChildren;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
-
 }

@@ -1,5 +1,7 @@
 package com.example.supergrocery.API;
 
+import com.example.supergrocery.Links;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +13,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.supergrocery.API.API.BASE_URL;
 
 public class ClientAPI {
     public static API createApiNoToken() {
@@ -41,7 +42,7 @@ public class ClientAPI {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Links.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
@@ -74,7 +75,7 @@ public class ClientAPI {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Links.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
@@ -109,7 +110,7 @@ public class ClientAPI {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Links.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();

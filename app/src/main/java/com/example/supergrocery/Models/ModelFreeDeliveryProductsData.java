@@ -1,34 +1,22 @@
 package com.example.supergrocery.Models;
 
-import com.example.supergrocery.Links;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+public class ModelFreeDeliveryProductsData {
 
-
-public class ModelCategoriesData {
-
-
-    @SerializedName("id")
-    @Expose
-    private Integer id;
     @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("image")
     @Expose
     private String image;
-    @SerializedName("has_children")
+    @SerializedName("price")
     @Expose
-    private String hasChildren;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Integer price;
+    @SerializedName("quantity")
+    @Expose
+    private String quantity;
 
     public String getName() {
         return name;
@@ -46,12 +34,19 @@ public class ModelCategoriesData {
         this.image = image;
     }
 
-    public String getHasChildren() {
-        return hasChildren;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setHasChildren(String hasChildren) {
-        this.hasChildren = hasChildren;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
 }

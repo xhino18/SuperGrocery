@@ -8,13 +8,17 @@
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:id="@+id/cardview_free_delivery_products"
-        app:cardCornerRadius="30dp"
+        app:cardCornerRadius="@dimen/standart_image_cardview_radius"
         android:layout_margin="5dp">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/plate"
+            android:layout_marginRight="@dimen/tv_freeDelivery_leftRight_margin"
+            android:layout_marginEnd="@dimen/tv_freeDelivery_leftRight_margin"
+            android:layout_marginStart="@dimen/tv_freeDelivery_leftRight_margin"
+            android:layout_marginLeft="@dimen/tv_freeDelivery_leftRight_margin"
             android:id="@+id/imageview_free_delivery_product"
             android:scaleType="fitXY">
 

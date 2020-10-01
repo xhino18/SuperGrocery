@@ -11,7 +11,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/cardview_category_product"
-        app:cardCornerRadius="30dp"
+        app:cardCornerRadius="@dimen/standart_image_cardview_radius"
         android:layout_margin="5dp">
 
 

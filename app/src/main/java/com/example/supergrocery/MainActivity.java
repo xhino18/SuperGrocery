@@ -13,11 +13,19 @@ import android.widget.Toast;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterCategories;
+import com.example.supergrocery.Adapters.AdapterDiscountedProducts;
+import com.example.supergrocery.Adapters.AdapterFreeDeliveryProducts;
 import com.example.supergrocery.Models.ModelCategories;
 import com.example.supergrocery.Models.ModelCategoriesData;
+import com.example.supergrocery.Models.ModelDiscountedProducts;
+import com.example.supergrocery.Models.ModelDiscountedProductsData;
+import com.example.supergrocery.Models.ModelFreeDeliveryProducts;
+import com.example.supergrocery.Models.ModelFreeDeliveryProductsData;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -31,29 +39,36 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.supergrocery.API.API.BASE_URL;
-
 public class MainActivity extends AppCompatActivity {
     ImageView iv_menuicon;
     Gson gson;
-    List<ModelCategoriesData> categoriesDataList;
+    List<ModelCategoriesData> categoriesDataList = new ArrayList<>();
+    List<ModelDiscountedProductsData> modelDiscountedProductsData = new ArrayList<>();
+    List<ModelFreeDeliveryProductsData> modelFreeDeliveryProductsData = new ArrayList<>();
     AdapterCategories adapterCategories;
-    RecyclerView recyclerView_categories;
-    final static String Token= "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZTEwMGUwZjBlMmM1ZmIzOWU3ZDNmZGVjNzY1ODFiZDkyZWIzMGZjMDQ1NjE2MDY3MDRjNDg4OTlmNmZjZTc3NjJlZjRjZjA1NjFkYmU4MzIiLCJpYXQiOjE2MDE0NTgwMjUsIm5iZiI6MTYwMTQ1ODAyNSwiZXhwIjoxNjMyOTk0MDI1LCJzdWIiOiIxMDYiLCJzY29wZXMiOltdfQ.kWX7XWn6cNGHBroLv0YWE_FMx671kYlx-SXCt-Ej7Q43GlBq9Rs7AaZLypcrsM_EfWLWjUfmzlZTKYFR4w5LzeCtwrh2p6nUGGu2nVMejikDXevgvFXHJBBYUB87L4xfRW7992FK14M-Ajze0CzZRiC28JuPmkmF6jwwcWM87T-wxM2brYZ6rCNK4hNcRAhmOUSKfMQRGgKIh0hVMB4s8LvBRm3NaRESJIREoti7FHDiRYmMfrzwARV9C2YUf-8i_aLb8vEGzcPXDAyByrRpEzNo5MWmgxSqExPTjQKzHsRX4UWBlwg-E0FkI5RHm6jM90RDqbylrEzB3fZAE9h36U9MngoEglzjTBF66KekjvheqmmeVGb50N7ha2aUEq2Ye02d4o_au0RW85pqroZhimJ9JKSsujCuvs8XDUTZECrXNyoy8XmKM2zZykoKagkMVPiTSQtkVcAW2yBS1mMN-BbtXp0Vs_5hnuUBFHUoHF0A3NWfEMC3t9MMdXFHN1y-YPFS9DrqgE7HB41zS-3OQ185j0o9GyDNjLCew9XK7_86ysLA14lYyzhvB2Qdlm313C-Bp4NCsZiklQEO-8N-w_dxmQIdMHcELU85y6O7EitVIbkG_2ZfCcuHPWoWhAULbgfkDPJwsRr5mOz-LWf7rElC-yBfShY3_W445kMZt5w";
-
+    AdapterDiscountedProducts adapterDiscountedProducts;
+    AdapterFreeDeliveryProducts adapterFreeDeliveryProducts;
+    RecyclerView recyclerView_categories,recycleview_discounted_products,recycleview_free_delivery_products;
+   public static final String Token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMGQ1YmY4MDY0MzUxNjU4NWNiY2M2MDYxZGIxMGYyYTkyMTM3ZWU3MTgyOWRlZWYyMzA5NDc1ZDU1MTk5ZDVlNDk2MjMxOGE3YzEzOWZkMmEiLCJpYXQiOjE1ODIxMDc1OTIsIm5iZiI6MTU4MjEwNzU5MiwiZXhwIjoxNjEzNzI5OTkyLCJzdWIiOiIxNSIsInNjb3BlcyI6W119.j-4iSBeEN-OSICn_-1Q26hkB4i3x2KP3WnW9bueL96W_MISJkoNhlFuvfDUPGIvunvVndwMJpGtHPvTjSSt2U9EXDtzq2XLIy1s7nchEhjNhlBBtABuJ1TWo7IyCpz4IPzwdLw_q8-LbjrG6EUcy8O6ZhuROV5JL2iftaMoYHHqpVwxZL2o2YG_cJjSHs_PgQS1IgVmkgVakgg5-u8n28qT_QIS36mcectV5OYdK_eDIsaAwDtuZKWp7KcndSXECwI9S6_bYCaJw6hYTrcq-hY_v_nVLzjS9vtOymbnuzSVkGgaincnne3Kw4PXBEOMBFu3L7Bcp9feQT7p-ra6VIbZUP3Z14h_6St93M8XupeyQP2FhHnlfJZFEKgz4rVN2Qo8nltkm_3Pkum-yXIQrys3F6p2Md2d6-pndGyaLT5W_pbuX7NXf6Jsa8YzQit1m9nS_mYzBJ1j8TvDC8ZlmvCoK7Cm9DLNn-ipzOQ76nOWvJun3DRdgek0uYyB26RPvwXRKfAhNwkj3dGmY7ejAFxrj0MbtWda59OGoGDJZZrs0DCbVwjo370sPLC4HiCM7nbVI4Y-_y4-AKI-SQkzGANyM2YZGPxGUpQpMwxp8hG3L0o6fz8jRkdklLUorFFnMeJUzfNmMQg_wKx10V4BAconKdrJDBqsWdFddRkRlzyA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        gson  = new GsonBuilder().create();
         init();
-        getCategories(Token);
+        getall(Token);
 
     }
 
     public void init() {
         recyclerView_categories = findViewById(R.id.recycleview_food_categories);
         recyclerView_categories.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        recycleview_discounted_products=findViewById(R.id.recycleview_discounted_products);
+        recycleview_discounted_products.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+        recycleview_free_delivery_products=findViewById(R.id.recycleview_free_delivery_products);
+        recycleview_free_delivery_products.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+
 
         iv_menuicon = findViewById(R.id.iv_menuicon);
         iv_menuicon.setOnClickListener(new View.OnClickListener() {
@@ -68,9 +83,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void getCategories(String token) {
+    public void getall(String token) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
         Call<ModelCategories> call = apiClient.getCategories();
+        Call<ModelDiscountedProducts> call1 = apiClient.getDiscountedProducts();
+        Call<ModelFreeDeliveryProducts> call2 = apiClient.getFreeDeliveryProducts();
         call.enqueue(new Callback<ModelCategories>() {
             @Override
             public void onResponse(Call<ModelCategories> call, Response<ModelCategories> response) {
@@ -89,6 +106,49 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ModelCategories> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        call1.enqueue(new Callback<ModelDiscountedProducts>() {
+            @Override
+            public void onResponse(Call<ModelDiscountedProducts> call, Response<ModelDiscountedProducts> response) {
+                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
+                    if (!response.body().getError()) {
+                        modelDiscountedProductsData.addAll(response.body().getData());
+                        adapterDiscountedProducts = new AdapterDiscountedProducts(MainActivity.this, modelDiscountedProductsData);
+                        recycleview_discounted_products.setAdapter(adapterDiscountedProducts);
+                    } else {
+                        Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelDiscountedProducts> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        call2.enqueue(new Callback<ModelFreeDeliveryProducts>() {
+            @Override
+            public void onResponse(Call<ModelFreeDeliveryProducts> call, Response<ModelFreeDeliveryProducts> response) {
+                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
+                    if (!response.body().getError()) {
+                        modelFreeDeliveryProductsData.addAll(response.body().getData());
+                        adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(MainActivity.this,modelFreeDeliveryProductsData);
+                        recycleview_free_delivery_products.setAdapter(adapterFreeDeliveryProducts);
+                    } else {
+                        Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelFreeDeliveryProducts> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
