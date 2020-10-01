@@ -14,7 +14,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/plate"
             android:layout_marginRight="@dimen/tv_freeDelivery_leftRight_margin"
             android:layout_marginEnd="@dimen/tv_freeDelivery_leftRight_margin"
             android:layout_marginStart="@dimen/tv_freeDelivery_leftRight_margin"

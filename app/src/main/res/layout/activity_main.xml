@@ -25,7 +25,7 @@
                 android:layout_marginBottom="5dp"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:elevation="@dimen/standart_elevation">
+                android:elevation="@dimen/cardview_default_elevation">
 
 
                 <RelativeLayout
@@ -218,7 +218,7 @@
                 android:layout_marginBottom="@dimen/standart_topBottom_margin"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:elevation="@dimen/standart_elevation">
+                android:elevation="@dimen/cardview_default_elevation">
 
 
                 <LinearLayout

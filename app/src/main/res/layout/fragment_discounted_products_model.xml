@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="@dimen/standart_topBottom_margin"
+        android:layout_marginLeft="@dimen/standart_left_margin"
+        android:layout_marginStart="@dimen/standart_left_margin"
+        android:layout_marginRight="@dimen/standart_right_margin"
+        android:layout_marginEnd="@dimen/standart_right_margin"
+        android:layout_marginBottom="@dimen/standart_topBottom_margin"
         app:cardElevation="@dimen/cardview_default_elevation"
         android:id="@+id/cardview_discount_products"
-        app:cardCornerRadius="@dimen/standart_image_cardview_radius"
-        android:layout_centerHorizontal="true">
+        app:cardCornerRadius="@dimen/standart_image_cardview_radius">
 
         <ImageView
             android:layout_width="match_parent"
@@ -21,4 +27,4 @@
         </ImageView>
     </androidx.cardview.widget.CardView>
 
-</RelativeLayout>
+</LinearLayout>
