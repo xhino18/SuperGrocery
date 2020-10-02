@@ -1,5 +1,6 @@
 package com.example.supergrocery.Fragments;
 
+import android.content.Intent;
 import android.media.session.MediaSession;
 import android.os.Bundle;
 
@@ -19,12 +20,14 @@ import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterCategories;
 import com.example.supergrocery.Adapters.AdapterFragmentCategories;
 import com.example.supergrocery.Adapters.AdapterFragmentDiscountedProducts;
+import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.Models.ModelCategories;
 import com.example.supergrocery.Models.ModelCategoriesData;
 import com.example.supergrocery.Models.ModelDiscountedProducts;
 import com.example.supergrocery.Models.ModelDiscountedProductsData;
 import com.example.supergrocery.Models.ModelFreeDeliveryProducts;
+import com.example.supergrocery.ProductsActivity;
 import com.example.supergrocery.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.supergrocery.MainActivity.Token;
+import static com.example.supergrocery.MainActivity.token_login;
 
 
 public class ShopFragment extends Fragment {
@@ -60,7 +63,7 @@ public class ShopFragment extends Fragment {
         recycleview_fragment_discounted_products.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
         gson = new GsonBuilder().create();
 
-        getCategories(Token);
+        getCategories(token_login);
         return view;
     }
 
@@ -111,4 +114,5 @@ public class ShopFragment extends Fragment {
             }
         });
     }
+
 }

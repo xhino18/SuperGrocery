@@ -2,7 +2,7 @@
 <resources>
     <dimen name="iv_location_icon_left_margin">30dp</dimen>
     <dimen name="lottie_animation_height">500dp</dimen>
-    <dimen name="tv_intro_text_size">40sp</dimen>
+    <dimen name="tv_intro_text_size">25sp</dimen>
     <dimen name="standart_elevation">20dp</dimen>
     <dimen name="standart_left_margin">20dp</dimen>
     <dimen name="standart_right_margin">20dp</dimen>
@@ -21,4 +21,6 @@
     <dimen name="standart_image_cardview_radius">15dp</dimen>
     <dimen name="tv_freeDelivery_leftRight_margin">5dp</dimen>
     <dimen name="fragment_shop_leftRight_margin">15dp</dimen>
+    <dimen name="add_product_icon_margin">10dp</dimen>
+    <dimen name="cardview_basket_radius">10dp</dimen>
 </resources>

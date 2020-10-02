@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -12,9 +13,12 @@ import com.example.supergrocery.Fragments.DiscoverFragment;
 import com.example.supergrocery.Fragments.HomeFragment;
 import com.example.supergrocery.Fragments.ProfileFragment;
 import com.example.supergrocery.Fragments.ShopFragment;
+import com.example.supergrocery.Interfaces.ItemClickInterface;
+import com.example.supergrocery.Models.ModelCategoriesData;
+import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity  implements ItemClickInterface {
 
 
     @Override
@@ -24,7 +28,11 @@ public class MainActivity2 extends AppCompatActivity {
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         //Which fragment to show first
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+
+        bottomNavigationView.getMenu().getItem(3).setChecked(true);
+
+        bottomNavigationView.getMenu().performIdentifierAction(R.id.nav_shop, 0);
+
 
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener=
@@ -34,8 +42,7 @@ public class MainActivity2 extends AppCompatActivity {
                     Fragment selectedFragment=null;
                     switch (item.getItemId()) {
                         case R.id.nav_home:
-                            selectedFragment = new HomeFragment();
-                            break;
+                            finish();
                         case R.id.nav_discover:
                             selectedFragment = new DiscoverFragment();
                             break;
@@ -51,11 +58,19 @@ public class MainActivity2 extends AppCompatActivity {
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                     return true;
+
                 }
             };
 
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+    public void categoryClicked(ModelCategoriesData data) {
+        Intent intent=new Intent(MainActivity2.this, ProductsActivity.class);
+        intent.putExtra("cat_id",data.getId());
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
     }
 }

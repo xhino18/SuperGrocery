@@ -16,7 +16,7 @@ import com.example.supergrocery.R;
 
 public class IntroActivity_1 extends AppCompatActivity {
     TextView tv_intro;
-    Animation animation;
+
     private static int HAPJE_ACTIVITY= 10700;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +25,6 @@ public class IntroActivity_1 extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         tv_intro=findViewById(R.id.tv_intro);
-        animation= AnimationUtils.loadAnimation(this,R.anim.text_anim);
-        tv_intro.setAnimation(animation);
 
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:fontFamily="@font/schoolbell"
+        android:fontFamily="@font/rock_salt"
         android:paddingTop="150dp"
         android:text="@string/supergrocery"
         android:textColor="@color/colorPrimary"

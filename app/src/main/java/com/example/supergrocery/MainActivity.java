@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.TextClock;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
@@ -15,12 +18,15 @@ import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterCategories;
 import com.example.supergrocery.Adapters.AdapterDiscountedProducts;
 import com.example.supergrocery.Adapters.AdapterFreeDeliveryProducts;
+import com.example.supergrocery.Adapters.AdapterShopProducts;
+import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Models.ModelCategories;
 import com.example.supergrocery.Models.ModelCategoriesData;
 import com.example.supergrocery.Models.ModelDiscountedProducts;
 import com.example.supergrocery.Models.ModelDiscountedProductsData;
 import com.example.supergrocery.Models.ModelFreeDeliveryProducts;
 import com.example.supergrocery.Models.ModelFreeDeliveryProductsData;
+import com.example.supergrocery.Models.ModelShopProductsData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -39,17 +45,21 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ItemClickInterface {
     ImageView iv_menuicon;
+    SearchView searchview_main;
+    TextView tv_see_all;
     Gson gson;
+    List<ModelShopProductsData> modelShopProductsData=new ArrayList<>();
     List<ModelCategoriesData> categoriesDataList = new ArrayList<>();
     List<ModelDiscountedProductsData> modelDiscountedProductsData = new ArrayList<>();
     List<ModelFreeDeliveryProductsData> modelFreeDeliveryProductsData = new ArrayList<>();
+    AdapterShopProducts adapterShopProducts;
     AdapterCategories adapterCategories;
     AdapterDiscountedProducts adapterDiscountedProducts;
     AdapterFreeDeliveryProducts adapterFreeDeliveryProducts;
     RecyclerView recyclerView_categories,recycleview_discounted_products,recycleview_free_delivery_products;
-   public static final String Token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMGQ1YmY4MDY0MzUxNjU4NWNiY2M2MDYxZGIxMGYyYTkyMTM3ZWU3MTgyOWRlZWYyMzA5NDc1ZDU1MTk5ZDVlNDk2MjMxOGE3YzEzOWZkMmEiLCJpYXQiOjE1ODIxMDc1OTIsIm5iZiI6MTU4MjEwNzU5MiwiZXhwIjoxNjEzNzI5OTkyLCJzdWIiOiIxNSIsInNjb3BlcyI6W119.j-4iSBeEN-OSICn_-1Q26hkB4i3x2KP3WnW9bueL96W_MISJkoNhlFuvfDUPGIvunvVndwMJpGtHPvTjSSt2U9EXDtzq2XLIy1s7nchEhjNhlBBtABuJ1TWo7IyCpz4IPzwdLw_q8-LbjrG6EUcy8O6ZhuROV5JL2iftaMoYHHqpVwxZL2o2YG_cJjSHs_PgQS1IgVmkgVakgg5-u8n28qT_QIS36mcectV5OYdK_eDIsaAwDtuZKWp7KcndSXECwI9S6_bYCaJw6hYTrcq-hY_v_nVLzjS9vtOymbnuzSVkGgaincnne3Kw4PXBEOMBFu3L7Bcp9feQT7p-ra6VIbZUP3Z14h_6St93M8XupeyQP2FhHnlfJZFEKgz4rVN2Qo8nltkm_3Pkum-yXIQrys3F6p2Md2d6-pndGyaLT5W_pbuX7NXf6Jsa8YzQit1m9nS_mYzBJ1j8TvDC8ZlmvCoK7Cm9DLNn-ipzOQ76nOWvJun3DRdgek0uYyB26RPvwXRKfAhNwkj3dGmY7ejAFxrj0MbtWda59OGoGDJZZrs0DCbVwjo370sPLC4HiCM7nbVI4Y-_y4-AKI-SQkzGANyM2YZGPxGUpQpMwxp8hG3L0o6fz8jRkdklLUorFFnMeJUzfNmMQg_wKx10V4BAconKdrJDBqsWdFddRkRlzyA";
+   public static final String token_login = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMGQ1YmY4MDY0MzUxNjU4NWNiY2M2MDYxZGIxMGYyYTkyMTM3ZWU3MTgyOWRlZWYyMzA5NDc1ZDU1MTk5ZDVlNDk2MjMxOGE3YzEzOWZkMmEiLCJpYXQiOjE1ODIxMDc1OTIsIm5iZiI6MTU4MjEwNzU5MiwiZXhwIjoxNjEzNzI5OTkyLCJzdWIiOiIxNSIsInNjb3BlcyI6W119.j-4iSBeEN-OSICn_-1Q26hkB4i3x2KP3WnW9bueL96W_MISJkoNhlFuvfDUPGIvunvVndwMJpGtHPvTjSSt2U9EXDtzq2XLIy1s7nchEhjNhlBBtABuJ1TWo7IyCpz4IPzwdLw_q8-LbjrG6EUcy8O6ZhuROV5JL2iftaMoYHHqpVwxZL2o2YG_cJjSHs_PgQS1IgVmkgVakgg5-u8n28qT_QIS36mcectV5OYdK_eDIsaAwDtuZKWp7KcndSXECwI9S6_bYCaJw6hYTrcq-hY_v_nVLzjS9vtOymbnuzSVkGgaincnne3Kw4PXBEOMBFu3L7Bcp9feQT7p-ra6VIbZUP3Z14h_6St93M8XupeyQP2FhHnlfJZFEKgz4rVN2Qo8nltkm_3Pkum-yXIQrys3F6p2Md2d6-pndGyaLT5W_pbuX7NXf6Jsa8YzQit1m9nS_mYzBJ1j8TvDC8ZlmvCoK7Cm9DLNn-ipzOQ76nOWvJun3DRdgek0uYyB26RPvwXRKfAhNwkj3dGmY7ejAFxrj0MbtWda59OGoGDJZZrs0DCbVwjo370sPLC4HiCM7nbVI4Y-_y4-AKI-SQkzGANyM2YZGPxGUpQpMwxp8hG3L0o6fz8jRkdklLUorFFnMeJUzfNmMQg_wKx10V4BAconKdrJDBqsWdFddRkRlzyA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         gson  = new GsonBuilder().create();
         init();
-        getall(Token);
+        getall(token_login);
 
     }
 
@@ -69,6 +79,16 @@ public class MainActivity extends AppCompatActivity {
         recycleview_free_delivery_products=findViewById(R.id.recycleview_free_delivery_products);
         recycleview_free_delivery_products.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
 
+        tv_see_all=findViewById(R.id.tv_see_all);
+        tv_see_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this,MainActivity2.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
 
         iv_menuicon = findViewById(R.id.iv_menuicon);
         iv_menuicon.setOnClickListener(new View.OnClickListener() {
@@ -79,9 +99,22 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
+        searchview_main=findViewById(R.id.searchview_main);
+        searchview_main.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchCategory(newText);
+                return true;
+            }
+        });
 
 
-    }
+}
 
     public void getall(String token) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
@@ -153,4 +186,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void categoryClicked(ModelCategoriesData data) {
+        Intent intent=new Intent(MainActivity.this, ProductsActivity.class);
+        intent.putExtra("cat_id",data.getId());
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+    private void searchCategory(String s) {
+        List<ModelCategoriesData> categoriesData = new ArrayList<>();
+
+        categoriesData.addAll(categoriesDataList);
+        for (int i = 0; i < categoriesData.size(); i++) {
+            if (!categoriesData.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
+                categoriesData.remove(i);
+                i--;
+            }
+        }
+        if(!categoriesData.isEmpty()){
+            adapterCategories = new AdapterCategories(MainActivity.this,categoriesData);
+            recycleview_discounted_products.setAdapter(adapterCategories);
+
+        }
+    }
+
 }

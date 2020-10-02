@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Links;
 import com.example.supergrocery.Models.ModelCategoriesData;
 import com.example.supergrocery.R;
@@ -34,9 +35,16 @@ public class AdapterFragmentCategories extends RecyclerView.Adapter<AdapterFragm
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.tv_fragment_categories_product.setText(categoriesDataList.get(position).getName());
         Glide.with(context).load(Links.categories_images+categoriesDataList.get(position).getImage()).into(holder.iv_fragment_categories);
+        holder.iv_fragment_categories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ItemClickInterface)context).categoryClicked(categoriesDataList.get(position));
+            }
+        });
+
     }
 
     @Override
