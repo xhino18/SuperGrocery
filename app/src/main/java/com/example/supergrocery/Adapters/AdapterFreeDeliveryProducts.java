@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.supergrocery.Links;
 import com.example.supergrocery.Models.ModelFreeDeliveryProducts;
 import com.example.supergrocery.Models.ModelFreeDeliveryProductsData;
 import com.example.supergrocery.R;
@@ -34,7 +35,7 @@ public class AdapterFreeDeliveryProducts extends RecyclerView.Adapter<AdapterFre
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load("https://peninsula.co.za/wp-content/uploads/2016/05/groceries_12801.jpg").into(holder.imageview_free_delivery_product);
+        Glide.with(context).load(Links.categories_images+freeDeliveryProductsData.get(position).getImage()).into(holder.imageview_free_delivery_product);
 
     }
 

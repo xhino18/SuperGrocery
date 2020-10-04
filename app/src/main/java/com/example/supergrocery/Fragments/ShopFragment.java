@@ -42,7 +42,7 @@ import retrofit2.Response;
 import static com.example.supergrocery.MainActivity.token_login;
 
 
-public class ShopFragment extends Fragment {
+public class ShopFragment extends Fragment{
     RecyclerView recycleview_fragment_categories,recycleview_fragment_discounted_products;
     List<ModelCategoriesData> modelCategoriesData = new ArrayList<>();
     List<ModelDiscountedProductsData> modelDiscountedProducts=new ArrayList<>();

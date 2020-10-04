@@ -26,16 +26,23 @@
                 android:scaleType="fitXY">
 
             </ImageView>
-                <ImageView
+                <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/iv_add_product"
+                    app:cardCornerRadius="50dp"
+                    android:layout_margin="10dp"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_margin="@dimen/add_product_icon_margin"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/iv_add_product"
+                    android:background="@color/white"
                     android:src="@drawable/ic_add_product">
 
                 </ImageView>
+                </androidx.cardview.widget.CardView>
             </RelativeLayout>
 
 

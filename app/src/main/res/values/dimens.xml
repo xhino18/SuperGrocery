@@ -23,4 +23,5 @@
     <dimen name="fragment_shop_leftRight_margin">15dp</dimen>
     <dimen name="add_product_icon_margin">10dp</dimen>
     <dimen name="cardview_basket_radius">10dp</dimen>
+    <dimen name="basket_item_name">17sp</dimen>
 </resources>
