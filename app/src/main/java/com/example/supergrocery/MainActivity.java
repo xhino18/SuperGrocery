@@ -27,6 +27,8 @@ import com.example.supergrocery.Models.ModelDiscountedProductsData;
 import com.example.supergrocery.Models.ModelFreeDeliveryProducts;
 import com.example.supergrocery.Models.ModelFreeDeliveryProductsData;
 import com.example.supergrocery.Models.ModelShopProductsData;
+import com.example.supergrocery.ROOM.ItemsDB;
+import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -45,12 +47,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.supergrocery.MainActivity2.tv_basket_quantity;
+
 public class MainActivity extends AppCompatActivity implements ItemClickInterface {
     ImageView iv_menuicon;
     SearchView searchview_main;
     TextView tv_see_all;
     Gson gson;
-    List<ModelShopProductsData> modelShopProductsData=new ArrayList<>();
     List<ModelCategoriesData> categoriesDataList = new ArrayList<>();
     List<ModelDiscountedProductsData> modelDiscountedProductsData = new ArrayList<>();
     List<ModelFreeDeliveryProductsData> modelFreeDeliveryProductsData = new ArrayList<>();
@@ -210,5 +213,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
 
         }
     }
+
 
 }

@@ -67,8 +67,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="7dp"
-        android:layout_marginRight="7dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:src="@drawable/ic_add">
 
     </ImageView>
@@ -78,8 +78,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="7dp"
-        android:layout_marginRight="7dp"
+        android:layout_marginEnd="@dimen/standart_topBottom_margin"
+        android:layout_marginRight="@dimen/standart_topBottom_margin"
         android:layout_toStartOf="@id/iv_add_quantity"
         android:layout_toLeftOf="@id/iv_add_quantity"
         android:text="10"
@@ -92,8 +92,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="7dp"
-        android:layout_marginRight="7dp"
+        android:layout_marginEnd="@dimen/standart_topBottom_margin"
+        android:layout_marginRight="@dimen/standart_topBottom_margin"
         android:layout_toStartOf="@id/tv_basket_item_quantity"
         android:layout_toLeftOf="@id/tv_basket_item_quantity"
         android:src="@drawable/ic_minus">

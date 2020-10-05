@@ -43,7 +43,7 @@ public class AdapterBasketItems extends RecyclerView.Adapter<AdapterBasketItems.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.tv_basket_item_name.setText(orderItemsModels.get(position).getName());
-        holder.tv_basket_item_price.setText(orderItemsModels.get(position).getPrice().toString());
+        holder.tv_basket_item_price.setText(orderItemsModels.get(position).getPrice().toString()+" ALL");
         holder.tv_basket_item_quantity.setText(orderItemsModels.get(position).getQuantity().toString());
         Glide.with(basketFragment).load(Links.categories_images+orderItemsModels.get(position).getUrlImage()).into(holder.iv_basket_item);
         holder.iv_add_quantity.setOnClickListener(new View.OnClickListener() {

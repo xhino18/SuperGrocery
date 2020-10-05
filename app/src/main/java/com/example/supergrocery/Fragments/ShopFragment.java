@@ -41,13 +41,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.supergrocery.Fragments.BasketFragment.tv_final_total;
 import static com.example.supergrocery.MainActivity.token_login;
+import static com.example.supergrocery.MainActivity2.tv_basket_quantity;
 
 
-public class ShopFragment extends Fragment{
-    RecyclerView recycleview_fragment_categories,recycleview_fragment_discounted_products;
+public class ShopFragment extends Fragment {
+    List<OrderItemsModel> list = new ArrayList<>();
+    RecyclerView recycleview_fragment_categories, recycleview_fragment_discounted_products;
     List<ModelCategoriesData> modelCategoriesData = new ArrayList<>();
-    List<ModelDiscountedProductsData> modelDiscountedProducts=new ArrayList<>();
+    List<ModelDiscountedProductsData> modelDiscountedProducts = new ArrayList<>();
     AdapterFragmentCategories adapterFragmentCategories;
     AdapterFragmentDiscountedProducts adapterFragmentDiscountedProducts;
     Gson gson;
@@ -55,14 +58,13 @@ public class ShopFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
+        getTotalQuantity();
         final View view = inflater.inflate(R.layout.fragment_shop, null);
 
         recycleview_fragment_categories = view.findViewById(R.id.recycleview_fragment_categories);
         recycleview_fragment_categories.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recycleview_fragment_discounted_products=view.findViewById(R.id.recycleview_fragment_discounted_products);
-        recycleview_fragment_discounted_products.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        recycleview_fragment_discounted_products = view.findViewById(R.id.recycleview_fragment_discounted_products);
+        recycleview_fragment_discounted_products.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         gson = new GsonBuilder().create();
 
 
@@ -118,6 +120,19 @@ public class ShopFragment extends Fragment{
         });
     }
 
+    private void getTotalQuantity() {
+        int totalquantity = 0;
+        list = ItemsDB.getInstance(getActivity()).orderItemDao().getAllItems();
+        for (int i = 0; i < list.size(); i++) {
+            totalquantity = totalquantity + list.get(i).getQuantity();
+        }
+        if (totalquantity == 0) {
+            tv_basket_quantity.setVisibility(View.GONE);
+        } else {
+            tv_basket_quantity.setVisibility(View.VISIBLE);
+        }
+        tv_basket_quantity.setText(totalquantity + "");
+    }
 
 
 }

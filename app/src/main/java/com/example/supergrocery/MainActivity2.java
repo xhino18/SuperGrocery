@@ -122,4 +122,5 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
         tv_basket_quantity.setText(totalquantity + "");
     }
 
+
 }

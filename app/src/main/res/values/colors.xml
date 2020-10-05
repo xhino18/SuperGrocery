@@ -8,4 +8,5 @@
     <color name="selected_page_indicator">#A8504F4F</color>
     <color name="unselected_page_indicator">#80ACA9A9</color>
     <color name="black">#000000</color>
+    <color name="grey">#0F8F8F8F</color>
 </resources>
