@@ -63,6 +63,8 @@ AdapterShopProducts adapterShopProducts;
         int catId = getIntent().getIntExtra("cat_id", -1);
         System.out.println("Id contoller " + catId);
         getall(token_login,catId);
+        getTotalQuantity();
+
     }
         public void getall (String token,int catId){
             API apiClient = ClientAPI.createAPI_With_Token(token);
@@ -116,7 +118,7 @@ AdapterShopProducts adapterShopProducts;
                 basketOrderItem.incrementQuantity();
                 ItemsDB.getInstance(this).orderItemDao().update(basketOrderItem);
                 getTotalQuantity();
-                Toast.makeText(this, "Produkti u shtua", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
                 break;
 
             }
@@ -124,7 +126,7 @@ AdapterShopProducts adapterShopProducts;
         if (!found) {
             ItemsDB.getInstance(this).orderItemDao().insert(orderItemsModel);
             getTotalQuantity();
-            Toast.makeText(this, "Produkti u shtua", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
 
         }
 

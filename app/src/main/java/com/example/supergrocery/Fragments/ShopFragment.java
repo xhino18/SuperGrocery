@@ -29,6 +29,8 @@ import com.example.supergrocery.Models.ModelDiscountedProductsData;
 import com.example.supergrocery.Models.ModelFreeDeliveryProducts;
 import com.example.supergrocery.ProductsActivity;
 import com.example.supergrocery.R;
+import com.example.supergrocery.ROOM.ItemsDB;
+import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -62,6 +64,7 @@ public class ShopFragment extends Fragment{
         recycleview_fragment_discounted_products=view.findViewById(R.id.recycleview_fragment_discounted_products);
         recycleview_fragment_discounted_products.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
         gson = new GsonBuilder().create();
+
 
         getCategories(token_login);
         return view;
@@ -114,5 +117,7 @@ public class ShopFragment extends Fragment{
             }
         });
     }
+
+
 
 }
