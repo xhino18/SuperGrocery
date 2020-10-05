@@ -1,6 +1,8 @@
 package com.example.supergrocery;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +16,7 @@ import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterCategories;
 import com.example.supergrocery.Adapters.AdapterShopProducts;
+import com.example.supergrocery.Fragments.BasketFragment;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
 import com.example.supergrocery.Models.ModelCategories;
 import com.example.supergrocery.Models.ModelDiscountedProducts;
@@ -35,6 +38,7 @@ import retrofit2.Response;
 import static com.example.supergrocery.MainActivity.token_login;
 
 public class ProductsActivity extends AppCompatActivity implements AddItemInBasket {
+    CardView cardview_basket_items;
     TextView tv_basket_quantity;
     ImageView iv_backimage;
 Gson gson;
@@ -52,6 +56,7 @@ AdapterShopProducts adapterShopProducts;
         recycleview_shop_products.setLayoutManager(new GridLayoutManager(ProductsActivity.this, 2));
         gson=new GsonBuilder().create();
         iv_backimage=findViewById(R.id.iv_backimage);
+
         iv_backimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

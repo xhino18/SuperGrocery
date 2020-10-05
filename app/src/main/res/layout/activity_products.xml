@@ -40,6 +40,7 @@
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
+            android:id="@+id/cardview_basket_items"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             app:cardCornerRadius="@dimen/cardview_basket_radius">
