@@ -12,11 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
-import com.example.supergrocery.Links;
-import com.example.supergrocery.Models.ModelShopProductsData;
+import com.example.supergrocery.Other.Links;
+import com.example.supergrocery.GetModels.ModelShopProductsData;
 import com.example.supergrocery.R;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 

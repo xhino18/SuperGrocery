@@ -1,8 +1,7 @@
-package com.example.supergrocery;
+package com.example.supergrocery.Other;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,15 +13,11 @@ import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.Adapters.AdapterCategories;
 import com.example.supergrocery.Adapters.AdapterShopProducts;
-import com.example.supergrocery.Fragments.BasketFragment;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
-import com.example.supergrocery.Models.ModelCategories;
-import com.example.supergrocery.Models.ModelDiscountedProducts;
-import com.example.supergrocery.Models.ModelFreeDeliveryProducts;
-import com.example.supergrocery.Models.ModelShopProducts;
-import com.example.supergrocery.Models.ModelShopProductsData;
+import com.example.supergrocery.GetModels.ModelShopProducts;
+import com.example.supergrocery.GetModels.ModelShopProductsData;
+import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.google.gson.Gson;

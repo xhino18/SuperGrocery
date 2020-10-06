@@ -1,4 +1,4 @@
-package com.example.supergrocery;
+package com.example.supergrocery.Other;
 
 public class Links {
 

@@ -16,4 +16,17 @@
     <string name="tv_categories">Categories</string>
     <string name="total">"Total : "</string>
     <string name="button_confirm">Confirm</string>
+    <string name="tv_profile_static_name">"Name : "</string>
+    <string name="tv_profile_static_email">"Email : "</string>
+    <string name="tv_profile_static_nuis">"NUIS : "</string>
+    <string name="tv_profile_static_phone">"Phone : "</string>
+    <string name="button_edit_profile">Edit Profile</string>
+    <string name="et_phone">Phone</string>
+    <string name="button_register">Register</string>
+    <string name="login_code">Enter Code</string>
+    <string name="button_verify_code">Verify</string>
+    <string name="tv_coming_soon">Coming Soon!</string>
+    <string name="button_edit_profile_confirm">Confirm</string>
+    <string name="button_edit_profile_cancel">Cancel</string>
+    <string name="tv_edit_profile">Edit Profile :</string>
 </resources>

@@ -26,4 +26,5 @@
     <dimen name="basket_item_name">17sp</dimen>
     <dimen name="standart_total_size">20sp</dimen>
     <dimen name="standart_basket_items_margin">5dp</dimen>
+    <dimen name="tv_edit_profile_margin">30dp</dimen>
 </resources>

@@ -1,6 +1,6 @@
 package com.example.supergrocery.API;
 
-import com.example.supergrocery.Links;
+import com.example.supergrocery.Other.Links;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

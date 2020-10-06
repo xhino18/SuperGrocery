@@ -4,21 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".Login_RegisterAcitivity.LoginActivity">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/right_Arrow"
+        android:src="@drawable/ic_right_arrow">
+
+    </ImageView>
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:lottie_rawRes="@raw/loginanim"
+        app:lottie_loop="true"
+        android:id="@+id/lottie_login"
+        app:lottie_autoPlay="true">
+
+    </com.airbnb.lottie.LottieAnimationView>
 
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_below="@id/lottie_login"
+        android:layout_marginTop="50dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/login_margin"
         android:layout_marginLeft="@dimen/login_margin"
+        android:layout_marginEnd="@dimen/login_margin"
         android:orientation="vertical">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nr Telefonit">
+            android:hint="@string/et_phone">
 
         </EditText>
 
@@ -56,6 +77,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/button_register"
                 android:text="@string/Register">
 
             </Button>

@@ -9,4 +9,6 @@
     <color name="unselected_page_indicator">#80ACA9A9</color>
     <color name="black">#000000</color>
     <color name="grey">#0F8F8F8F</color>
+    <color name="confirmColor">#C3197513</color>
+    <color name="cancelColor">#8D6E6E6E</color>
 </resources>

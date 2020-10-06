@@ -3,12 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.DiscoverFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="2" />
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_coming_soon"
+            android:layout_above="@id/lottie_coming_soon"
+            android:layout_centerHorizontal="true"
+            android:textSize="40sp">
 
+        </TextView>
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:lottie_rawRes="@raw/underconstruction"
+            android:layout_centerInParent="true"
+
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:id="@+id/lottie_coming_soon">
+
+        </com.airbnb.lottie.LottieAnimationView>
+    </RelativeLayout>
 </FrameLayout>

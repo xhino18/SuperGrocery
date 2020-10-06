@@ -1,10 +1,12 @@
-package com.example.supergrocery.Models;
+package com.example.supergrocery.GetModels;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ModelFreeDeliveryProductsData {
-
+public class ModelDiscountedProductsData {
+    @SerializedName("id")
+    @Expose
+    private Integer id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -14,9 +16,14 @@ public class ModelFreeDeliveryProductsData {
     @SerializedName("price")
     @Expose
     private Integer price;
-    @SerializedName("quantity")
-    @Expose
-    private String quantity;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -40,13 +47,5 @@ public class ModelFreeDeliveryProductsData {
 
     public void setPrice(Integer price) {
         this.price = price;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
     }
 }

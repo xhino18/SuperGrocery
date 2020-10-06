@@ -1,12 +1,9 @@
-package com.example.supergrocery.Models;
+package com.example.supergrocery.PostModels;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class ModelFreeDeliveryProducts {
-
+public class ModelRegister {
 
     @SerializedName("error")
     @Expose
@@ -16,7 +13,7 @@ public class ModelFreeDeliveryProducts {
     private String message;
     @SerializedName("data")
     @Expose
-    private List<ModelFreeDeliveryProductsData> data = null;
+    private ModelRegisterData data;
 
     public Boolean getError() {
         return error;
@@ -34,11 +31,11 @@ public class ModelFreeDeliveryProducts {
         this.message = message;
     }
 
-    public List<ModelFreeDeliveryProductsData> getData() {
+    public ModelRegisterData getData() {
         return data;
     }
 
-    public void setData(List<ModelFreeDeliveryProductsData> data) {
+    public void setData(ModelRegisterData data) {
         this.data = data;
     }
 }

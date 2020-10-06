@@ -1,7 +1,6 @@
 package com.example.supergrocery.Interfaces;
 
-import com.example.supergrocery.Models.ModelCategories;
-import com.example.supergrocery.Models.ModelCategoriesData;
+import com.example.supergrocery.GetModels.ModelCategoriesData;
 
 public interface ItemClickInterface {
 
