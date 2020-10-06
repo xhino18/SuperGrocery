@@ -24,6 +24,8 @@ import com.example.supergrocery.GetModels.ModelCategoriesData;
 import com.example.supergrocery.Other.ProductsActivity;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItemsModel;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -82,34 +84,34 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
 
 
     }
-
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
-                    switch (item.getItemId()) {
-                        case R.id.nav_home:
-                            finish();
-                        case R.id.nav_discover:
-                            selectedFragment = new DiscoverFragment();
-                            break;
-                        case R.id.nav_basket:
-                            selectedFragment = new BasketFragment();
-                            break;
-                        case R.id.nav_shop:
-                            selectedFragment = new ShopFragment();
-                            break;
-                        case R.id.nav_profile:
-                            selectedFragment = new ProfileFragment();
-                            break;
-                    }
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Fragment selectedFragment = null;
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-                    return true;
+                        switch (item.getItemId()) {
+                            case R.id.nav_home:
+                                finish();
+                            case R.id.nav_discover:
+                                selectedFragment = new DiscoverFragment();
+                                break;
+                            case R.id.nav_basket:
+                                selectedFragment = new BasketFragment();
+                                break;
+                            case R.id.nav_shop:
+                                selectedFragment = new ShopFragment();
+                                break;
+                            case R.id.nav_profile:
+                                selectedFragment = new ProfileFragment();
+                                break;
+                        }
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+                        return true;
 
                 }
             };
+
 
     public void finish() {
         super.finish();
