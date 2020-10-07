@@ -29,4 +29,5 @@
     <string name="button_edit_profile_confirm">Confirm</string>
     <string name="button_edit_profile_cancel">Cancel</string>
     <string name="tv_edit_profile">Edit Profile :</string>
+    <string name="button_resend_code">Resend code</string>
 </resources>

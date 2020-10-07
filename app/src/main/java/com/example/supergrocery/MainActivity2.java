@@ -93,6 +93,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
                         switch (item.getItemId()) {
                             case R.id.nav_home:
                                 finish();
+                                return true;
                             case R.id.nav_discover:
                                 selectedFragment = new DiscoverFragment();
                                 break;
@@ -159,5 +160,11 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
 
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getTotalQuantity();
     }
 }

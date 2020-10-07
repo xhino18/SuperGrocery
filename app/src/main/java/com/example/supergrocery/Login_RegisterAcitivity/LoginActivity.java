@@ -17,6 +17,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        init();
+
+
+    }
+
+    private void init() {
         button_register=findViewById(R.id.button_register);
         right_Arrow=findViewById(R.id.right_Arrow);
         right_Arrow.setOnClickListener(new View.OnClickListener() {

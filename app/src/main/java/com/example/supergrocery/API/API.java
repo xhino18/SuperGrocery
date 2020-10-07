@@ -5,6 +5,7 @@ import com.example.supergrocery.GetModels.ModelDiscountedProducts;
 import com.example.supergrocery.GetModels.ModelFreeDeliveryProducts;
 import com.example.supergrocery.GetModels.ModelShopProducts;
 import com.example.supergrocery.PostModels.ModelRegister;
+import com.example.supergrocery.PostModels.ModelSendCode;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -36,6 +37,14 @@ public interface API {
                                      @Field("email") String email,
                                      @Field("phoneNumber") String phone,
                                      @Field("nuis") String nuis);
+
+        @FormUrlEncoded
+        @POST
+        Call<ModelSendCode> sendCode(@Field("phone") String phone);
+
+        @FormUrlEncoded
+        @POST
+        Call<ModelSendCode> verifyCode(@Field("code") String code);
 
 
 

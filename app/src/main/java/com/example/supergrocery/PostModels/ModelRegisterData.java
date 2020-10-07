@@ -26,7 +26,7 @@ public class ModelRegisterData {
     private Boolean verified;
     @SerializedName("minimum_order")
     @Expose
-    private Integer minimumOrder;
+    private Object minimumOrder;
 
     public Integer getId() {
         return id;
@@ -76,12 +76,11 @@ public class ModelRegisterData {
         this.verified = verified;
     }
 
-    public Integer getMinimumOrder() {
+    public Object getMinimumOrder() {
         return minimumOrder;
     }
 
-    public void setMinimumOrder(Integer minimumOrder) {
+    public void setMinimumOrder(Object minimumOrder) {
         this.minimumOrder = minimumOrder;
     }
-
 }

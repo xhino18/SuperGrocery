@@ -18,6 +18,9 @@ import com.example.supergrocery.PostModels.ModelRegister;
 import com.example.supergrocery.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.util.List;
 
@@ -26,13 +29,21 @@ import javax.xml.validation.Validator;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity{
+public class RegisterActivity extends AppCompatActivity implements com.mobsandgeeks.saripaar.Validator.ValidationListener{
     ImageView right_Arrow;
     Button button_register;
-    EditText tv_profile_name, tv_profile_email, tv_profile_nuis, tv_profile_phone;
+    @NotEmpty(message = "Please enter your name")
+    EditText tv_profile_name;
+    @NotEmpty(message = "Please enter your email")
+    @Email
+    EditText tv_profile_email;
+    @NotEmpty(message = "Please enter your NUIS")
+    EditText tv_profile_nuis;
+    @NotEmpty(message = "Please enter your phone")
+    EditText tv_profile_phone;
     String name, email, nuis, phone;
     Gson gson;
-    Validator validator;
+    com.mobsandgeeks.saripaar.Validator validator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +51,12 @@ public class RegisterActivity extends AppCompatActivity{
         setContentView(R.layout.activity_register);
 
         init();
-//        validator = new Validator(this);
-//        validator.setValidationListener(this);
+
     }
 
     private void init() {
-
+        validator =new com.mobsandgeeks.saripaar.Validator(this);
+        validator.setValidationListener(this);
         gson= new GsonBuilder().create();
         right_Arrow = findViewById(R.id.right_Arrow);
         right_Arrow.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity{
                         intent.putExtra("email",email);
                         intent.putExtra("nuis",nuis);
                         intent.putExtra("phone",phone);
+                        intent.putExtra("token",response.body().getToken());
                         startActivity(intent);
                     } else {
                         Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -107,25 +119,25 @@ public class RegisterActivity extends AppCompatActivity{
         });
     }
 
-//    @Override
-//    public void onValidationSucceeded() {
-//        //  Toast.makeText(this, "Yay! we got it right!", Toast.LENGTH_SHORT).show();
-//
-//        registercall();
-//    }
-//
-//    @Override
-//    public void onValidationFailed(List<ValidationError> errors) {
-//        for (ValidationError error : errors) {
-//            View view = error.getView();
-//            String message = error.getCollatedErrorMessage(this);
-//
-//            // Display error messages ;)
-//            if (view instanceof EditText) {
-//                ((EditText) view).setError(message);
-//            } else {
-//                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-//            }
-//        }
-//    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+        registercall();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }
