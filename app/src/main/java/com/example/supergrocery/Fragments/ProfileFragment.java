@@ -13,29 +13,31 @@ import com.example.supergrocery.Other.EditProfileDialog;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItemsModel;
+import com.example.supergrocery.databinding.ActivityMain2Binding;
+import com.example.supergrocery.databinding.FragmentProfileBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.supergrocery.MainActivity2.tv_basket_quantity;
+
 
 
 public class ProfileFragment extends Fragment {
-    Button button_edit_profile;
+    FragmentProfileBinding fragmentProfileBinding;
+    ActivityMain2Binding activityMain2Binding;
     List<OrderItemsModel> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        fragmentProfileBinding=FragmentProfileBinding.inflate(inflater,container,false);
+        View view=fragmentProfileBinding.getRoot();
 
+        activityMain2Binding=ActivityMain2Binding.inflate(getLayoutInflater());
         final EditProfileDialog alertDialog = new EditProfileDialog();
-
-        button_edit_profile=view.findViewById(R.id.button_edit_profile);
         getTotalQuantity();
-
-        button_edit_profile.setOnClickListener(new View.OnClickListener() {
+        fragmentProfileBinding.buttonEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -52,11 +54,11 @@ public class ProfileFragment extends Fragment {
             totalquantity = totalquantity + list.get(i).getQuantity();
         }
         if (totalquantity == 0) {
-            tv_basket_quantity.setVisibility(View.GONE);
+            activityMain2Binding.tvBasketQuantity.setVisibility(View.GONE);
         } else {
-            tv_basket_quantity.setVisibility(View.VISIBLE);
+            activityMain2Binding.tvBasketQuantity.setVisibility(View.VISIBLE);
         }
-        tv_basket_quantity.setText(totalquantity + "");
+        activityMain2Binding.tvBasketQuantity.setText(totalquantity + "");
     }
 
 

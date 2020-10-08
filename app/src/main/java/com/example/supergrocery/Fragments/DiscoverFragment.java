@@ -12,21 +12,27 @@ import com.example.supergrocery.MainActivity2;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItemsModel;
+import com.example.supergrocery.databinding.ActivityMain2Binding;
+import com.example.supergrocery.databinding.FragmentDiscoverBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.supergrocery.MainActivity2.tv_basket_quantity;
 
 
 public class DiscoverFragment extends Fragment {
+    FragmentDiscoverBinding fragmentDiscoverBinding;
+    ActivityMain2Binding activityMain2Binding;
     List<OrderItemsModel> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_discover, container, false);
+        fragmentDiscoverBinding=FragmentDiscoverBinding.inflate(inflater,container,false);
+        View view = fragmentDiscoverBinding.getRoot();
+
+        activityMain2Binding=ActivityMain2Binding.inflate(getLayoutInflater());
         getTotalQuantity();
         return view;
     }
@@ -38,11 +44,11 @@ public class DiscoverFragment extends Fragment {
             totalquantity = totalquantity + list.get(i).getQuantity();
         }
         if (totalquantity == 0) {
-            tv_basket_quantity.setVisibility(View.GONE);
+            activityMain2Binding.tvBasketQuantity.setVisibility(View.GONE);
         } else {
-            tv_basket_quantity.setVisibility(View.VISIBLE);
+            activityMain2Binding.tvBasketQuantity.setVisibility(View.VISIBLE);
         }
-        tv_basket_quantity.setText(totalquantity + "");
+        activityMain2Binding.tvBasketQuantity.setText(totalquantity + "");
     }
 
 

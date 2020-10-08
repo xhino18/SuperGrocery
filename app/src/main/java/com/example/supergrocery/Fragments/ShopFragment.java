@@ -23,6 +23,8 @@ import com.example.supergrocery.GetModels.ModelDiscountedProductsData;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItemsModel;
+import com.example.supergrocery.databinding.ActivityMain2Binding;
+import com.example.supergrocery.databinding.FragmentShopBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -34,29 +36,28 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.supergrocery.MainActivity.token_login;
-import static com.example.supergrocery.MainActivity2.tv_basket_quantity;
 
 
 public class ShopFragment extends Fragment {
+    FragmentShopBinding fragmentShopBinding;
+    ActivityMain2Binding activityMain2Binding;
+
     List<OrderItemsModel> list = new ArrayList<>();
-    public static RecyclerView recycleview_fragment_categories_shop_fragment;
-    RecyclerView recycleview_fragment_discounted_products;
     public static List<ModelCategoriesData> modelCategoriesData_shop_fragment = new ArrayList<>();
     List<ModelDiscountedProductsData> modelDiscountedProducts = new ArrayList<>();
-    public static AdapterFragmentCategories adapterFragmentCategories_shop_fragment;
+    AdapterFragmentCategories adapterFragmentCategories_shop_fragment;
     AdapterFragmentDiscountedProducts adapterFragmentDiscountedProducts;
     Gson gson;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        fragmentShopBinding=FragmentShopBinding.inflate(inflater,container,false);
+        View view=fragmentShopBinding.getRoot();
+        activityMain2Binding=ActivityMain2Binding.inflate(getLayoutInflater());
         getTotalQuantity();
-        final View view = inflater.inflate(R.layout.fragment_shop, null);
-
-        recycleview_fragment_categories_shop_fragment = view.findViewById(R.id.recycleview_fragment_categories);
-        recycleview_fragment_categories_shop_fragment.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recycleview_fragment_discounted_products = view.findViewById(R.id.recycleview_fragment_discounted_products);
-        recycleview_fragment_discounted_products.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        fragmentShopBinding.recycleviewFragmentCategories.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        fragmentShopBinding.recycleviewFragmentDiscountedProducts.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         gson = new GsonBuilder().create();
 
 
@@ -75,7 +76,7 @@ public class ShopFragment extends Fragment {
                     if (!response.body().getError()) {
                         modelCategoriesData_shop_fragment.addAll(response.body().getData());
                         adapterFragmentCategories_shop_fragment = new AdapterFragmentCategories(getActivity(), modelCategoriesData_shop_fragment);
-                        recycleview_fragment_categories_shop_fragment.setAdapter(adapterFragmentCategories_shop_fragment);
+                        fragmentShopBinding.recycleviewFragmentCategories.setAdapter(adapterFragmentCategories_shop_fragment);
                     } else {
                         Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -96,7 +97,7 @@ public class ShopFragment extends Fragment {
                     if (!response.body().getError()) {
                         modelDiscountedProducts.addAll(response.body().getData());
                         adapterFragmentDiscountedProducts = new AdapterFragmentDiscountedProducts(getActivity(), modelDiscountedProducts);
-                        recycleview_fragment_discounted_products.setAdapter(adapterFragmentDiscountedProducts);
+                        fragmentShopBinding.recycleviewFragmentDiscountedProducts.setAdapter(adapterFragmentDiscountedProducts);
                     } else {
                         Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -119,11 +120,11 @@ public class ShopFragment extends Fragment {
             totalquantity = totalquantity + list.get(i).getQuantity();
         }
         if (totalquantity == 0) {
-            tv_basket_quantity.setVisibility(View.GONE);
+            activityMain2Binding.tvBasketQuantity.setVisibility(View.GONE);
         } else {
-            tv_basket_quantity.setVisibility(View.VISIBLE);
+            activityMain2Binding.tvBasketQuantity.setVisibility(View.VISIBLE);
         }
-        tv_basket_quantity.setText(totalquantity + "");
+        activityMain2Binding.tvBasketQuantity.setText(totalquantity + "");
     }
 
 

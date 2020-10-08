@@ -24,6 +24,9 @@ import com.example.supergrocery.GetModels.ModelCategoriesData;
 import com.example.supergrocery.Other.ProductsActivity;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItemsModel;
+import com.example.supergrocery.databinding.ActivityMain2Binding;
+import com.example.supergrocery.databinding.ActivityMainBinding;
+import com.example.supergrocery.databinding.FragmentShopBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,31 +35,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.supergrocery.Fragments.ShopFragment.modelCategoriesData_shop_fragment;
-import static com.example.supergrocery.Fragments.ShopFragment.recycleview_fragment_categories_shop_fragment;
+
 
 public class MainActivity2 extends AppCompatActivity  implements ItemClickInterface {
-    CardView cardview_basket_quantity;
-    SearchView searchview_main_2;
-    public static TextView tv_basket_quantity;
 
+    ActivityMain2Binding activityMain2Binding;
+    FragmentShopBinding fragmentShopBinding;
     List<OrderItemsModel> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
-        tv_basket_quantity = findViewById(R.id.tv_basket_quantity);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        cardview_basket_quantity = findViewById(R.id.cardview_basket_quantity);
+        activityMain2Binding= ActivityMain2Binding.inflate(getLayoutInflater());
+        final View view=activityMain2Binding.getRoot();
+        setContentView(view);
 
-
+        fragmentShopBinding=FragmentShopBinding.inflate(getLayoutInflater());
+        activityMain2Binding.bottomNavigation.setOnNavigationItemSelectedListener(navListener);
         //Which fragment to show first
-
-        bottomNavigationView.getMenu().getItem(3).setChecked(true);
-        bottomNavigationView.getMenu().performIdentifierAction(R.id.nav_shop, 0);
+        activityMain2Binding.bottomNavigation.getMenu().getItem(3).setChecked(true);
+        activityMain2Binding.bottomNavigation.getMenu().performIdentifierAction(R.id.nav_shop, 0);
         getTotalQuantity();
-        cardview_basket_quantity.setOnClickListener(new View.OnClickListener() {
+        activityMain2Binding.cardviewBasketQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BasketFragment fragment = new BasketFragment();
@@ -67,8 +67,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
             }
         });
 
-        searchview_main_2 = findViewById(R.id.searchview_main_2);
-        searchview_main_2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        activityMain2Binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
@@ -134,11 +133,11 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
             totalquantity = totalquantity + list.get(i).getQuantity();
         }
         if (totalquantity == 0) {
-            tv_basket_quantity.setVisibility(View.GONE);
+            activityMain2Binding.tvBasketQuantity.setVisibility(View.GONE);
         } else {
-            tv_basket_quantity.setVisibility(View.VISIBLE);
+            activityMain2Binding.tvBasketQuantity.setVisibility(View.VISIBLE);
         }
-        tv_basket_quantity.setText(totalquantity + "");
+        activityMain2Binding.tvBasketQuantity.setText(totalquantity + "");
     }
 
     private void searchCategory(String s) {
@@ -155,7 +154,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
         }
         if (!categoriesData.isEmpty()) {
             AdapterFragmentCategories adapter = new AdapterFragmentCategories(MainActivity2.this, categoriesData);
-            recycleview_fragment_categories_shop_fragment.setAdapter(adapter);
+            fragmentShopBinding.recycleviewFragmentCategories.setAdapter(adapter);
 
 
         }
