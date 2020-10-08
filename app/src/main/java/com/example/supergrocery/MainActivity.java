@@ -68,21 +68,15 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         activityMainBinding.recycleviewFoodCategories.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         activityMainBinding.recycleviewDiscountedProducts.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         activityMainBinding.recycleviewFreeDeliveryProducts.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        activityMainBinding.tvSeeAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
+        activityMainBinding.tvSeeAll.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
-        activityMainBinding.ivMenuicon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
+        activityMainBinding.ivMenuicon.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
         activityMainBinding.searchviewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -178,9 +172,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
     }
 
     private void searchCategory(String s) {
-
-        List<ModelDiscountedProductsData> discountedProductsData = new ArrayList<>();
-
 
         categoriesData.addAll(categoriesDataList);
         for (int i = 0; i < categoriesData.size(); i++) {

@@ -7,4 +7,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ToggleButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@drawable/selector_toggle_text</item>
+        <item name="android:backgroundTint">@drawable/selector_toggle_background</item>
+        <item name="strokeColor">@drawable/selector_toggle_stroke</item>
+        <item name="android:layout_height">@dimen/height_button_medium</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
 </resources>

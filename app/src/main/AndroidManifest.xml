@@ -12,7 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Login_RegisterAcitivity.LoginCodeActivity"/>
-        <activity android:name=".Login_RegisterAcitivity.RegisterActivity" />
+        <activity android:name=".Login_RegisterAcitivity.RegisterActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Other.ProductsActivity" />
         <activity android:name=".Login_RegisterAcitivity.LoginActivity" >
 
@@ -20,11 +26,7 @@
         <activity android:name=".Intro.IntroActivity_1" />
         <activity android:name=".MainActivity2" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 

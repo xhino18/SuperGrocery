@@ -37,13 +37,7 @@ public class ProfileFragment extends Fragment {
         activityMain2Binding=ActivityMain2Binding.inflate(getLayoutInflater());
         final EditProfileDialog alertDialog = new EditProfileDialog();
         getTotalQuantity();
-        fragmentProfileBinding.buttonEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                alertDialog.showDialog(getActivity(),"Title");
-            }
-        });
+        fragmentProfileBinding.buttonEditProfile.setOnClickListener(v -> alertDialog.showDialog(getActivity(),"Title"));
         return view;
     }
 

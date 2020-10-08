@@ -15,6 +15,8 @@ import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.PostModels.ModelSendCode;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.ActivityLoginBinding;
+import com.example.supergrocery.databinding.ActivityLoginCodeBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginCodeActivity extends AppCompatActivity {
+    ActivityLoginCodeBinding activityLoginCodeBinding;
     ImageView right_Arrow;
     Button button_resend_code,button_verify;
     Bundle bundle;
@@ -34,7 +37,9 @@ public class LoginCodeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_code);
+        activityLoginCodeBinding=ActivityLoginCodeBinding.inflate(getLayoutInflater());
+        final View view=activityLoginCodeBinding.getRoot();
+        setContentView(view);
 
         init();
 
@@ -43,16 +48,10 @@ public class LoginCodeActivity extends AppCompatActivity {
     private void init() {
         gson=new GsonBuilder().create();
         bundle=getIntent().getExtras();
-        button_resend_code=findViewById(R.id.button_resend_code);
-        button_verify=findViewById(R.id.button_verify);
-        right_Arrow=findViewById(R.id.right_Arrow);
-        right_Arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(LoginCodeActivity.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
+        activityLoginCodeBinding.rightArrow.setOnClickListener(v -> {
+            Intent intent= new Intent(LoginCodeActivity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         if(bundle!=null){
@@ -75,22 +74,16 @@ public class LoginCodeActivity extends AppCompatActivity {
             }
 
         }
-        button_resend_code.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                user_phone = bundle.getString("phone_number");
+        activityLoginCodeBinding.buttonResendCode.setOnClickListener(v -> {
+            user_phone = bundle.getString("phone_number");
 
-                if (!user_phone.equalsIgnoreCase("")) {
-                    startPhoneNumberVerification(user_phone, token);
-                }
-
+            if (!user_phone.equalsIgnoreCase("")) {
+                startPhoneNumberVerification(user_phone, token);
             }
+
         });
-        button_verify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        activityLoginCodeBinding.buttonVerify.setOnClickListener(v -> {
 
-            }
         });
 
     }

@@ -56,15 +56,12 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
         activityMain2Binding.bottomNavigation.getMenu().getItem(3).setChecked(true);
         activityMain2Binding.bottomNavigation.getMenu().performIdentifierAction(R.id.nav_shop, 0);
         getTotalQuantity();
-        activityMain2Binding.cardviewBasketQuantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BasketFragment fragment = new BasketFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, fragment);
-                transaction.commit();
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
+        activityMain2Binding.cardviewBasketQuantity.setOnClickListener(v -> {
+            BasketFragment fragment = new BasketFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.commit();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         activityMain2Binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -84,32 +81,29 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
 
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        Fragment selectedFragment = null;
+            item -> {
+                    Fragment selectedFragment = null;
 
-                        switch (item.getItemId()) {
-                            case R.id.nav_home:
-                                finish();
-                                return true;
-                            case R.id.nav_discover:
-                                selectedFragment = new DiscoverFragment();
-                                break;
-                            case R.id.nav_basket:
-                                selectedFragment = new BasketFragment();
-                                break;
-                            case R.id.nav_shop:
-                                selectedFragment = new ShopFragment();
-                                break;
-                            case R.id.nav_profile:
-                                selectedFragment = new ProfileFragment();
-                                break;
-                        }
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-                        return true;
+                    switch (item.getItemId()) {
+                        case R.id.nav_home:
+                            finish();
+                            return true;
+                        case R.id.nav_discover:
+                            selectedFragment = new DiscoverFragment();
+                            break;
+                        case R.id.nav_basket:
+                            selectedFragment = new BasketFragment();
+                            break;
+                        case R.id.nav_shop:
+                            selectedFragment = new ShopFragment();
+                            break;
+                        case R.id.nav_profile:
+                            selectedFragment = new ProfileFragment();
+                            break;
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+                    return true;
 
-                }
             };
 
 
