@@ -19,10 +19,12 @@ import com.example.supergrocery.Fragments.DiscoverFragment;
 import com.example.supergrocery.Fragments.HomeFragment;
 import com.example.supergrocery.Fragments.ProfileFragment;
 import com.example.supergrocery.Fragments.ShopFragment;
+import com.example.supergrocery.GetModels.CategoriesData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.GetModels.ModelCategoriesData;
 import com.example.supergrocery.Other.ProductsActivity;
 import com.example.supergrocery.ROOM.ItemsDB;
+import com.example.supergrocery.ROOM.OrderItem;
 import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.example.supergrocery.databinding.ActivityMain2Binding;
 import com.example.supergrocery.databinding.ActivityMainBinding;
@@ -39,9 +41,9 @@ import static com.example.supergrocery.Fragments.ShopFragment.modelCategoriesDat
 
 public class MainActivity2 extends AppCompatActivity  implements ItemClickInterface {
 
-    ActivityMain2Binding activityMain2Binding;
+     public ActivityMain2Binding activityMain2Binding;
     FragmentShopBinding fragmentShopBinding;
-    List<OrderItemsModel> list = new ArrayList<>();
+    List<OrderItem> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,12 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
             }
         });
 
+        Intent intent=getIntent();
+        Boolean basket=intent.getBooleanExtra("goToBasket",false);
+        if(basket){
+            activityMain2Binding.bottomNavigation.setSelectedItemId(R.id.nav_basket);
+        }
+
 
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -112,7 +120,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    public void categoryClicked(ModelCategoriesData data) {
+    public void categoryClicked(CategoriesData data) {
         Intent intent = new Intent(MainActivity2.this, ProductsActivity.class);
         intent.putExtra("cat_id", data.getId());
         startActivity(intent);
@@ -120,7 +128,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
 
     }
 
-    private void getTotalQuantity() {
+    public void getTotalQuantity() {
         int totalquantity = 0;
         list = ItemsDB.getInstance(MainActivity2.this).orderItemDao().getAllItems();
         for (int i = 0; i < list.size(); i++) {
@@ -136,7 +144,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
 
     private void searchCategory(String s) {
 
-        List<ModelCategoriesData> categoriesData = new ArrayList<>();
+        List<CategoriesData> categoriesData = new ArrayList<>();
 
 
         categoriesData.addAll(modelCategoriesData_shop_fragment);
@@ -160,4 +168,5 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
         super.onResume();
         getTotalQuantity();
     }
+
 }

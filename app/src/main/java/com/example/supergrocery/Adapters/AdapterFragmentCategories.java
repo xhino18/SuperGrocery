@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.supergrocery.GetModels.CategoriesData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.GetModels.ModelCategoriesData;
@@ -20,9 +21,9 @@ import java.util.List;
 
 public class AdapterFragmentCategories extends RecyclerView.Adapter<AdapterFragmentCategories.ViewHolder> {
     Context context;
-    List<ModelCategoriesData>categoriesDataList;
+    List<CategoriesData>categoriesDataList;
 
-    public AdapterFragmentCategories(Context context, List<ModelCategoriesData> categoriesDataList) {
+    public AdapterFragmentCategories(Context context, List<CategoriesData> categoriesDataList) {
         this.context = context;
         this.categoriesDataList = categoriesDataList;
     }

@@ -16,12 +16,17 @@ import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterFragmentCategories;
 import com.example.supergrocery.Adapters.AdapterFragmentDiscountedProducts;
+import com.example.supergrocery.GetModels.Categories;
+import com.example.supergrocery.GetModels.CategoriesData;
+import com.example.supergrocery.GetModels.DiscountedProducts;
+import com.example.supergrocery.GetModels.DiscountedProductsData;
 import com.example.supergrocery.GetModels.ModelCategories;
 import com.example.supergrocery.GetModels.ModelCategoriesData;
 import com.example.supergrocery.GetModels.ModelDiscountedProducts;
 import com.example.supergrocery.GetModels.ModelDiscountedProductsData;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
+import com.example.supergrocery.ROOM.OrderItem;
 import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.example.supergrocery.databinding.ActivityMain2Binding;
 import com.example.supergrocery.databinding.FragmentShopBinding;
@@ -42,9 +47,9 @@ public class ShopFragment extends Fragment {
     FragmentShopBinding fragmentShopBinding;
     ActivityMain2Binding activityMain2Binding;
 
-    List<OrderItemsModel> list = new ArrayList<>();
-    public static List<ModelCategoriesData> modelCategoriesData_shop_fragment = new ArrayList<>();
-    List<ModelDiscountedProductsData> modelDiscountedProducts = new ArrayList<>();
+    List<OrderItem> list = new ArrayList<>();
+    public static List<CategoriesData> modelCategoriesData_shop_fragment = new ArrayList<>();
+    List<DiscountedProductsData> modelDiscountedProducts = new ArrayList<>();
     AdapterFragmentCategories adapterFragmentCategories_shop_fragment;
     AdapterFragmentDiscountedProducts adapterFragmentDiscountedProducts;
     Gson gson;
@@ -67,11 +72,11 @@ public class ShopFragment extends Fragment {
 
     public void getCategories(String token) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ModelCategories> call = apiClient.getCategories();
-        Call<ModelDiscountedProducts> call1 = apiClient.getDiscountedProducts();
-        call.enqueue(new Callback<ModelCategories>() {
+        Call<Categories> call = apiClient.getCategories();
+        Call<DiscountedProducts> call1 = apiClient.getDiscountedProducts();
+        call.enqueue(new Callback<Categories>() {
             @Override
-            public void onResponse(Call<ModelCategories> call, Response<ModelCategories> response) {
+            public void onResponse(Call<Categories> call, Response<Categories> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         modelCategoriesData_shop_fragment.addAll(response.body().getData());
@@ -86,13 +91,13 @@ public class ShopFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ModelCategories> call, Throwable t) {
+            public void onFailure(Call<Categories> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        call1.enqueue(new Callback<ModelDiscountedProducts>() {
+        call1.enqueue(new Callback<DiscountedProducts>() {
             @Override
-            public void onResponse(Call<ModelDiscountedProducts> call, Response<ModelDiscountedProducts> response) {
+            public void onResponse(Call<DiscountedProducts> call, Response<DiscountedProducts> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         modelDiscountedProducts.addAll(response.body().getData());
@@ -107,7 +112,7 @@ public class ShopFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ModelDiscountedProducts> call, Throwable t) {
+            public void onFailure(Call<DiscountedProducts> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

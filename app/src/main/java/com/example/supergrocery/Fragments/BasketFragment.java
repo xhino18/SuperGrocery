@@ -15,9 +15,11 @@ import android.widget.TextView;
 import com.example.supergrocery.Adapters.AdapterBasketItems;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
 import com.example.supergrocery.Interfaces.AddOrRemoveBasketItem;
+import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.MainActivity2;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
+import com.example.supergrocery.ROOM.OrderItem;
 import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.example.supergrocery.databinding.ActivityMain2Binding;
 import com.example.supergrocery.databinding.FragmentBasketBinding;
@@ -32,8 +34,8 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
     FragmentBasketBinding fragmentBasketBinding;
     ActivityMain2Binding activityMain2Binding;
     
-    List<OrderItemsModel> orderItemsModels = new ArrayList<>();
-    List<OrderItemsModel> list = new ArrayList<>();
+    List<OrderItem> orderItemsModels = new ArrayList<>();
+    List<OrderItem> list = new ArrayList<>();
     AdapterBasketItems adapterBasketItems;
     LifecycleOwner owner;
 
@@ -45,7 +47,6 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         fragmentBasketBinding=FragmentBasketBinding.inflate(inflater,container,false);
         View view=fragmentBasketBinding.getRoot();
 
-        activityMain2Binding=ActivityMain2Binding.inflate(getLayoutInflater());
         fragmentBasketBinding.recycleviewBasketItems.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         getTotalQuantity();
         showBasketItems();
@@ -54,31 +55,37 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         return view;
     }
 
+    private void getTotalQuantity() {
+        ((MainActivity2)requireActivity()).getTotalQuantity();
+    }
+
+
     public void showBasketItems() {
         orderItemsModels = ItemsDB.getInstance(getActivity()).orderItemDao().getAllItems();
         adapterBasketItems = new AdapterBasketItems(BasketFragment.this, orderItemsModels, owner);
        fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
     }
     @Override
-    public void addClicked(OrderItemsModel orderItemsModel, int position) {
+    public void addClicked(OrderItem orderItemsModel, int position) {
         updateOrderItem(orderItemsModels.get(position), 1);
         adapterBasketItems.notifyDataSetChanged();
        fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
         updateTotal();
         getTotalQuantity();
+
     }
     @Override
-    public void removeClicked(OrderItemsModel orderItemsModel, int position) {
+    public void removeClicked(OrderItem orderItemsModel, int position) {
         if (orderItemsModels.get(position).getQuantity() == 1) {
             if (orderItemsModels.size() == 0) {
-                OrderItemsModel orderItem = orderItemsModels.get(position);
+                OrderItem orderItem = orderItemsModels.get(position);
                 ItemsDB.getInstance(getActivity()).orderItemDao().delete(orderItem);
                 adapterBasketItems.notifyDataSetChanged();
                fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
                 updateTotal();
                 getTotalQuantity();
             } else {
-                OrderItemsModel orderItem = orderItemsModels.get(position);
+                OrderItem orderItem = orderItemsModels.get(position);
                 ItemsDB.getInstance(getActivity()).orderItemDao().delete(orderItem);
                 orderItemsModels.remove(position);
                 adapterBasketItems.notifyDataSetChanged();
@@ -94,7 +101,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
             getTotalQuantity();
         }
     }
-    public void updateOrderItem(OrderItemsModel orderItem, int value) {
+    public void updateOrderItem(OrderItem orderItem, int value) {
         int basketPosition = orderItemExistsOnBasket(orderItem);
         orderItemsModels.get(basketPosition).setQuantity(orderItemsModels.get(basketPosition).getQuantity() + value);
         orderItem.setQuantity(orderItemsModels.get(basketPosition).getQuantity());
@@ -103,9 +110,9 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
        fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
 
     }
-    public int orderItemExistsOnBasket(OrderItemsModel productData) {
+    public int orderItemExistsOnBasket(OrderItem productData) {
         for (int i = 0; i < orderItemsModels.size(); i++) {
-            if (orderItemsModels.get(i).getId().equals(productData.getId())) {
+            if (orderItemsModels.get(i).getId()==(productData.getId())) {
                 return i;
             }
         }
@@ -118,17 +125,5 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         }
         fragmentBasketBinding.tvFinalTotal.setText(total + " ALL");
     }
-    public void getTotalQuantity() {
-        int totalquantity = 0;
-        for (int i = 0; i < orderItemsModels.size(); i++) {
-            totalquantity = totalquantity + orderItemsModels.get(i).getQuantity();
-        }
-        if (totalquantity == 0) {
-            activityMain2Binding.tvBasketQuantity.setVisibility(View.GONE);
-        } else {
-            activityMain2Binding.tvBasketQuantity.setVisibility(View.VISIBLE);
-        }
 
-        activityMain2Binding.tvBasketQuantity.setText(totalquantity + "");
-    }
 }

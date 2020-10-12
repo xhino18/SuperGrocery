@@ -1,5 +1,6 @@
 package com.example.supergrocery.Adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +17,17 @@ import com.example.supergrocery.Fragments.BasketFragment;
 import com.example.supergrocery.Interfaces.AddOrRemoveBasketItem;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
+import com.example.supergrocery.ROOM.OrderItem;
 import com.example.supergrocery.ROOM.OrderItemsModel;
 
 import java.util.List;
 
 public class AdapterBasketItems extends RecyclerView.Adapter<AdapterBasketItems.ViewHolder> {
     BasketFragment basketFragment;
-    List<OrderItemsModel> orderItemsModels;
+    List<OrderItem> orderItemsModels;
     LifecycleOwner owner;
 
-    public AdapterBasketItems(BasketFragment basketFragment, List<OrderItemsModel> orderItemsModels, LifecycleOwner owner) {
+    public AdapterBasketItems(BasketFragment basketFragment, List<OrderItem> orderItemsModels, LifecycleOwner owner) {
         this.basketFragment = basketFragment;
         this.orderItemsModels = orderItemsModels;
         this.owner = owner;
@@ -42,8 +44,8 @@ public class AdapterBasketItems extends RecyclerView.Adapter<AdapterBasketItems.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.tv_basket_item_name.setText(orderItemsModels.get(position).getName());
-        holder.tv_basket_item_price.setText(orderItemsModels.get(position).getPrice().toString()+" ALL");
-        holder.tv_basket_item_quantity.setText(orderItemsModels.get(position).getQuantity().toString());
+        holder.tv_basket_item_price.setText(Integer.toString(orderItemsModels.get(position).getPrice())+" ALL");
+        holder.tv_basket_item_quantity.setText(Integer.toString(orderItemsModels.get(position).getQuantity()));
         Glide.with(basketFragment).load(Links.categories_images+orderItemsModels.get(position).getUrlImage()).into(holder.iv_basket_item);
         holder.iv_add_quantity.setOnClickListener(new View.OnClickListener() {
             @Override

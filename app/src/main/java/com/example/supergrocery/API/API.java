@@ -1,9 +1,13 @@
 package com.example.supergrocery.API;
 
+import com.example.supergrocery.GetModels.Categories;
+import com.example.supergrocery.GetModels.DiscountedProducts;
+import com.example.supergrocery.GetModels.FreeDeliveryProducts;
 import com.example.supergrocery.GetModels.ModelCategories;
 import com.example.supergrocery.GetModels.ModelDiscountedProducts;
 import com.example.supergrocery.GetModels.ModelFreeDeliveryProducts;
 import com.example.supergrocery.GetModels.ModelShopProducts;
+import com.example.supergrocery.GetModels.ShopProducts;
 import com.example.supergrocery.PostModels.ModelRegister;
 import com.example.supergrocery.PostModels.ModelSendCode;
 
@@ -19,26 +23,26 @@ public interface API {
 
 
         @GET("categories")
-        Call<ModelCategories> getCategories();
+        Call<Categories> getCategories();
 
         @GET("packages")
-        Call<ModelDiscountedProducts> getDiscountedProducts();
+        Call<DiscountedProducts> getDiscountedProducts();
 
         @GET("package_items/1")
-        Call<ModelFreeDeliveryProducts> getFreeDeliveryProducts();
+        Call<FreeDeliveryProducts> getFreeDeliveryProducts();
 
 
         @GET("products_by_category/{id}")
-        Call<ModelShopProducts> getProducts(@Path("id") int id);
+        Call<ShopProducts> getProducts(@Path("id") int id);
 
         @FormUrlEncoded
         @POST("register")
         Call<ModelRegister> register(@Field("name") String name,
                                      @Field("email") String email,
                                      @Field("phone_number") String phone,
-                                     @Field("account_type") String account_type,
+                                     @Field("account_type") int account_type,
                                      @Field("nuis") String nuis,
-                                     @Field("platform") String platform,
+                                     @Field("platform") short platform,
                                      @Field("firebase_token") String firebase_token);
 
         @FormUrlEncoded

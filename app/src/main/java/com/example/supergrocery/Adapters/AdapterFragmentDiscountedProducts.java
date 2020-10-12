@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.supergrocery.GetModels.DiscountedProductsData;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.GetModels.ModelDiscountedProductsData;
 import com.example.supergrocery.R;
@@ -18,9 +19,9 @@ import java.util.List;
 
 public class AdapterFragmentDiscountedProducts extends RecyclerView.Adapter<AdapterFragmentDiscountedProducts.ViewHolder> {
     Context context;
-    List<ModelDiscountedProductsData> discountedProductsDataList;
+    List<DiscountedProductsData> discountedProductsDataList;
 
-    public AdapterFragmentDiscountedProducts(Context context, List<ModelDiscountedProductsData> discountedProductsDataList) {
+    public AdapterFragmentDiscountedProducts(Context context, List<DiscountedProductsData> discountedProductsDataList) {
         this.context = context;
         this.discountedProductsDataList = discountedProductsDataList;
     }

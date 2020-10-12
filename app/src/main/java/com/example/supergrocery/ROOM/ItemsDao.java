@@ -11,19 +11,19 @@ import java.util.List;
 @Dao
 public interface ItemsDao {
     @Insert
-    void insert(OrderItemsModel items);
+    void insert(OrderItem items);
 
 
     @Update
-    void update(OrderItemsModel items);
+    void update(OrderItem items);
 
     @Query("DELETE FROM OrderItems")
     void deleteAll();
 
     @Query("SELECT * FROM OrderItems ORDER BY id")
-    List<OrderItemsModel> getAllItems();
+    List<OrderItem> getAllItems();
 
     @Delete
-    void delete(OrderItemsModel itemModel);
+    void delete(OrderItem itemModel);
 
 }

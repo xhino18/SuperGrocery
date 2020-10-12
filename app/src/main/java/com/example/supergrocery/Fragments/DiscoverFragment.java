@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.example.supergrocery.MainActivity2;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
+import com.example.supergrocery.ROOM.OrderItem;
 import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.example.supergrocery.databinding.ActivityMain2Binding;
 import com.example.supergrocery.databinding.FragmentDiscoverBinding;
@@ -23,7 +24,7 @@ import java.util.List;
 public class DiscoverFragment extends Fragment {
     FragmentDiscoverBinding fragmentDiscoverBinding;
     ActivityMain2Binding activityMain2Binding;
-    List<OrderItemsModel> list = new ArrayList<>();
+    List<OrderItem> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

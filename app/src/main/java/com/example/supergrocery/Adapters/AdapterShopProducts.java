@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.supergrocery.GetModels.ShopProductsData;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.GetModels.ModelShopProductsData;
@@ -20,9 +21,9 @@ import java.util.List;
 
 public class AdapterShopProducts extends RecyclerView.Adapter<AdapterShopProducts.ViewHolder> {
     Context context;
-    List<ModelShopProductsData> modelShopProductsData;
+    List<ShopProductsData> modelShopProductsData;
 
-    public AdapterShopProducts(Context context, List<ModelShopProductsData> modelShopProductsData) {
+    public AdapterShopProducts(Context context, List<ShopProductsData> modelShopProductsData) {
         this.context = context;
         this.modelShopProductsData = modelShopProductsData;
     }
@@ -37,7 +38,7 @@ public class AdapterShopProducts extends RecyclerView.Adapter<AdapterShopProduct
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.tv_product_name.setText(modelShopProductsData.get(position).getName());
-        holder.tv_product_price.setText(modelShopProductsData.get(position).getPrice().toString()+" ALL");
+        holder.tv_product_price.setText(modelShopProductsData.get(position).getPrice()+" ALL");
         Glide.with(context).load(Links.categories_images+modelShopProductsData.get(position).getImage()).into(holder.iv_products_model);
         holder.iv_add_product.setOnClickListener(new View.OnClickListener() {
             @Override

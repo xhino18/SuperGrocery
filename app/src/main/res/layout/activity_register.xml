@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Login_RegisterAcitivity.RegisterActivity">
 
+
     <ImageView
         android:id="@+id/right_Arrow"
         android:layout_width="wrap_content"

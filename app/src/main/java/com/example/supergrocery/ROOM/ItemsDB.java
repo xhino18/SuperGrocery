@@ -7,10 +7,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 @Database(
         entities = {
-                OrderItemsModel.class,
+                OrderItem.class,
         },
         exportSchema = false,
-        version = 2
+        version = 3
 )
 
 public abstract class ItemsDB extends RoomDatabase {

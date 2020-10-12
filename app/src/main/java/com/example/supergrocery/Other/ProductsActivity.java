@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,12 +18,18 @@ import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterShopProducts;
 import com.example.supergrocery.Fragments.BasketFragment;
+import com.example.supergrocery.GetModels.ShopProducts;
+import com.example.supergrocery.GetModels.ShopProductsData;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
 import com.example.supergrocery.GetModels.ModelShopProducts;
 import com.example.supergrocery.GetModels.ModelShopProductsData;
+import com.example.supergrocery.MainActivity2;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
+import com.example.supergrocery.ROOM.OrderItem;
 import com.example.supergrocery.ROOM.OrderItemsModel;
+import com.example.supergrocery.databinding.ActivityMain2Binding;
+import com.example.supergrocery.databinding.ActivityProductsBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -36,44 +43,40 @@ import retrofit2.Response;
 import static com.example.supergrocery.MainActivity.token_login;
 
 public class ProductsActivity extends AppCompatActivity implements AddItemInBasket {
-    CardView cardview_basket_items;
-    TextView tv_basket_quantity;
-    ImageView iv_backimage;
+    ActivityProductsBinding activityProductsBinding;
+    ActivityMain2Binding activityMain2Binding;
     Gson gson;
-    List<ModelShopProductsData> modelShopProductsDataList = new ArrayList<>();
-    List<OrderItemsModel> orderItemsModels = new ArrayList<>();
-    RecyclerView recycleview_shop_products;
+    List<ShopProductsData> modelShopProductsDataList = new ArrayList<>();
+    List<OrderItem> orderItemsModels = new ArrayList<>();
+
     AdapterShopProducts adapterShopProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_products);
+        activityProductsBinding=ActivityProductsBinding.inflate(getLayoutInflater());
+        final View view=activityProductsBinding.getRoot();
+        setContentView(view);
+
+        activityMain2Binding=ActivityMain2Binding.inflate(getLayoutInflater());
         init();
 
     }
 
     private void init() {
-        cardview_basket_items = findViewById(R.id.cardview_basket_items);
-        tv_basket_quantity = findViewById(R.id.tv_basket_quantity);
-        recycleview_shop_products = findViewById(R.id.recycleview_shop_products);
-        recycleview_shop_products.setLayoutManager(new GridLayoutManager(ProductsActivity.this, 2));
-        gson = new GsonBuilder().create();
-        iv_backimage = findViewById(R.id.iv_backimage);
 
-        iv_backimage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            }
+        activityProductsBinding.recycleviewShopProducts.setLayoutManager(new GridLayoutManager(ProductsActivity.this, 2));
+        gson = new GsonBuilder().create();
+        activityProductsBinding.ivBackimage.setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
-//        cardview_basket_items.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
+        activityProductsBinding.cardviewBasketItems.setOnClickListener(v -> {
+            Intent intent=new Intent(ProductsActivity.this, MainActivity2.class);
+            intent.putExtra("goToBasket",true);
+            startActivity(intent);
+        });
 
         int catId = getIntent().getIntExtra("cat_id", -1);
         System.out.println("Id contoller " + catId);
@@ -84,15 +87,15 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
 
     public void getall(String token, int catId) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ModelShopProducts> call = apiClient.getProducts(catId);
-        call.enqueue(new Callback<ModelShopProducts>() {
+        Call<ShopProducts> call = apiClient.getProducts(catId);
+        call.enqueue(new Callback<ShopProducts>() {
             @Override
-            public void onResponse(Call<ModelShopProducts> call, Response<ModelShopProducts> response) {
+            public void onResponse(Call<ShopProducts> call, Response<ShopProducts> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         modelShopProductsDataList.addAll(response.body().getData());
                         adapterShopProducts = new AdapterShopProducts(ProductsActivity.this, modelShopProductsDataList);
-                        recycleview_shop_products.setAdapter(adapterShopProducts);
+                        activityProductsBinding.recycleviewShopProducts.setAdapter(adapterShopProducts);
                     } else {
                         Toast.makeText(ProductsActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -102,7 +105,7 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
             }
 
             @Override
-            public void onFailure(Call<ModelShopProducts> call, Throwable t) {
+            public void onFailure(Call<ShopProducts> call, Throwable t) {
                 Toast.makeText(ProductsActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -113,8 +116,8 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    public OrderItemsModel parseProductToOrderItems(ModelShopProductsData data) {
-        return new OrderItemsModel(
+    public OrderItem parseProductToOrderItems(ShopProductsData data) {
+        return new OrderItem(
                 new Long(data.getId()),
                 data.getId(),
                 data.getName(),
@@ -126,11 +129,11 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
     }
 
     @Override
-    public void addtoBasket(ModelShopProductsData data) {
-        OrderItemsModel orderItemsModel = parseProductToOrderItems(data);
+    public void addtoBasket(ShopProductsData data) {
+        OrderItem orderItemsModel = parseProductToOrderItems(data);
         boolean found = false;
-        for (OrderItemsModel basketOrderItem : ItemsDB.getInstance(this).orderItemDao().getAllItems()) {
-            if (basketOrderItem.getId().equals(orderItemsModel.getId())) {
+        for (OrderItem basketOrderItem : ItemsDB.getInstance(this).orderItemDao().getAllItems()) {
+            if (basketOrderItem.getId()==(orderItemsModel.getId())) {
                 found = true;
                 basketOrderItem.incrementQuantity();
                 ItemsDB.getInstance(this).orderItemDao().update(basketOrderItem);
@@ -156,11 +159,11 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
             totalquantity = totalquantity + orderItemsModels.get(i).getQuantity();
         }
         if (totalquantity == 0) {
-            tv_basket_quantity.setVisibility(View.GONE);
+            activityProductsBinding.tvBasketQuantity.setVisibility(View.GONE);
         } else {
-            tv_basket_quantity.setVisibility(View.VISIBLE);
+            activityProductsBinding.tvBasketQuantity.setVisibility(View.VISIBLE);
         }
-        tv_basket_quantity.setText(totalquantity + "");
+        activityProductsBinding.tvBasketQuantity.setText(totalquantity + "");
         System.out.println("Quantity controler " + totalquantity);
     }
 }

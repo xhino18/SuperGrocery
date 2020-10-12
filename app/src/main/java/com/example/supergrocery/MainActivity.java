@@ -18,6 +18,12 @@ import com.example.supergrocery.Adapters.AdapterCategories;
 import com.example.supergrocery.Adapters.AdapterDiscountedProducts;
 import com.example.supergrocery.Adapters.AdapterFreeDeliveryProducts;
 import com.example.supergrocery.Adapters.AdapterShopProducts;
+import com.example.supergrocery.GetModels.Categories;
+import com.example.supergrocery.GetModels.CategoriesData;
+import com.example.supergrocery.GetModels.DiscountedProducts;
+import com.example.supergrocery.GetModels.DiscountedProductsData;
+import com.example.supergrocery.GetModels.FreeDeliveryProducts;
+import com.example.supergrocery.GetModels.FreeDeliveryProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.GetModels.ModelCategories;
 import com.example.supergrocery.GetModels.ModelCategoriesData;
@@ -40,10 +46,10 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements ItemClickInterface {
     ActivityMainBinding activityMainBinding;
     Gson gson;
-    List<ModelCategoriesData> categoriesDataList = new ArrayList<>();
-    List<ModelCategoriesData> categoriesData = new ArrayList<>();
-    List<ModelDiscountedProductsData> modelDiscountedProductsData = new ArrayList<>();
-    List<ModelFreeDeliveryProductsData> modelFreeDeliveryProductsData = new ArrayList<>();
+    List<CategoriesData> categoriesDataList = new ArrayList<>();
+    List<CategoriesData> categoriesData = new ArrayList<>();
+    List<DiscountedProductsData> modelDiscountedProductsData = new ArrayList<>();
+    List<FreeDeliveryProductsData> modelFreeDeliveryProductsData = new ArrayList<>();
     AdapterCategories adapterCategories;
     AdapterDiscountedProducts adapterDiscountedProducts;
     AdapterFreeDeliveryProducts adapterFreeDeliveryProducts;
@@ -94,12 +100,12 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
 
     public void getall(String token) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ModelCategories> call = apiClient.getCategories();
-        Call<ModelDiscountedProducts> call1 = apiClient.getDiscountedProducts();
-        Call<ModelFreeDeliveryProducts> call2 = apiClient.getFreeDeliveryProducts();
-        call.enqueue(new Callback<ModelCategories>() {
+        Call<Categories> call = apiClient.getCategories();
+        Call<DiscountedProducts> call1 = apiClient.getDiscountedProducts();
+        Call<FreeDeliveryProducts> call2 = apiClient.getFreeDeliveryProducts();
+        call.enqueue(new Callback<Categories>() {
             @Override
-            public void onResponse(Call<ModelCategories> call, Response<ModelCategories> response) {
+            public void onResponse(Call<Categories> call, Response<Categories> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         categoriesDataList.addAll(response.body().getData());
@@ -114,13 +120,13 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
             }
 
             @Override
-            public void onFailure(Call<ModelCategories> call, Throwable t) {
+            public void onFailure(Call<Categories> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        call1.enqueue(new Callback<ModelDiscountedProducts>() {
+        call1.enqueue(new Callback<DiscountedProducts>() {
             @Override
-            public void onResponse(Call<ModelDiscountedProducts> call, Response<ModelDiscountedProducts> response) {
+            public void onResponse(Call<DiscountedProducts> call, Response<DiscountedProducts> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         modelDiscountedProductsData.addAll(response.body().getData());
@@ -135,14 +141,14 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
             }
 
             @Override
-            public void onFailure(Call<ModelDiscountedProducts> call, Throwable t) {
+            public void onFailure(Call<DiscountedProducts> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
-        call2.enqueue(new Callback<ModelFreeDeliveryProducts>() {
+        call2.enqueue(new Callback<FreeDeliveryProducts>() {
             @Override
-            public void onResponse(Call<ModelFreeDeliveryProducts> call, Response<ModelFreeDeliveryProducts> response) {
+            public void onResponse(Call<FreeDeliveryProducts> call, Response<FreeDeliveryProducts> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         modelFreeDeliveryProductsData.addAll(response.body().getData());
@@ -157,14 +163,14 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
             }
 
             @Override
-            public void onFailure(Call<ModelFreeDeliveryProducts> call, Throwable t) {
+            public void onFailure(Call<FreeDeliveryProducts> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
-    public void categoryClicked(ModelCategoriesData data) {
+    public void categoryClicked(CategoriesData data) {
         Intent intent = new Intent(MainActivity.this, ProductsActivity.class);
         intent.putExtra("cat_id", data.getId());
         startActivity(intent);
