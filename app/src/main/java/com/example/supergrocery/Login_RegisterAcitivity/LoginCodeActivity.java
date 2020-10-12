@@ -26,8 +26,6 @@ import retrofit2.Response;
 
 public class LoginCodeActivity extends AppCompatActivity {
     ActivityLoginCodeBinding activityLoginCodeBinding;
-    ImageView right_Arrow;
-    Button button_resend_code,button_verify;
     Bundle bundle;
     Gson gson;
     SaveData saveData;
@@ -65,13 +63,13 @@ public class LoginCodeActivity extends AppCompatActivity {
             if (!user_phone.equalsIgnoreCase("")) {
                 startPhoneNumberVerification(user_phone, token);
             }
-        } else {
-            is_login = true;
-            token = bundle.getString("token");
-            user_phone = bundle.getString("phone_number");
-            if (!user_phone.equalsIgnoreCase("")) {
-                startPhoneNumberVerification(user_phone, token);
-            }
+//        } else {
+//            is_login = true;
+//            token = bundle.getString("token");
+//            user_phone = bundle.getString("phone_number");
+//            if (!user_phone.equalsIgnoreCase("")) {
+//                startPhoneNumberVerification(user_phone, token);
+//            }
 
         }
         activityLoginCodeBinding.buttonResendCode.setOnClickListener(v -> {
@@ -83,6 +81,11 @@ public class LoginCodeActivity extends AppCompatActivity {
 
         });
         activityLoginCodeBinding.buttonVerify.setOnClickListener(v -> {
+            if (activityLoginCodeBinding.buttonVerify.getText().toString().length() < 6) {
+                Toast.makeText(LoginCodeActivity.this, "Kodi i verifikimit i pasakte!", Toast.LENGTH_SHORT).show();
+            } else {
+                verifyPhoneNumberWithCode(activityLoginCodeBinding.buttonVerify.getText().toString(), bundle.getString("token"));
+            }
 
         });
 

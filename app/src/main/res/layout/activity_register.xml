@@ -38,7 +38,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/standart_registration_dimension"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"
             android:orientation="horizontal"
@@ -68,7 +68,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/standart_registration_dimension"
             android:layout_marginTop="5dp"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"
@@ -132,9 +132,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/standart_registration_dimension"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal"
             android:weightSum="4">
 
 
@@ -170,7 +169,7 @@
         <LinearLayout
             android:id="@+id/linear_nuis"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/standart_registration_dimension"
             android:layout_marginTop="5dp"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"

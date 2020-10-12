@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity{
         setContentView(view);
 
         init();
-//        registercall();
+
 
 
     }
@@ -73,6 +73,7 @@ public class RegisterActivity extends AppCompatActivity{
             if (!name.equals("") && !email.equals("") && !nuis.equals("") && !phone.equals("")) {
                 if(email.contains("@")){
                     Toast.makeText(RegisterActivity.this, "Registered Succesfully!", Toast.LENGTH_SHORT).show();
+                    registercall();
                 }else{
                     Toast.makeText(RegisterActivity.this, "Email not valid!", Toast.LENGTH_SHORT).show();
                 }
@@ -83,36 +84,40 @@ public class RegisterActivity extends AppCompatActivity{
         });
 
     }
-//    public void registercall(){
-//        API apiClient = ClientAPI.createApiNoToken();
-//        retrofit2.Call<ModelRegister> call = apiClient.register(name,email,nuis,phone);
-//        call.enqueue(new Callback<ModelRegister>() {
-//            @Override
-//            public void onResponse(retrofit2.Call<ModelRegister> call, Response<ModelRegister> response) {
-//
-//                // System.out.println("respoonseeee "+ gson.toJson(response.body()));
-//                if (!gson.toJson(response.body()).equalsIgnoreCase("null")){
-//                    if (!response.body().getError()){
-//                        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-//                        intent.putExtra("name",name);
-//                        intent.putExtra("email",email);
-//                        intent.putExtra("nuis",nuis);
-//                        intent.putExtra("phone",phone);
-//                        intent.putExtra("token",response.body().getToken());
-//                        startActivity(intent);
-//                    } else {
-//                        Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }else{
-//                    Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(retrofit2.Call<ModelRegister> call, Throwable t) {
-//            }
-//        });
-//    }
+    public void registercall(){
+        API apiClient = ClientAPI.createApiNoToken();
+        retrofit2.Call<ModelRegister> call = apiClient.register(name,email,phone,"1",nuis,"1","dfdsfsdfds");
+        call.enqueue(new Callback<ModelRegister>() {
+            @Override
+            public void onResponse(retrofit2.Call<ModelRegister> call, Response<ModelRegister> response) {
+
+                // System.out.println("respoonseeee "+ gson.toJson(response.body()));
+                if (!gson.toJson(response.body()).equalsIgnoreCase("null")){
+                    if (!response.body().getError()){
+                        Intent intent = new Intent(RegisterActivity.this,LoginCodeActivity.class);
+                        intent.putExtra("name",name);
+                        intent.putExtra("email",email);
+                        intent.putExtra("phone",phone);
+                        intent.putExtra("account_type","2");
+                        intent.putExtra("nuis",nuis);
+                        intent.putExtra("platform","1");
+                        intent.putExtra("firebase_token","dfdsfsdfds");
+                        intent.putExtra("token",response.body().getToken());
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "oppssss", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ModelRegister> call, Throwable t) {
+            }
+        });
+    }
 
 
 }

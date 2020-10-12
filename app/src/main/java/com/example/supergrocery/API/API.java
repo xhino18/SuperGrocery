@@ -35,8 +35,11 @@ public interface API {
         @POST("register")
         Call<ModelRegister> register(@Field("name") String name,
                                      @Field("email") String email,
-                                     @Field("phoneNumber") String phone,
-                                     @Field("nuis") String nuis);
+                                     @Field("phone_number") String phone,
+                                     @Field("account_type") String account_type,
+                                     @Field("nuis") String nuis,
+                                     @Field("platform") String platform,
+                                     @Field("firebase_token") String firebase_token);
 
         @FormUrlEncoded
         @POST
