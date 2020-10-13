@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity{
     }
     public void registercall(){
         API apiClient = ClientAPI.createApiNoToken();
-        retrofit2.Call<ModelRegister> call = apiClient.register(name,email,phone,1,nuis, (short) 1,"token");
+        retrofit2.Call<ModelRegister> call = apiClient.register(name,email,phone,1,nuis,API.PLATFORM_ID,API.FIREBASE_TOKEN);
         call.enqueue(new Callback<ModelRegister>() {
             @Override
             public void onResponse(retrofit2.Call<ModelRegister> call, Response<ModelRegister> response) {
@@ -100,9 +100,9 @@ public class RegisterActivity extends AppCompatActivity{
                         intent.putExtra("phone",phone);
                         intent.putExtra("account_type",1);
                         intent.putExtra("nuis",nuis);
-                        intent.putExtra("platform",1);
-                        intent.putExtra("firebase_token","token");
-                        intent.putExtra("token",response.body().getToken());
+                        intent.putExtra("platform",API.PLATFORM_ID);
+                        intent.putExtra("firebase_token",API.FIREBASE_TOKEN);
+                        intent.putExtra("Token",response.body().getToken());
                         startActivity(intent);
                     } else {
                         Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();

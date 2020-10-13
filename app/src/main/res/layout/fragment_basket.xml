@@ -19,10 +19,11 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:id="@+id/linear_basket_total"
             android:layout_height="30dp"
+            android:id="@+id/linear_basket_total"
             android:layout_above="@id/button_confirm"
             android:orientation="horizontal"
             android:background="@color/grey"

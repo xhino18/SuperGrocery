@@ -17,7 +17,6 @@
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         app:lottie_rawRes="@raw/loginanim"
         app:lottie_loop="true"
         android:id="@+id/lottie_login"
@@ -39,6 +38,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/et_login_phone"
             android:hint="@string/et_phone">
 
         </EditText>
@@ -64,6 +64,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/button_login"
                 android:text="@string/login">
 
             </Button>

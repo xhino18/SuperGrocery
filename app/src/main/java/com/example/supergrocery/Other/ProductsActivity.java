@@ -76,6 +76,8 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
             Intent intent=new Intent(ProductsActivity.this, MainActivity2.class);
             intent.putExtra("goToBasket",true);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
         });
 
         int catId = getIntent().getIntExtra("cat_id", -1);

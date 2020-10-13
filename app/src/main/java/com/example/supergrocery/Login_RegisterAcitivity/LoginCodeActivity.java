@@ -26,6 +26,7 @@ import retrofit2.Response;
 
 public class LoginCodeActivity extends AppCompatActivity {
     ActivityLoginCodeBinding activityLoginCodeBinding;
+
     Bundle bundle;
     Gson gson;
     SaveData saveData;
