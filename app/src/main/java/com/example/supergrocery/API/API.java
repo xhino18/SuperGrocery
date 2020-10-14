@@ -11,6 +11,7 @@ import com.example.supergrocery.GetModels.ModelShopProducts;
 import com.example.supergrocery.GetModels.ShopProducts;
 import com.example.supergrocery.PostModels.ModelRegister;
 import com.example.supergrocery.PostModels.ModelSendCode;
+import com.example.supergrocery.PostModels.Model_VerifyCode;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -28,11 +29,13 @@ public interface API {
 
         @GET("categories")
         Call<Categories> getCategories();
+        @GET("banners")
+        Call<DiscountedProducts> getBanners();
 
         @GET("packages")
         Call<DiscountedProducts> getDiscountedProducts();
 
-        @GET("package_items/1")
+        @GET("packages")
         Call<FreeDeliveryProducts> getFreeDeliveryProducts();
 
 
@@ -51,14 +54,15 @@ public interface API {
 
 
 
-        @FormUrlEncoded
-        @POST
-        Call<ModelSendCode> sendCode(@Field("phone") String phone);
+//        @FormUrlEncoded
+//        @POST("send_code")
+//        Call<SendCode> sendCode(@Field("phone") String phone);
 
 
         @FormUrlEncoded
-        @POST
-        Call<ModelSendCode> verifyCode(@Field("code") String code);
+        @POST("verify_code")
+        Call<Model_VerifyCode> verifyCode(@Field("code") String code,
+                                          @Field("user_id") int userId);
 
         @FormUrlEncoded
         @POST("login")

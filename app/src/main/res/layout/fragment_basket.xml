@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:id="@+id/linear_basket_total"
-            android:layout_above="@id/button_confirm"
+            android:layout_above="@id/button_checkout"
             android:orientation="horizontal"
             android:background="@color/grey"
             android:layout_margin="@dimen/standart_basket_items_margin"
@@ -52,7 +52,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button_confirm"
+            android:id="@+id/button_checkout"
             style="@android:style/Widget.Holo.Light.Button.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
             android:layout_marginRight="@dimen/standart_basket_items_margin"
             android:layout_marginBottom="@dimen/standart_basket_items_margin"
             android:background="@color/colorPrimary"
-            android:text="@string/button_confirm"
+            android:text="@string/button_checkout"
             android:textColor="@color/white"
             android:textSize="20sp">
 

@@ -14,6 +14,8 @@ import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.PostModels.ModelSendCode;
+import com.example.supergrocery.PostModels.Model_VerifyCode;
+
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityLoginBinding;
 import com.example.supergrocery.databinding.ActivityLoginCodeBinding;
@@ -29,6 +31,7 @@ public class LoginCodeActivity extends AppCompatActivity {
 
     Bundle bundle;
     Gson gson;
+    private int userId;
     SaveData saveData;
     Boolean is_login;
     String user_name,user_email,user_nuis,user_phone,token;
@@ -61,9 +64,9 @@ public class LoginCodeActivity extends AppCompatActivity {
             user_phone=bundle.getString("phone");
             token=bundle.getString("token");
 
-            if (!user_phone.equalsIgnoreCase("")) {
-                startPhoneNumberVerification(user_phone, token);
-            }
+//            if (!user_phone.equalsIgnoreCase("")) {
+//                startPhoneNumberVerification(user_phone, token);
+//            }
 //        } else {
 //            is_login = true;
 //            token = bundle.getString("token");
@@ -71,16 +74,16 @@ public class LoginCodeActivity extends AppCompatActivity {
 //            if (!user_phone.equalsIgnoreCase("")) {
 //                startPhoneNumberVerification(user_phone, token);
 //            }
-
-        }
-        activityLoginCodeBinding.buttonResendCode.setOnClickListener(v -> {
-            user_phone = bundle.getString("phone_number");
-
-            if (!user_phone.equalsIgnoreCase("")) {
-                startPhoneNumberVerification(user_phone, token);
-            }
-
-        });
+//
+//        }
+//        activityLoginCodeBinding.buttonResendCode.setOnClickListener(v -> {
+//            user_phone = bundle.getString("phone_number");
+//
+//            if (!user_phone.equalsIgnoreCase("")) {
+//                startPhoneNumberVerification(user_phone, token);
+//            }
+//
+//        });
         activityLoginCodeBinding.buttonVerify.setOnClickListener(v -> {
             if (activityLoginCodeBinding.buttonVerify.getText().toString().length() < 6) {
                 Toast.makeText(LoginCodeActivity.this, "Kodi i verifikimit i pasakte!", Toast.LENGTH_SHORT).show();
@@ -92,51 +95,51 @@ public class LoginCodeActivity extends AppCompatActivity {
 
     }
 
-    private void startPhoneNumberVerification(String user_phone, String token) {
-
-        API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ModelSendCode> call = apiClient.sendCode(user_phone);
-        call.enqueue(new Callback<ModelSendCode>() {
-            @Override
-            public void onResponse(Call<ModelSendCode> call, Response<ModelSendCode> response) {
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-                    if (!response.body().getError()) {
-                        Toast.makeText(LoginCodeActivity.this, "Code sent sucesfully!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(LoginCodeActivity.this, "Unexpected error :(", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(LoginCodeActivity.this, "Unexpected error :(", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ModelSendCode> call, Throwable t) {
-
-            }
-        });
+//    private void startPhoneNumberVerification(String user_phone, String token) {
+//
+//        API apiClient = ClientAPI.createAPI_With_Token(token);
+//        Call<SendCode> call = apiClient.sendCode(user_phone);
+//        call.enqueue(new Callback<SendCode>() {
+//            @Override
+//            public void onResponse(Call<SendCode> call, Response<SendCode> response) {
+//                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
+//                    if (!response.body().getError()) {
+//                        Toast.makeText(LoginCodeActivity.this, "Code sent sucesfully!", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(LoginCodeActivity.this, "Unexpected error :(", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(LoginCodeActivity.this, "Unexpected error :(", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<SendCode> call, Throwable t) {
+//
+//            }
+//        });
 
     }
     private void verifyPhoneNumberWithCode(String code, String token) {
 
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ModelSendCode> call = apiClient.verifyCode(code);
-        call.enqueue(new Callback<ModelSendCode>() {
+        Call<Model_VerifyCode> call = apiClient.verifyCode(code,userId);
+        call.enqueue(new Callback<Model_VerifyCode>() {
             @Override
-            public void onResponse(Call<ModelSendCode> call, Response<ModelSendCode> response) {
+            public void onResponse(Call<Model_VerifyCode> call, Response<Model_VerifyCode> response) {
 
                 if (!gson.toJson(response.body()).equalsIgnoreCase("")) {
-                    if (!response.body().getError()) {
+//                    if (!response.body().getError()) {
                         signInWithPhoneAuthCredential();
-                    } else {
-                        Toast.makeText(LoginCodeActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+//                    } else {
+//                        Toast.makeText(LoginCodeActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
 
                 }
             }
 
             @Override
-            public void onFailure(Call<ModelSendCode> call, Throwable t) {
+            public void onFailure(Call<Model_VerifyCode> call, Throwable t) {
 
 
             }
@@ -147,6 +150,12 @@ public class LoginCodeActivity extends AppCompatActivity {
 
             saveData.saveUserToken(token);
             saveData.save_user_info(user_name,user_email,user_nuis,user_phone);
-            startActivity(new Intent(this,MainActivity.class));
+            gotomenu();
         }
+
+    public void gotomenu() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
     }

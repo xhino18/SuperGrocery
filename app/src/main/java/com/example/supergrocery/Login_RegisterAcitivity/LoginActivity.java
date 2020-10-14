@@ -41,11 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
-        activityLoginBinding.rightArrow.setOnClickListener(v -> {
-            Intent intent= new Intent(LoginActivity.this,LoginCodeActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        });
+
        activityLoginBinding.buttonRegister.setOnClickListener(v -> {
            Intent intent= new Intent(LoginActivity.this,RegisterActivity.class);
            startActivity(intent);

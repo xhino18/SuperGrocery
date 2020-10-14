@@ -39,6 +39,7 @@ public class AdapterBasketItems extends RecyclerView.Adapter<AdapterBasketItems.
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.basket_item_model, parent, false);
         return new ViewHolder(itemView);
+
     }
 
     @Override

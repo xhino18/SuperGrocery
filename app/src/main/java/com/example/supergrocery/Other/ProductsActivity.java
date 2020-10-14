@@ -44,7 +44,7 @@ import static com.example.supergrocery.MainActivity.token_login;
 
 public class ProductsActivity extends AppCompatActivity implements AddItemInBasket {
     ActivityProductsBinding activityProductsBinding;
-    ActivityMain2Binding activityMain2Binding;
+
     Gson gson;
     List<ShopProductsData> modelShopProductsDataList = new ArrayList<>();
     List<OrderItem> orderItemsModels = new ArrayList<>();
@@ -58,7 +58,7 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         final View view=activityProductsBinding.getRoot();
         setContentView(view);
 
-        activityMain2Binding=ActivityMain2Binding.inflate(getLayoutInflater());
+
         init();
 
     }

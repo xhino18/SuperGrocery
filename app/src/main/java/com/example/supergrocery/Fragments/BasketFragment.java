@@ -1,5 +1,6 @@
 package com.example.supergrocery.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,8 @@ import com.example.supergrocery.Interfaces.AddItemInBasket;
 import com.example.supergrocery.Interfaces.AddOrRemoveBasketItem;
 import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.MainActivity2;
+import com.example.supergrocery.Other.ProductsActivity;
+import com.example.supergrocery.Payment.PaymentActivity;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItem;
@@ -32,7 +35,6 @@ import java.util.List;
 
 public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
     FragmentBasketBinding fragmentBasketBinding;
-    ActivityMain2Binding activityMain2Binding;
     
     List<OrderItem> orderItemsModels = new ArrayList<>();
     List<OrderItem> list = new ArrayList<>();
@@ -48,6 +50,13 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         View view=fragmentBasketBinding.getRoot();
 
         fragmentBasketBinding.recycleviewBasketItems.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        fragmentBasketBinding.buttonCheckout.setOnClickListener(v -> {
+            Intent intent=new Intent(getActivity(), PaymentActivity.class);
+            String total=fragmentBasketBinding.tvFinalTotal.getText().toString();
+            intent.putExtra("getTotal",total);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
         getTotalQuantity();
         showBasketItems();
         updateTotal();

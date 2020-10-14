@@ -69,8 +69,13 @@
                         android:layout_marginRight="@dimen/tv_address_location_right_margin"
                         android:layout_toEndOf="@id/iv_location_icon"
                         android:layout_toRightOf="@+id/iv_location_icon"
-                        android:text="jashfakhfkalsfj"
+                        android:fontFamily="@font/rock_salt"
+                        android:rotation="2"
+                        android:rotationX="21"
+                        android:rotationY="-12"
+                        android:text="SuperGrocery"
                         android:textColor="#03CDC6"
+                        android:textSize="20dp"
                         android:textStyle="bold">
 
                     </TextView>
