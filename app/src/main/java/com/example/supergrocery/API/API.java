@@ -4,14 +4,10 @@ import com.example.supergrocery.GetModels.Categories;
 import com.example.supergrocery.GetModels.DiscountedProducts;
 import com.example.supergrocery.GetModels.FreeDeliveryProducts;
 import com.example.supergrocery.GetModels.Login;
-import com.example.supergrocery.GetModels.ModelCategories;
-import com.example.supergrocery.GetModels.ModelDiscountedProducts;
-import com.example.supergrocery.GetModels.ModelFreeDeliveryProducts;
-import com.example.supergrocery.GetModels.ModelShopProducts;
 import com.example.supergrocery.GetModels.ShopProducts;
 import com.example.supergrocery.PostModels.ModelRegister;
 import com.example.supergrocery.PostModels.ModelSendCode;
-import com.example.supergrocery.PostModels.Model_VerifyCode;
+import com.example.supergrocery.PostModels.UserRegister;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -44,25 +40,25 @@ public interface API {
 
         @FormUrlEncoded
         @POST("register")
-        Call<ModelRegister> register(@Field("name") String name,
-                                     @Field("email") String email,
-                                     @Field("phone_number") String phoneNumber,
-                                     @Field("account_type") int accountType,
-                                     @Field("nuis") String nuis,
-                                     @Field("platform") short platform,
-                                     @Field("firebase_token") String firebaseToken);
+        Call<UserRegister> register(@Field("name") String name,
+                                    @Field("email") String email,
+                                    @Field("phone_number") String phoneNumber,
+                                    @Field("account_type") int accountType,
+                                    @Field("nuis") String nuis,
+                                    @Field("platform") short platform,
+                                    @Field("firebase_token") String firebaseToken);
 
 
 
-//        @FormUrlEncoded
-//        @POST("send_code")
-//        Call<SendCode> sendCode(@Field("phone") String phone);
+        @FormUrlEncoded
+        @POST("send_code")
+        Call<ModelSendCode> sendCode(@Field("phone") String phone);
 
 
         @FormUrlEncoded
         @POST("verify_code")
-        Call<Model_VerifyCode> verifyCode(@Field("code") String code,
-                                          @Field("user_id") int userId);
+        Call<ModelRegister> verifyCode(@Field("code") String code,
+                              @Field("user_id") int userId);
 
         @FormUrlEncoded
         @POST("login")

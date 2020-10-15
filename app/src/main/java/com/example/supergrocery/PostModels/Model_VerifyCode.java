@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 public class Model_VerifyCode extends Model_Response{
 
     @Expose
-    private UserData data;
+    private UserRegisterData data;
 
     @Expose
     private String token;

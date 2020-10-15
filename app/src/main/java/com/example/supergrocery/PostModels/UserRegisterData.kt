@@ -3,8 +3,8 @@ package com.example.supergrocery.PostModels
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class UserData (
-        var id: Int,
+data class UserRegisterData (
+        val id: Int,
         val name: String,
         val email: String,
         val nuis: String,

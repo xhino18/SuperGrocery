@@ -8,7 +8,6 @@ public class SaveData {
     Context context;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    private static final String LOGIN_TOKEN = "Token";
 
     public SaveData(Context context) {
         this.context = context;

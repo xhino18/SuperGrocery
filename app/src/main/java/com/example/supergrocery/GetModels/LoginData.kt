@@ -12,6 +12,6 @@ data class LoginData (
         val is_agent: String,
         val nipt: String,
         val created_at: String,
-        val updated_at: String? = null
+        val updated_at: String
 
 )

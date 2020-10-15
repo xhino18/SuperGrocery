@@ -15,7 +15,7 @@
     <string name="Register">Register</string>
     <string name="tv_categories">Categories</string>
     <string name="total">"Total : "</string>
-    <string name="button_confirm">Confirm</string>
+    <string name="button_confirm">Confirm Payment</string>
     <string name="tv_profile_static_name">"Name : "</string>
     <string name="tv_profile_static_email">Email : </string>
     <string name="tv_profile_static_nuis">"NUIS : "</string>
@@ -40,7 +40,7 @@
     <string name="tv_payment_phone">Phone :</string>
     <string name="tv_payment_city">City :</string>
     <string name="tv_payment_country">Country :</string>
-    <string name="tv_payment_total">Total :</string>
+    <string name="tv_payment_total">Total price :</string>
     <string name="button_checkout">Checkout</string>
 
     <string-array name="spinner_city">

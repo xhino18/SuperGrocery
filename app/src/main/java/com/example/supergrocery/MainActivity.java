@@ -64,16 +64,15 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         final View view=activityMainBinding.getRoot();
         setContentView(view);
 
-
-
         init();
-        getall(token_login);
-//        getall(saveData.getToken());
+//        getall(token_login);
+        getall(saveData.getToken());
 
     }
 
     public void init() {
         gson = new GsonBuilder().create();
+        saveData=new SaveData(this);
         activityMainBinding.recycleviewFoodCategories.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         activityMainBinding.recycleviewDiscountedProducts.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         activityMainBinding.recycleviewFreeDeliveryProducts.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
