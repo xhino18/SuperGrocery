@@ -48,6 +48,11 @@ public interface API {
                                     @Field("platform") short platform,
                                     @Field("firebase_token") String firebaseToken);
 
+        @POST("edit_profile")
+        @FormUrlEncoded
+        Call<UserRegister> editProfile(@Field("name") String name,
+                                       @Field("email") String email,
+                                       @Field("nuis") String nuis);
 
 
         @FormUrlEncoded
@@ -62,7 +67,7 @@ public interface API {
 
         @FormUrlEncoded
         @POST("login")
-        Call<Login> login(@Field("phone") String phone);
+        Call<ModelSendCode> login(@Field("phone") String phone);
 
 
     }

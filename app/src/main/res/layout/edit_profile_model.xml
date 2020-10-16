@@ -125,37 +125,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/standart_topBottom_margin"
-                android:background="@color/white"
-                android:elevation="@dimen/cardview_default_elevation"
-                android:orientation="horizontal"
-                android:weightSum="4">
 
-                <TextView
-                    android:id="@+id/tv_profile_static_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="center"
-                    android:text="@string/tv_profile_static_phone">
-
-                </TextView>
-
-                <EditText
-                    android:id="@+id/tv_profile_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:gravity="start|center_vertical">
-
-                </EditText>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

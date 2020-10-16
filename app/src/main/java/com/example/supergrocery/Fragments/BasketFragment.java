@@ -3,8 +3,10 @@ package com.example.supergrocery.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.supergrocery.Adapters.AdapterBasketItems;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
@@ -47,6 +50,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragmentBasketBinding=FragmentBasketBinding.inflate(inflater,container,false);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(fragmentBasketBinding.recycleviewBasketItems);
         View view=fragmentBasketBinding.getRoot();
 
         fragmentBasketBinding.recycleviewBasketItems.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
@@ -134,5 +138,26 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         }
         fragmentBasketBinding.tvFinalTotal.setText(total + " ALL");
     }
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback= new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            OrderItem orderItem = orderItemsModels.get(viewHolder.getAdapterPosition());
+            orderItemsModels.remove(viewHolder.getAdapterPosition());
+            Toast.makeText(getActivity(), "Items removed!", Toast.LENGTH_SHORT).show();
+            ItemsDB.getInstance(getActivity()).orderItemDao().delete(orderItem);
+            adapterBasketItems.notifyDataSetChanged();
+            fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
+            updateTotal();
+            getTotalQuantity();
+
+
+        }
+    };
 
 }

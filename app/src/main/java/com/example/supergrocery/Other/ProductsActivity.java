@@ -166,6 +166,5 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
             activityProductsBinding.tvBasketQuantity.setVisibility(View.VISIBLE);
         }
         activityProductsBinding.tvBasketQuantity.setText(totalquantity + "");
-        System.out.println("Quantity controler " + totalquantity);
     }
 }

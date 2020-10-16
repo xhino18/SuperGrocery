@@ -24,6 +24,14 @@ public class SaveData {
     public String getToken() {
         return this.preferences.getString("Token", "");
     }
+    public void savePhone(String phone) {
+        this.editor.putString("phone", phone);
+        this.editor.commit();
+    }
+
+    public String getPhone() {
+        return this.preferences.getString("phone", "");
+    }
 
     public void saveBussinessID(Integer businesId) {
         this.editor.putInt("businessId", businesId);
@@ -44,6 +52,21 @@ public class SaveData {
         editor.putString("user_nuis", nuis);
         editor.putString("user_phone_number", phone_number);
         editor.commit();
+    }
+
+    public String get_Name() {
+        return preferences.getString("user_name", "");
+    }
+    public String get_email() {
+        return preferences.getString("user_email", "");
+    }
+
+    public String get_phone_number() {
+        return preferences.getString("user_phone_number", "");
+    }
+
+    public String get_nuis() {
+        return preferences.getString("user_nuis", "");
     }
 
 }

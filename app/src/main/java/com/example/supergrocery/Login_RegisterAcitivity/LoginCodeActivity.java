@@ -32,7 +32,7 @@ public class LoginCodeActivity extends AppCompatActivity {
     private int userId;
     SaveData saveData;
     Boolean is_login;
-    String user_name, user_email, user_nuis, user_phone,token;
+    String user_name, user_email, user_nuis, user_phone,token,register_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +66,15 @@ public class LoginCodeActivity extends AppCompatActivity {
                 startPhoneNumberVerification(user_phone);
             }
         } else {
+//            register_type=bundle.getString("register_type");
+//            if(register_type==("login")){
             is_login = true;
             user_phone = bundle.getString("phone");
             if (!user_phone.equalsIgnoreCase("")) {
                 startPhoneNumberVerification(user_phone);
-            }
 
+            }
+//            }
         }
         activityLoginCodeBinding.buttonResendCode.setOnClickListener(v -> {
             user_phone = bundle.getString("phone");
@@ -150,12 +153,6 @@ public class LoginCodeActivity extends AppCompatActivity {
             });
         }
 
-//        private void signInWithPhoneAuthCredential () {
-//
-//            saveData.saveUserToken(token);
-//            saveData.save_user_info(user_name, user_email, user_nuis, user_phone);
-//            gotomenu();
-//        }
 
         public void gotomenu () {
             Intent intent = new Intent(this, MainActivity.class);

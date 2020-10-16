@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.supergrocery.Other.EditProfileDialog;
+import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItem;
@@ -27,19 +28,30 @@ public class ProfileFragment extends Fragment {
     FragmentProfileBinding fragmentProfileBinding;
     ActivityMain2Binding activityMain2Binding;
     List<OrderItem> list = new ArrayList<>();
+    SaveData saveData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         fragmentProfileBinding=FragmentProfileBinding.inflate(inflater,container,false);
         View view=fragmentProfileBinding.getRoot();
 
+
         activityMain2Binding=ActivityMain2Binding.inflate(getLayoutInflater());
         final EditProfileDialog alertDialog = new EditProfileDialog();
         getTotalQuantity();
+        saveData=new SaveData(getActivity());
         fragmentProfileBinding.buttonEditProfile.setOnClickListener(v -> alertDialog.showDialog(getActivity(),"Title"));
-        return view;
+        fragmentProfileBinding.tvProfileName.setText(saveData.get_Name());
+        fragmentProfileBinding.tvProfileEmail.setText(saveData.get_email());
+        fragmentProfileBinding.tvProfilePhone.setText(saveData.get_phone_number());
+        fragmentProfileBinding.tvProfileNuis.setText(saveData.get_nuis());
+
+
+
+    return view;
     }
 
     private void getTotalQuantity() {
@@ -55,6 +67,16 @@ public class ProfileFragment extends Fragment {
         }
         activityMain2Binding.tvBasketQuantity.setText(totalquantity + "");
     }
+    private void updateProfile(){
+        fragmentProfileBinding.tvProfileName.setText(saveData.get_Name());
+        fragmentProfileBinding.tvProfileEmail.setText(saveData.get_email());
+        fragmentProfileBinding.tvProfilePhone.setText(saveData.get_phone_number());
+        fragmentProfileBinding.tvProfileNuis.setText(saveData.get_nuis());
+    }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateProfile();
+    }
 }

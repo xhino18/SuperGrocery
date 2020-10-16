@@ -20,6 +20,9 @@ public interface ItemsDao {
     @Query("DELETE FROM OrderItems")
     void deleteAll();
 
+    @Query("DELETE FROM OrderItems WHERE id = :userId")
+     void deleteByUserId(long userId);
+
     @Query("SELECT * FROM OrderItems ORDER BY id")
     List<OrderItem> getAllItems();
 

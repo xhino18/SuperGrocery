@@ -23,11 +23,13 @@ import com.example.supergrocery.GetModels.CategoriesData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.GetModels.ModelCategoriesData;
 import com.example.supergrocery.Other.ProductsActivity;
+import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItem;
 import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.example.supergrocery.databinding.ActivityMain2Binding;
 import com.example.supergrocery.databinding.ActivityMainBinding;
+import com.example.supergrocery.databinding.FragmentProfileBinding;
 import com.example.supergrocery.databinding.FragmentShopBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
@@ -43,7 +45,9 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
 
      public ActivityMain2Binding activityMain2Binding;
     FragmentShopBinding fragmentShopBinding;
+    FragmentProfileBinding fragmentProfileBinding;
     List<OrderItem> list = new ArrayList<>();
+    SaveData saveData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
         final View view=activityMain2Binding.getRoot();
         setContentView(view);
 
+        saveData=new SaveData(this);
         fragmentShopBinding=FragmentShopBinding.inflate(getLayoutInflater());
         activityMain2Binding.bottomNavigation.setOnNavigationItemSelectedListener(navListener);
         //Which fragment to show first
@@ -85,6 +90,11 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
         if(basket){
             activityMain2Binding.bottomNavigation.setSelectedItemId(R.id.nav_basket);
         }
+//        Intent intent1=getIntent();
+//        Boolean profile=intent1.getBooleanExtra("goToProfile",false);
+//        if(profile){
+//            activityMain2Binding.bottomNavigation.setSelectedItemId(R.id.nav_profile);
+//        }
 
 
     }
@@ -162,6 +172,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
         }
 
     }
+
 
     @Override
     protected void onResume() {

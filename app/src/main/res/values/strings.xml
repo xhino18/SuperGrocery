@@ -16,9 +16,9 @@
     <string name="tv_categories">Categories</string>
     <string name="total">"Total : "</string>
     <string name="button_confirm">Confirm Payment</string>
-    <string name="tv_profile_static_name">"Name : "</string>
+    <string name="tv_profile_static_name">Name :</string>
     <string name="tv_profile_static_email">Email : </string>
-    <string name="tv_profile_static_nuis">"NUIS : "</string>
+    <string name="tv_profile_static_nuis">NUIS :</string>
     <string name="tv_profile_static_phone">Phone : </string>
     <string name="button_edit_profile">Edit Profile</string>
     <string name="et_phone">Phone</string>
@@ -42,6 +42,7 @@
     <string name="tv_payment_country">Country :</string>
     <string name="tv_payment_total">Total price :</string>
     <string name="button_checkout">Checkout</string>
+    <string name="tv_insertCode">Please insert the code :</string>
 
     <string-array name="spinner_city">
         <item>Mercury</item>
