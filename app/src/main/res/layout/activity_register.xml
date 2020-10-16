@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:src="@drawable/ic_right_arrow">
 
     </ImageView>
@@ -21,7 +22,8 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_register"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loginanim">
@@ -31,10 +33,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standart_left_margin"
         android:layout_below="@id/lottie_register"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -51,6 +51,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/tv_profile_static_name">
 
             </TextView>
@@ -59,7 +60,8 @@
                 android:id="@+id/tv_profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
+                android:maxLines="1"
+                android:background="@null"                android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical">
@@ -82,6 +84,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/tv_profile_static_email">
 
             </TextView>
@@ -90,7 +93,8 @@
                 android:id="@+id/tv_profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
+                android:maxLines="1"
+                android:background="@null"                android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical">
@@ -101,7 +105,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/standart_registration_dimension"
             android:layout_marginTop="5dp"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"
@@ -114,6 +118,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/tv_profile_static_phone">
 
             </TextView>
@@ -122,6 +127,8 @@
                 android:id="@+id/tv_profile_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:maxLines="1"
+                android:background="@null"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
@@ -139,29 +146,31 @@
 
 
             <TextView
-                android:id="@+id/tv_profile_individ"
+                android:id="@+id/tv_profile_personal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="7dp"
                 android:layout_weight="2"
-                android:gravity="center"
+                android:layout_margin="1dp"
                 android:background="@color/white"
                 android:elevation="@dimen/cardview_default_elevation"
-                android:text="@string/tv_profile_individ">
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="@string/tv_profile_personal">
 
             </TextView>
 
 
             <TextView
-                android:id="@+id/tv_profile_biznes"
+                android:id="@+id/tv_profile_business"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="7dp"
+                android:layout_margin="1dp"
                 android:layout_weight="2"
                 android:background="@color/white"
                 android:elevation="@dimen/cardview_default_elevation"
+                android:textStyle="bold"
                 android:gravity="center"
-                android:text="@string/tv_profile_biznes">
+                android:text="@string/tv_profile_business">
 
             </TextView>
 
@@ -184,6 +193,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/tv_profile_static_nuis">
 
             </TextView>
@@ -192,6 +202,8 @@
                 android:id="@+id/tv_profile_nuis"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@null"
+                android:maxLines="1"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
@@ -200,17 +212,27 @@
             </EditText>
 
         </LinearLayout>
-
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/button_register_topMargin"
+    android:layout_marginLeft="@dimen/standart_left_margin"
+    android:layout_marginStart="@dimen/standart_left_margin"
+    android:layout_marginRight="@dimen/standart_right_margin"
+    android:layout_marginEnd="@dimen/standart_right_margin"
+    app:cardElevation="@dimen/cardview_default_elevation"
+    app:cardCornerRadius="@dimen/standart_button_radius">
         <Button
             android:id="@+id/button_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+
             android:background="@color/colorPrimary"
             android:text="@string/button_register"
             android:textColor="@color/white">
 
         </Button>
+</androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </RelativeLayout>

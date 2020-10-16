@@ -2,7 +2,7 @@
 <resources>
     <dimen name="iv_location_icon_left_margin">30dp</dimen>
     <dimen name="lottie_animation_height">500dp</dimen>
-    <dimen name="tv_intro_text_size">25sp</dimen>
+    <dimen name="tv_intro_text_size">35sp</dimen>
     <dimen name="standart_elevation">20dp</dimen>
     <dimen name="standart_left_margin">20dp</dimen>
     <dimen name="standart_right_margin">20dp</dimen>
@@ -27,5 +27,22 @@
     <dimen name="standart_total_size">20sp</dimen>
     <dimen name="standart_basket_items_margin">5dp</dimen>
     <dimen name="tv_edit_profile_margin">30dp</dimen>
-    <dimen name="standart_registration_dimension">50dp</dimen>
+    <dimen name="standart_registration_dimension">40dp</dimen>
+    <dimen name="et_login_margintop">50dp</dimen>
+    <dimen name="tv_code_size">30sp</dimen>
+    <dimen name="tv_code_marginBottom">130dp</dimen>
+    <dimen name="et_code_margintop">200dp</dimen>
+    <dimen name="et_code_width">250dp</dimen>
+    <dimen name="button_verify_margintop">80dp</dimen>
+    <dimen name="standart_linear_marginBottom">5dp</dimen>
+    <dimen name="relative_height">80dp</dimen>
+    <dimen name="menu_title_size">20sp</dimen>
+    <dimen name="relative_marginBottom">10dp</dimen>
+    <dimen name="relative2_height">220dp</dimen>
+    <dimen name="tv_seeAll_paddingTop">8dp</dimen>
+    <dimen name="button_verify_width">150dp</dimen>
+    <dimen name="button_register_topMargin">30dp</dimen>
+    <dimen name="standart_button_radius">20dp</dimen>
+    <dimen name="profile_info_height">40dp</dimen>
+    <dimen name="standart_intro_margin">50dp</dimen>
 </resources>

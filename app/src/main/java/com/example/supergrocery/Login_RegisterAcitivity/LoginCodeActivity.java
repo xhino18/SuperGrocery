@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.MainActivity;
@@ -39,6 +41,7 @@ public class LoginCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityLoginCodeBinding = ActivityLoginCodeBinding.inflate(getLayoutInflater());
         final View view = activityLoginCodeBinding.getRoot();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();
@@ -49,11 +52,6 @@ public class LoginCodeActivity extends AppCompatActivity {
         gson = new GsonBuilder().create();
         bundle = getIntent().getExtras();
         saveData=new SaveData(this);
-        activityLoginCodeBinding.rightArrow.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginCodeActivity.this, MainActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        });
 
         if (bundle != null) {
             is_login = false;
@@ -91,6 +89,17 @@ public class LoginCodeActivity extends AppCompatActivity {
                 }
 
             });
+
+//        if (activityLoginCodeBinding.code!= null) {
+//            activityLoginCodeBinding.code.setOnPinEnteredListener(str -> {
+//                if (str.toString().equals("111111")) {
+//                    Toast.makeText(LoginCodeActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(LoginCodeActivity.this, "FAIL", Toast.LENGTH_SHORT).show();
+//                    activityLoginCodeBinding.code.setText(null);
+//                }
+//            });
+//        }
 
         }
 
@@ -157,6 +166,8 @@ public class LoginCodeActivity extends AppCompatActivity {
         public void gotomenu () {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
+
         }
     }

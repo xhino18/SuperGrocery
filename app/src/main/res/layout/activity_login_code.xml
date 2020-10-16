@@ -7,58 +7,76 @@
     android:layout_marginTop="@dimen/standart_topBottom_margin"
     tools:context=".Login_RegisterAcitivity.LoginCodeActivity">
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:id="@+id/right_Arrow"
-        android:src="@drawable/ic_right_arrow">
+        app:lottie_autoPlay="true"
+        android:layout_centerInParent="true"
+        app:lottie_rawRes="@raw/verifycodeanim">
 
-    </ImageView>
-    <RelativeLayout
+    </com.airbnb.lottie.LottieAnimationView>
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/code"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/tv_code_marginBottom"
+        android:text="@string/tv_insertCode"
+        android:textSize="@dimen/tv_code_size"
+        android:textStyle="bold|italic">
 
-    </RelativeLayout>
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/tv_insertCode"
-    android:textStyle="bold"
-    android:textSize="30sp"
-    android:fontFamily="@font/schoolbell"
-    android:layout_above="@id/code"
-    android:layout_centerHorizontal="true"
-    android:layout_marginBottom="150dp">
+    </TextView>
+    <!--    <EditText-->
+    <!--        android:layout_width="@dimen/et_code_width"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerInParent="true"-->
+    <!--        android:id="@+id/code"-->
+    <!--        android:hint="@string/login_code">-->
 
-</TextView>
-    <EditText
-        android:layout_width="200dp"
+    <!--    </EditText>-->
+    <com.alimuzaffar.lib.pin.PinEntryEditText
+        android:id="@+id/code"
+        android:paddingBottom="80dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:id="@+id/code"
-        android:hint="@string/login_code">
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:inputType="number"
+        android:maxLength="6"
+        app:pinLineStroke="2dp"
+        android:textIsSelectable="false"
+        >
 
-    </EditText>
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="@string/button_verify_code"
-        android:layout_marginTop="30dp"
-        android:enabled="false"
-        android:id="@+id/button_verify"
-        android:layout_below="@id/code"
-        android:layout_centerHorizontal="true">
-
-    </Button>
-    <Button
+    </com.alimuzaffar.lib.pin.PinEntryEditText>
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/code"
+        android:layout_marginTop="@dimen/button_verify_margintop"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/cardview_button_verify"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardCornerRadius="40dp">
+
+    <Button
+        android:id="@+id/button_verify"
+        android:layout_width="@dimen/button_verify_width"
+        android:layout_height="match_parent"
+        android:enabled="false"
+        android:background="@color/colorPrimary"
+        android:text="@string/button_verify_code">
+
+    </Button>
+    </androidx.cardview.widget.CardView>
+    <Button
         android:id="@+id/button_resend_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cardview_button_verify"
+        android:layout_centerHorizontal="true"
         android:text="@string/button_resend_code"
-        android:layout_below="@id/button_verify"
-        android:layout_centerHorizontal="true">
+        android:visibility="gone">
 
     </Button>
 

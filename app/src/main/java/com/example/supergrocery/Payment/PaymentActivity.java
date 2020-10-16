@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityPaymentBinding;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         activityPaymentBinding = ActivityPaymentBinding.inflate(getLayoutInflater());
         final View view = activityPaymentBinding.getRoot();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         activityPaymentBinding.spinnerCity.setOnItemSelectedListener(this);
@@ -87,6 +90,10 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
         // TODO Auto-generated method stub
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
-
+    }
 }

@@ -11,13 +11,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.supergrocery.Login_RegisterAcitivity.LoginActivity;
 import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.R;
 
 public class IntroActivity_1 extends AppCompatActivity {
     TextView tv_intro;
 
-    private static int HAPJE_ACTIVITY= 10700;
+    private static int HAPJE_ACTIVITY= 8000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +30,9 @@ public class IntroActivity_1 extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(IntroActivity_1.this, MainActivity.class);
+                Intent intent= new Intent(IntroActivity_1.this, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.intro_login, R.anim.slide_out_right);
                 finish();
             }
         },HAPJE_ACTIVITY);

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
@@ -32,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         activityRegisterBinding=ActivityRegisterBinding.inflate(getLayoutInflater());
         View view=activityRegisterBinding.getRoot();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();
@@ -41,10 +43,10 @@ public class RegisterActivity extends AppCompatActivity{
     private void init() {
 
         gson= new GsonBuilder().create();
-        activityRegisterBinding.tvProfileIndivid.setOnClickListener(v -> {
+        activityRegisterBinding.tvProfilePersonal.setOnClickListener(v -> {
             activityRegisterBinding.linearNuis.setVisibility(View.INVISIBLE);
         });
-        activityRegisterBinding.tvProfileBiznes.setOnClickListener(v -> {
+        activityRegisterBinding.tvProfileBusiness.setOnClickListener(v -> {
             activityRegisterBinding.linearNuis.setVisibility(View.VISIBLE);
         });
         activityRegisterBinding.rightArrow.setOnClickListener(v -> {
@@ -103,6 +105,12 @@ public class RegisterActivity extends AppCompatActivity{
 
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
     }
 
 

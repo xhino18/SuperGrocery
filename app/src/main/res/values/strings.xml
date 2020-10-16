@@ -30,8 +30,8 @@
     <string name="button_edit_profile_cancel">Cancel</string>
     <string name="tv_edit_profile">Edit Profile :</string>
     <string name="button_resend_code">Resend code</string>
-    <string name="tv_profile_individ">INDIVID</string>
-    <string name="tv_profile_biznes">BIZNES</string>
+    <string name="tv_profile_personal">PERSONAL</string>
+    <string name="tv_profile_business">BUSINESS</string>
     <string name="total_quantity">"Quantity : "</string>
     <string name="tv_paymentInfo">Please complete all fields : </string>
     <string name="tv_payment_name">Name :</string>
@@ -43,6 +43,7 @@
     <string name="tv_payment_total">Total price :</string>
     <string name="button_checkout">Checkout</string>
     <string name="tv_insertCode">Please insert the code :</string>
+    <string name="menu_title">SuperGrocery</string>
 
     <string-array name="spinner_city">
         <item>Mercury</item>

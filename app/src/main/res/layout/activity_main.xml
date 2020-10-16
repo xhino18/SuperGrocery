@@ -22,7 +22,7 @@
                 android:id="@+id/linear_main_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="@dimen/standart_linear_marginBottom"
                 android:background="@color/white"
                 android:elevation="@dimen/cardview_default_elevation"
                 android:orientation="vertical">
@@ -30,7 +30,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp">
+                    android:id="@+id/relative"
+                    android:layout_height="@dimen/relative_height">
 
                     <ImageView
                         android:id="@+id/iv_menuicon"
@@ -73,9 +74,9 @@
                         android:rotation="2"
                         android:rotationX="21"
                         android:rotationY="-12"
-                        android:text="SuperGrocery"
-                        android:textColor="#03CDC6"
-                        android:textSize="20dp"
+                        android:text="@string/menu_title"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/menu_title_size"
                         android:textStyle="bold">
 
                     </TextView>
@@ -84,7 +85,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="@dimen/relative_marginBottom">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/searchview_cardview"
@@ -101,7 +102,7 @@
                             android:id="@+id/searchview_main"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#0D000000"
+                            android:background="@color/search_view_background"
                             android:focusable="false"
                             android:iconifiedByDefault="false"
                             android:queryBackground="@android:color/transparent"
@@ -113,7 +114,8 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="220dp">
+                    android:id="@+id/relative2"
+                    android:layout_height="@dimen/relative2_height">
 
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -189,7 +191,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:paddingTop="8dp"
+                        android:paddingTop="@dimen/tv_seeAll_paddingTop"
                         android:text="@string/see_all"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold">
@@ -254,7 +256,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="8dp"
+                        android:paddingTop="@dimen/tv_seeAll_paddingTop"
                         android:text="@string/free_delivery_paragraph"
                         android:textColor="@color/black"
                         android:textStyle="bold">

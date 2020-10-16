@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -54,6 +55,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
         super.onCreate(savedInstanceState);
         activityMain2Binding= ActivityMain2Binding.inflate(getLayoutInflater());
         final View view=activityMain2Binding.getRoot();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         saveData=new SaveData(this);
