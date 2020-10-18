@@ -1,35 +1,24 @@
 package com.example.supergrocery.Other;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterShopProducts;
-import com.example.supergrocery.Fragments.BasketFragment;
 import com.example.supergrocery.GetModels.ShopProducts;
 import com.example.supergrocery.GetModels.ShopProductsData;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
-import com.example.supergrocery.GetModels.ModelShopProducts;
-import com.example.supergrocery.GetModels.ModelShopProductsData;
 import com.example.supergrocery.MainActivity2;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItem;
-import com.example.supergrocery.ROOM.OrderItemsModel;
-import com.example.supergrocery.databinding.ActivityMain2Binding;
 import com.example.supergrocery.databinding.ActivityProductsBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

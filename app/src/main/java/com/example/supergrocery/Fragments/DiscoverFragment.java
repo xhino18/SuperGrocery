@@ -8,11 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.supergrocery.MainActivity2;
-import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItem;
-import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.example.supergrocery.databinding.ActivityMain2Binding;
 import com.example.supergrocery.databinding.FragmentDiscoverBinding;
 

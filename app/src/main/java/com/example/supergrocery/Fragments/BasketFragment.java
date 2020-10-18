@@ -13,21 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.supergrocery.Adapters.AdapterBasketItems;
-import com.example.supergrocery.Interfaces.AddItemInBasket;
 import com.example.supergrocery.Interfaces.AddOrRemoveBasketItem;
-import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.MainActivity2;
-import com.example.supergrocery.Other.ProductsActivity;
 import com.example.supergrocery.Payment.PaymentActivity;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItem;
-import com.example.supergrocery.ROOM.OrderItemsModel;
-import com.example.supergrocery.databinding.ActivityMain2Binding;
 import com.example.supergrocery.databinding.FragmentBasketBinding;
 
 import java.util.ArrayList;

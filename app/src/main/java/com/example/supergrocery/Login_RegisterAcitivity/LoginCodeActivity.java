@@ -4,19 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.Other.SaveData;
-import com.example.supergrocery.PostModels.ModelRegister;
-import com.example.supergrocery.PostModels.ModelSendCode;
 
+import com.example.supergrocery.PostModels.ModelSendCode;
+import com.example.supergrocery.PostModels.UserRegister;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityLoginCodeBinding;
 import com.google.gson.Gson;
@@ -34,7 +32,7 @@ public class LoginCodeActivity extends AppCompatActivity {
     private int userId;
     SaveData saveData;
     Boolean is_login;
-    String user_name, user_email, user_nuis, user_phone, token, register_type;
+    String user_name, user_email, user_nuis, user_phone, token, register_type,register_type_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,24 +52,22 @@ public class LoginCodeActivity extends AppCompatActivity {
         saveData = new SaveData(this);
 
         if (bundle != null) {
-            is_login = false;
-            user_name = bundle.getString("name");
-            user_email = bundle.getString("email");
-            user_nuis = bundle.getString("nuis");
-            user_phone = bundle.getString("phone");
+            if (bundle.getString("register_type").equalsIgnoreCase("register")) {
+                is_login = false;
+                user_name = bundle.getString("name");
+                user_email = bundle.getString("email");
+                user_nuis = bundle.getString("nuis");
+                user_phone = bundle.getString("phone");
 
-            if (!user_phone.equalsIgnoreCase("")) {
-                startPhoneNumberVerification(user_phone);
-            }
-        } else {
-            register_type = bundle.getString("register_type");
-            if (register_type == ("login")) {
-                is_login = true;
-                user_phone = bundle.getString("phone_number");
                 if (!user_phone.equalsIgnoreCase("")) {
                     startPhoneNumberVerification(user_phone);
-
                 }
+            } else{
+                    is_login = true;
+                    user_phone = bundle.getString("phone");
+                    if (!user_phone.equalsIgnoreCase("")) {
+                        startPhoneNumberVerification(user_phone);
+                    }
             }
         }
         activityLoginCodeBinding.buttonResendCode.setOnClickListener(v -> {
@@ -112,9 +108,9 @@ public class LoginCodeActivity extends AppCompatActivity {
             public void onResponse(Call<ModelSendCode> call, Response<ModelSendCode> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
-                        userId = response.body().getUserId();
+                        userId = response.body().getUser_id();
                         activityLoginCodeBinding.buttonVerify.setEnabled(true);
-                        Toast.makeText(LoginCodeActivity.this, "Code sent sucesfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginCodeActivity.this, "Code sent sucessfully!", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(LoginCodeActivity.this, "Unexpected error :(", Toast.LENGTH_SHORT).show();
                     }
@@ -134,10 +130,10 @@ public class LoginCodeActivity extends AppCompatActivity {
     private void verifyPhoneNumberWithCode(String code, int userId) {
 
         API apiClient = ClientAPI.createApiNoToken();
-        Call<ModelRegister> call = apiClient.verifyCode(code, userId);
-        call.enqueue(new Callback<ModelRegister>() {
+        Call<UserRegister> call = apiClient.verifyCode(code, userId);
+        call.enqueue(new Callback<UserRegister>() {
             @Override
-            public void onResponse(Call<ModelRegister> call, Response<ModelRegister> response) {
+            public void onResponse(Call<UserRegister> call, Response<UserRegister> response) {
 
                 if (!gson.toJson(response.body()).equalsIgnoreCase("")) {
                     if (!response.body().getError()) {
@@ -146,7 +142,7 @@ public class LoginCodeActivity extends AppCompatActivity {
                         saveData.save_user_info(response.body().getData().getName(),
                                 response.body().getData().getEmail(),
                                 response.body().getData().getNuis(),
-                                response.body().getData().getPhoneNumber());
+                                response.body().getData().getPhone_number());
                         gotomenu();
                     } else {
                         Toast.makeText(LoginCodeActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -156,7 +152,7 @@ public class LoginCodeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ModelRegister> call, Throwable t) {
+            public void onFailure(Call<UserRegister> call, Throwable t) {
 
 
             }
@@ -168,6 +164,8 @@ public class LoginCodeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        Toast.makeText(LoginCodeActivity.this, "Wellcome back " + saveData.get_name() + " !", Toast.LENGTH_SHORT).show();
+
         finish();
 
     }

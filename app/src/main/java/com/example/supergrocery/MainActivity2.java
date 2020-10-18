@@ -1,39 +1,29 @@
 package com.example.supergrocery;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.example.supergrocery.Adapters.AdapterFragmentCategories;
 import com.example.supergrocery.Fragments.BasketFragment;
 import com.example.supergrocery.Fragments.DiscoverFragment;
-import com.example.supergrocery.Fragments.HomeFragment;
 import com.example.supergrocery.Fragments.ProfileFragment;
 import com.example.supergrocery.Fragments.ShopFragment;
 import com.example.supergrocery.GetModels.CategoriesData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
-import com.example.supergrocery.GetModels.ModelCategoriesData;
 import com.example.supergrocery.Other.ProductsActivity;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItem;
-import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.example.supergrocery.databinding.ActivityMain2Binding;
-import com.example.supergrocery.databinding.ActivityMainBinding;
 import com.example.supergrocery.databinding.FragmentProfileBinding;
 import com.example.supergrocery.databinding.FragmentShopBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;

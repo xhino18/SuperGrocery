@@ -1,11 +1,10 @@
 package com.example.supergrocery.API;
 
+import com.example.supergrocery.GetModels.Banner;
 import com.example.supergrocery.GetModels.Categories;
 import com.example.supergrocery.GetModels.DiscountedProducts;
 import com.example.supergrocery.GetModels.FreeDeliveryProducts;
-import com.example.supergrocery.GetModels.Login;
 import com.example.supergrocery.GetModels.ShopProducts;
-import com.example.supergrocery.PostModels.ModelRegister;
 import com.example.supergrocery.PostModels.ModelSendCode;
 import com.example.supergrocery.PostModels.UserRegister;
 
@@ -25,13 +24,14 @@ public interface API {
 
         @GET("categories")
         Call<Categories> getCategories();
+
         @GET("banners")
-        Call<DiscountedProducts> getBanners();
+        Call<Banner> getBanners();
 
         @GET("packages")
         Call<DiscountedProducts> getDiscountedProducts();
 
-        @GET("packages")
+        @GET("package_items/1")
         Call<FreeDeliveryProducts> getFreeDeliveryProducts();
 
 
@@ -62,12 +62,9 @@ public interface API {
 
         @FormUrlEncoded
         @POST("verify_code")
-        Call<ModelRegister> verifyCode(@Field("code") String code,
+        Call<UserRegister> verifyCode(@Field("code") String code,
                               @Field("user_id") int userId);
 
-        @FormUrlEncoded
-        @POST("login")
-        Call<ModelSendCode> login(@Field("phone") String phone);
 
 
     }

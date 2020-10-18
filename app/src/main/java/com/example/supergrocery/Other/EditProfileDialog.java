@@ -3,31 +3,19 @@ package com.example.supergrocery.Other;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.Fragments.ProfileFragment;
-import com.example.supergrocery.Login_RegisterAcitivity.LoginCodeActivity;
-import com.example.supergrocery.Login_RegisterAcitivity.RegisterActivity;
-import com.example.supergrocery.MainActivity2;
-import com.example.supergrocery.PostModels.ModelRegister;
 import com.example.supergrocery.PostModels.UserRegister;
 import com.example.supergrocery.R;
-import com.example.supergrocery.databinding.EditProfileModelBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 

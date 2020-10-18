@@ -1,6 +1,5 @@
 package com.example.supergrocery.Adapters;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import com.example.supergrocery.Interfaces.AddOrRemoveBasketItem;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.OrderItem;
-import com.example.supergrocery.ROOM.OrderItemsModel;
 
 import java.util.List;
 

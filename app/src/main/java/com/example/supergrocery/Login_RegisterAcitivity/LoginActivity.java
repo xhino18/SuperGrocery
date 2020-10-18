@@ -6,13 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.GetModels.Login;
 import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.PostModels.ModelSendCode;
@@ -59,19 +56,19 @@ public class LoginActivity extends AppCompatActivity {
        });
     }
 
-    public void login_phoneNumber(String PhoneNumber){
+    public void login_phoneNumber(String phoneNumber){
 
         API ApiClinet =  ClientAPI.createApiNoToken();
-        Call<ModelSendCode> call = ApiClinet.login(PhoneNumber);
+        Call<ModelSendCode> call = ApiClinet.sendCode(phoneNumber);
         call.enqueue(new Callback<ModelSendCode>() {
                          @Override
                          public void onResponse(Call<ModelSendCode> call, Response<ModelSendCode> response) {
 
                              if (!gson.toJson(response.body()).equalsIgnoreCase("null")){
                                  if (!response.body().getError()){
-                                     Intent intent  = new Intent(LoginActivity.this, MainActivity.class);
-                                     intent.putExtra("phone_number", PhoneNumber);
+                                     Intent intent  = new Intent(LoginActivity.this, LoginCodeActivity.class);
                                      intent.putExtra("register_type", "login");
+                                     intent.putExtra("phone",phone);
                                      startActivity(intent);
                                  }
                                  else{

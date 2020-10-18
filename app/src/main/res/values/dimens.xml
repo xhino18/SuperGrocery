@@ -38,11 +38,14 @@
     <dimen name="relative_height">80dp</dimen>
     <dimen name="menu_title_size">20sp</dimen>
     <dimen name="relative_marginBottom">10dp</dimen>
-    <dimen name="relative2_height">220dp</dimen>
+    <dimen name="relative2_height">180dp</dimen>
     <dimen name="tv_seeAll_paddingTop">8dp</dimen>
     <dimen name="button_verify_width">150dp</dimen>
-    <dimen name="button_register_topMargin">30dp</dimen>
+    <dimen name="button_register_topMargin">50dp</dimen>
     <dimen name="standart_button_radius">20dp</dimen>
     <dimen name="profile_info_height">40dp</dimen>
     <dimen name="standart_intro_margin">50dp</dimen>
+    <dimen name="login_elevation">7dp</dimen>
+    <dimen name="register_elevation">5dp</dimen>
+    <dimen name="standart_toggleGroup_height">50dp</dimen>
 </resources>

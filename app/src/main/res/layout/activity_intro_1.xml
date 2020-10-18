@@ -9,9 +9,9 @@
     <com.airbnb.lottie.LottieAnimationView
 
         android:id="@+id/anim_intro"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_centerInParent="true"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingBottom="150dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
@@ -19,35 +19,37 @@
 
     </com.airbnb.lottie.LottieAnimationView>
 
-    <TextView
-        android:id="@+id/tv_intro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:fontFamily="@font/rock_salt"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/standart_intro_margin"
-        android:rotationX="-21"
-        android:rotationY="-6"
-        android:text="@string/supergrocery"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/tv_intro_text_size"
-        android:textStyle="bold">
+<!--   ' <TextView-->
+<!--        android:id="@+id/tv_intro"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:fontFamily="@font/rock_salt"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginTop="@dimen/standart_intro_margin"-->
+<!--        android:rotationX="-21"-->
+<!--        android:rotationY="-6"-->
+<!--        android:text="@string/supergrocery"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/colorPrimary"-->
+<!--        android:textSize="@dimen/tv_intro_text_size"-->
+<!--        android:textStyle="bold">-->
 
-    </TextView>
+<!--    </TextView>'-->
 
     <com.airbnb.lottie.LottieAnimationView
 
         android:id="@+id/anim_intro_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/standart_intro_margin"
+        android:paddingTop="120dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/introanimloading">
 
     </com.airbnb.lottie.LottieAnimationView>
+
+
 </RelativeLayout>

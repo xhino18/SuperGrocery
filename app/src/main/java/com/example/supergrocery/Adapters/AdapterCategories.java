@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.example.supergrocery.GetModels.CategoriesData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
-import com.example.supergrocery.GetModels.ModelCategoriesData;
 import com.example.supergrocery.R;
 
 import java.util.List;

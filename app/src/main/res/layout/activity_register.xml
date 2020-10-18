@@ -140,8 +140,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/standart_registration_dimension"
-            android:layout_marginTop="5dp">
+            android:layout_height="@dimen/standart_toggleGroup_height">
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -210,10 +209,11 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/button_register_topMargin"
     android:layout_marginLeft="@dimen/standart_left_margin"
+    android:layout_marginBottom="@dimen/standart_right_margin"
     android:layout_marginStart="@dimen/standart_left_margin"
     android:layout_marginRight="@dimen/standart_right_margin"
     android:layout_marginEnd="@dimen/standart_right_margin"
-    app:cardElevation="@dimen/cardview_default_elevation"
+    app:cardElevation="@dimen/login_elevation"
     app:cardCornerRadius="@dimen/standart_button_radius">
         <Button
             android:id="@+id/button_register"
@@ -225,6 +225,34 @@
 
         </Button>
 </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/tv_already_registerd"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp">
+
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/tv_login"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary">
+
+            </TextView>
+
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

@@ -10,5 +10,6 @@
     <color name="black">#000000</color>
     <color name="grey">#0F8F8F8F</color>
     <color name="confirmColor">#1FA516</color>
-    <color name="cancelColor">#E2787878</color>
+    <color name="cancelColor">#D3D3D3</color>
+    <color name="text_cancelcolor">#8A000000</color>
 </resources>

@@ -7,14 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.supergrocery.Other.EditProfileDialog;
 import com.example.supergrocery.Other.SaveData;
-import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItem;
-import com.example.supergrocery.ROOM.OrderItemsModel;
 import com.example.supergrocery.databinding.ActivityMain2Binding;
 import com.example.supergrocery.databinding.FragmentProfileBinding;
 

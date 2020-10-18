@@ -102,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity{
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")){
                     if (!response.body().getError()){
                         Intent intent = new Intent(RegisterActivity.this,LoginCodeActivity.class);
+                        intent.putExtra("register_type","register");
                         intent.putExtra("name",name);
                         intent.putExtra("email",email);
                         intent.putExtra("phone",phone);

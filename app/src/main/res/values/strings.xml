@@ -44,6 +44,10 @@
     <string name="button_checkout">Checkout</string>
     <string name="tv_insertCode">Please insert the code :</string>
     <string name="menu_title">SuperGrocery</string>
+    <string name="tv_already_registerd">Already registered?</string>
+    <string name="tv_login">LOGIN</string>
+    <string name="tv_dicountedProducts">Discounted products</string>
+    <string name="dont_miss_this_chance">Do not miss this chance!!</string>
 
     <string-array name="spinner_city">
         <item>Mercury</item>

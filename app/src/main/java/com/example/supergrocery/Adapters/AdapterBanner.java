@@ -10,37 +10,37 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.supergrocery.GetModels.DiscountedProductsData;
+import com.example.supergrocery.GetModels.BannerData;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
 
 import java.util.List;
 
-public class AdapterDiscountedProducts extends RecyclerView.Adapter<AdapterDiscountedProducts.ViewHolder> {
+public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder> {
     Context context;
-    List<DiscountedProductsData> discountedProductsData;
+    List<BannerData> bannerData;
 
-    public AdapterDiscountedProducts(Context context, List<DiscountedProductsData> discountedProductsData) {
+    public AdapterBanner(Context context, List<BannerData> bannerData) {
         this.context = context;
-        this.discountedProductsData = discountedProductsData;
+        this.bannerData = bannerData;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.discount_products_model, parent, false);
-        return new AdapterDiscountedProducts.ViewHolder(viewholder);
+        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.banner_model, parent, false);
+        return new AdapterBanner.ViewHolder(viewholder);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load(Links.categories_images + discountedProductsData.get(position).getImage()).into(holder.imageview_discount_product);
+        Glide.with(context).load(Links.categories_images+bannerData.get(position).getImage()).into(holder.imageview_discount_product);
 
     }
 
     @Override
     public int getItemCount() {
-        return discountedProductsData.size();
+        return bannerData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -48,9 +48,8 @@ public class AdapterDiscountedProducts extends RecyclerView.Adapter<AdapterDisco
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageview_discount_product = itemView.findViewById(R.id.imageview_discount_product);
+            imageview_discount_product=itemView.findViewById(R.id.imageview_discount_product);
 
         }
     }
 }
-
