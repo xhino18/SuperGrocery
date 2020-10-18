@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.GetModels.Login;
+import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.PostModels.ModelSendCode;
 import com.example.supergrocery.R;
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
        });
     }
 
-    public void login_phoneNumber(final String PhoneNumber){
+    public void login_phoneNumber(String PhoneNumber){
 
         API ApiClinet =  ClientAPI.createApiNoToken();
         Call<ModelSendCode> call = ApiClinet.login(PhoneNumber);
@@ -68,8 +69,8 @@ public class LoginActivity extends AppCompatActivity {
 
                              if (!gson.toJson(response.body()).equalsIgnoreCase("null")){
                                  if (!response.body().getError()){
-                                     Intent intent  = new Intent(LoginActivity.this,LoginCodeActivity.class);
-                                     intent.putExtra("phone", PhoneNumber);
+                                     Intent intent  = new Intent(LoginActivity.this, MainActivity.class);
+                                     intent.putExtra("phone_number", PhoneNumber);
                                      intent.putExtra("register_type", "login");
                                      startActivity(intent);
                                  }

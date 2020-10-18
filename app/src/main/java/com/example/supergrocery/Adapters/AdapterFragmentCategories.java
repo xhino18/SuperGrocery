@@ -39,12 +39,7 @@ public class AdapterFragmentCategories extends RecyclerView.Adapter<AdapterFragm
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.tv_fragment_categories_product.setText(categoriesDataList.get(position).getName());
         Glide.with(context).load(Links.categories_images+categoriesDataList.get(position).getImage()).into(holder.iv_fragment_categories);
-        holder.iv_fragment_categories.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((ItemClickInterface)context).categoryClicked(categoriesDataList.get(position));
-            }
-        });
+        holder.iv_fragment_categories.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesDataList.get(position)));
 
     }
 

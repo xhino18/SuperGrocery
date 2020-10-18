@@ -138,43 +138,36 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/standart_registration_dimension"
-            android:layout_marginTop="5dp"
-            android:weightSum="4">
-
-
-            <TextView
-                android:id="@+id/tv_profile_personal"
+            android:layout_marginTop="5dp">
+            <com.google.android.material.button.MaterialButtonToggleGroup
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:layout_margin="1dp"
-                android:background="@color/white"
-                android:elevation="@dimen/cardview_default_elevation"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:text="@string/tv_profile_personal">
+                app:checkedButton="@+id/tv_profile_personal"
+                app:selectionRequired="true"
+                app:singleSelection="true"
+                android:weightSum="2">
 
-            </TextView>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tv_profile_personal"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:text="@string/tv_profile_personal" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tv_profile_business"
+                    android:layout_height="match_parent"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tv_profile_business" />
 
-            <TextView
-                android:id="@+id/tv_profile_business"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="2"
-                android:background="@color/white"
-                android:elevation="@dimen/cardview_default_elevation"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:text="@string/tv_profile_business">
-
-            </TextView>
-
-        </LinearLayout>
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/linear_nuis"
@@ -226,7 +219,6 @@
             android:id="@+id/button_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:background="@color/colorPrimary"
             android:text="@string/button_register"
             android:textColor="@color/white">

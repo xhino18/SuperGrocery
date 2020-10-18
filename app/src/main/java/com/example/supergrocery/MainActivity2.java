@@ -135,6 +135,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
     public void categoryClicked(CategoriesData data) {
         Intent intent = new Intent(MainActivity2.this, ProductsActivity.class);
         intent.putExtra("cat_id", data.getId());
+        intent.putExtra("cat_name", data.getName());
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -180,6 +181,7 @@ public class MainActivity2 extends AppCompatActivity  implements ItemClickInterf
     protected void onResume() {
         super.onResume();
         getTotalQuantity();
+
     }
 
 }

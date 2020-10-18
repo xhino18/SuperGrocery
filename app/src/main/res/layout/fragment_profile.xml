@@ -54,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:textStyle="bold"
                     android:gravity="center"
                     android:text="@string/tv_profile_static_name">
 
@@ -85,6 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:textStyle="bold"
                     android:gravity="center"
                     android:text="@string/tv_profile_static_email">
 
@@ -118,6 +120,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:text="@string/tv_profile_static_nuis">
 
                 </TextView>
@@ -150,6 +153,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:text="@string/tv_profile_static_phone">
 
                 </TextView>

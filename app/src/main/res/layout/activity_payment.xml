@@ -110,6 +110,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/tv_payment_name">
 
             </TextView>
@@ -143,6 +144,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/tv_payment_surname">
 
             </TextView>
@@ -177,6 +179,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/tv_payment_phone">
 
             </TextView>
@@ -210,6 +213,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/tv_payment_address">
 
             </TextView>
@@ -244,6 +248,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/tv_payment_city">
 
             </TextView>
@@ -272,6 +277,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/tv_payment_country">
 
             </TextView>

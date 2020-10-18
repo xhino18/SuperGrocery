@@ -24,7 +24,7 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity{
 
     ActivityRegisterBinding activityRegisterBinding;
-
+    int acc_type;
     String name, email, nuis, phone;
     Gson gson;
 
@@ -60,22 +60,40 @@ public class RegisterActivity extends AppCompatActivity{
             email = activityRegisterBinding.tvProfileEmail.getText().toString();
             nuis = activityRegisterBinding.tvProfileNuis.getText().toString();
             phone = activityRegisterBinding.tvProfilePhone.getText().toString();
-            if (!name.equals("") && !email.equals("") && !nuis.equals("") && !phone.equals("")) {
-                if(email.contains("@")){
-                    registercall();
-                }else{
-                    Toast.makeText(RegisterActivity.this, "Email not valid!", Toast.LENGTH_SHORT).show();
-                }
+            if(activityRegisterBinding.tvProfilePersonal.isChecked()) {
+                if (!name.equals("") && !email.equals("") && !phone.equals("")) {
+                    if (email.contains("@")) {
+                        acc_type=2;
+                        registercall();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Email not valid!", Toast.LENGTH_SHORT).show();
+                    }
 
-            } else {
-                Toast.makeText(RegisterActivity.this, "Please complete all fields!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Please complete all fields!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            if(activityRegisterBinding.tvProfileBusiness.isChecked()) {
+                if (!name.equals("") && !email.equals("") && !nuis.equals("")&& !phone.equals("")) {
+                    if (email.contains("@")) {
+                        acc_type=1;
+                        registercall();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Email not valid!", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Please complete all fields!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
     }
     public void registercall(){
         API apiClient = ClientAPI.createApiNoToken();
-        retrofit2.Call<UserRegister> call = apiClient.register(name,email,phone,1,nuis,API.PLATFORM_ID,API.FIREBASE_TOKEN);
+        retrofit2.Call<UserRegister> call = apiClient.register(name,email,phone,acc_type,nuis,API.PLATFORM_ID,API.FIREBASE_TOKEN);
         call.enqueue(new Callback<UserRegister>() {
             @Override
             public void onResponse(retrofit2.Call<UserRegister> call, Response<UserRegister> response) {

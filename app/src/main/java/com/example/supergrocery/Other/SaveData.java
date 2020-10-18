@@ -54,7 +54,7 @@ public class SaveData {
         editor.commit();
     }
 
-    public String get_Name() {
+    public String get_name() {
         return preferences.getString("user_name", "");
     }
     public String get_email() {

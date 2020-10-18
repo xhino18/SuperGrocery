@@ -44,10 +44,11 @@ public class ProfileFragment extends Fragment {
         getTotalQuantity();
         saveData=new SaveData(getActivity());
         fragmentProfileBinding.buttonEditProfile.setOnClickListener(v -> alertDialog.showDialog(getActivity(),"Title"));
-        fragmentProfileBinding.tvProfileName.setText(saveData.get_Name());
+        fragmentProfileBinding.tvProfileName.setText(saveData.get_name());
         fragmentProfileBinding.tvProfileEmail.setText(saveData.get_email());
         fragmentProfileBinding.tvProfilePhone.setText(saveData.get_phone_number());
         fragmentProfileBinding.tvProfileNuis.setText(saveData.get_nuis());
+
 
 
 
@@ -66,17 +67,5 @@ public class ProfileFragment extends Fragment {
             activityMain2Binding.tvBasketQuantity.setVisibility(View.VISIBLE);
         }
         activityMain2Binding.tvBasketQuantity.setText(totalquantity + "");
-    }
-    private void updateProfile(){
-        fragmentProfileBinding.tvProfileName.setText(saveData.get_Name());
-        fragmentProfileBinding.tvProfileEmail.setText(saveData.get_email());
-        fragmentProfileBinding.tvProfilePhone.setText(saveData.get_phone_number());
-        fragmentProfileBinding.tvProfileNuis.setText(saveData.get_nuis());
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateProfile();
     }
 }

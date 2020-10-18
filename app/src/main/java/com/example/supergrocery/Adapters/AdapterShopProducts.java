@@ -40,12 +40,7 @@ public class AdapterShopProducts extends RecyclerView.Adapter<AdapterShopProduct
         holder.tv_product_name.setText(modelShopProductsData.get(position).getName());
         holder.tv_product_price.setText(modelShopProductsData.get(position).getPrice()+" ALL");
         Glide.with(context).load(Links.categories_images+modelShopProductsData.get(position).getImage()).into(holder.iv_products_model);
-        holder.iv_add_product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((AddItemInBasket)context).addtoBasket(modelShopProductsData.get(position));
-            }
-        });
+        holder.iv_add_product.setOnClickListener(view -> ((AddItemInBasket)context).addtoBasket(modelShopProductsData.get(position)));
     }
 
     @Override

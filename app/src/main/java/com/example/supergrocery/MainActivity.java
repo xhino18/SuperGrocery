@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         setContentView(view);
 
         init();
-//        getall(token_login);
-        getall(saveData.getToken());
+        getall(token_login);
+//        getall(saveData.getToken());
 
     }
 

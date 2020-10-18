@@ -83,6 +83,7 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         });
 
         int catId = getIntent().getIntExtra("cat_id", -1);
+        activityProductsBinding.tvProductCategory.setText(getIntent().getStringExtra("cat_name"));
         System.out.println("Id contoller " + catId);
         getall(token_login, catId);
         getTotalQuantity();

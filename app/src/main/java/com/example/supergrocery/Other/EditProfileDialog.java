@@ -54,7 +54,7 @@ public class EditProfileDialog {
         tv_profile_nuis=dialog.findViewById(R.id.tv_profile_nuis);
         tv_profile_phone=dialog.findViewById(R.id.tv_profile_phone);
 
-        tv_profile_name.setText(saveData.get_Name());
+        tv_profile_name.setText(saveData.get_name());
         tv_profile_email.setText(saveData.get_email());
         tv_profile_nuis.setText(saveData.get_nuis());
 
@@ -69,7 +69,6 @@ public class EditProfileDialog {
             editProfileInfo(saveData.getToken());
            dialog.dismiss();
             Toast.makeText(dialog.getContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
-//            dialog.getContext().startActivity(intent);
 
 
         });
