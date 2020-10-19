@@ -69,4 +69,9 @@ public class SaveData {
         return preferences.getString("user_nuis", "");
     }
 
+    public void logout() {
+         preferences.edit().clear().commit();
+
+    }
+
 }

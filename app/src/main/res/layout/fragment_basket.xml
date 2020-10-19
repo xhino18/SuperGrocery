@@ -9,6 +9,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:lottie_rawRes="@raw/basketempty"
+            android:visibility="visible"
+            app:lottie_loop="true"
+            android:paddingBottom="50dp"
+            android:id="@+id/basketanim"
+            app:lottie_autoPlay="true">
+
+        </com.airbnb.lottie.LottieAnimationView>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_marginBottom="5dp"

@@ -27,6 +27,8 @@ import com.example.supergrocery.GetModels.DiscountedProductsData;
 import com.example.supergrocery.GetModels.FreeDeliveryProducts;
 import com.example.supergrocery.GetModels.FreeDeliveryProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
+import com.example.supergrocery.Other.DiscountedProductsActivity;
+import com.example.supergrocery.Other.FreeDeliveryActivity;
 import com.example.supergrocery.Other.ProductsActivity;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.databinding.ActivityMainBinding;
@@ -200,10 +202,34 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         });
     }
 
+
+    @Override
+    public void freeDeliveryClicked(FreeDeliveryProductsData data) {
+        Intent intent = new Intent(MainActivity.this, FreeDeliveryActivity.class);
+        intent.putExtra("cat_name", data.getName());
+        intent.putExtra("cat_price", data.getPrice());
+        intent.putExtra("cat_image",data.getImage());
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+    }
+
+    @Override
+    public void dicountedProductsClicked(DiscountedProductsData data) {
+        Intent intent = new Intent(MainActivity.this, DiscountedProductsActivity.class);
+        intent.putExtra("cat_id", data.getId());
+        intent.putExtra("cat_name", data.getName());
+        intent.putExtra("cat_price", data.getPrice());
+        intent.putExtra("cat_image",data.getImage());
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
     @Override
     public void categoryClicked(CategoriesData data) {
         Intent intent = new Intent(MainActivity.this, ProductsActivity.class);
         intent.putExtra("cat_id", data.getId());
+        intent.putExtra("cat_name", data.getName());
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

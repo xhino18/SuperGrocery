@@ -49,10 +49,9 @@ public class RegisterActivity extends AppCompatActivity{
         activityRegisterBinding.tvProfileBusiness.setOnClickListener(v -> {
             activityRegisterBinding.linearNuis.setVisibility(View.VISIBLE);
         });
-        activityRegisterBinding.rightArrow.setOnClickListener(v -> {
-            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        activityRegisterBinding.tvLogin.setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         activityRegisterBinding.buttonRegister.setOnClickListener(view -> {

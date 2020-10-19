@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/standart_topBottom_margin"
     tools:context=".Login_RegisterAcitivity.LoginActivity">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_login"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_marginTop="@dimen/standart_loginRegister_margin"
         android:layout_alignParentTop="true"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
@@ -22,7 +22,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardElevation="@dimen/login_elevation"
-    app:cardCornerRadius="40dp"
+    app:cardCornerRadius="20dp"
     android:id="@+id/cardview_login_phone"
     android:layout_marginLeft="@dimen/standart_left_margin"
     android:layout_marginStart="@dimen/standart_left_margin"
@@ -35,8 +35,10 @@
     android:orientation="horizontal">
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/ic_phone"
@@ -72,7 +74,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="40dp"
+            app:cardCornerRadius="@dimen/button_radius"
             android:layout_marginBottom="@dimen/standart_topBottom_margin"
             app:cardElevation="5dp">
 
@@ -96,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                app:cardCornerRadius="40dp"
+                app:cardCornerRadius="@dimen/button_radius"
                 android:layout_marginBottom="5dp"
                 app:cardElevation="@dimen/cardview_default_elevation">
 

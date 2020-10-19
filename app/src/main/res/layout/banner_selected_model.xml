@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_margin="20dp"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        android:id="@+id/cardview_discount_products"
+        app:cardCornerRadius="@dimen/standart_image_cardview_radius"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageview_discount_product"
+            android:scaleType="fitXY">
+
+        </ImageView>
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_banner_item_static_name"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end">
+
+        </TextView>
+        <TextView
+            android:layout_marginLeft="@dimen/standart_topBottom_margin"
+            android:layout_marginStart="@dimen/standart_topBottom_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/banner_item_name">
+
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/standart_topBottom_margin">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_banner_item_static_price"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end">
+
+        </TextView>
+        <TextView
+            android:layout_marginLeft="@dimen/standart_topBottom_margin"
+            android:layout_marginStart="@dimen/standart_topBottom_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/banner_item_price">
+
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/standart_left_margin"
+        android:layout_marginStart="@dimen/standart_left_margin"
+        android:layout_marginRight="@dimen/standart_left_margin"
+        android:layout_marginEnd="@dimen/standart_left_margin"
+        android:layout_marginTop="@dimen/standart_topBottom_margin"
+        android:weightSum="2">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/button_add_to_card"
+            android:text="@string/button_add_to_card"
+            android:textAlignment="center"
+            android:layout_gravity="center">
+
+        </Button>
+        <Button
+            android:layout_marginLeft="@dimen/standart_topBottom_margin"
+            android:layout_marginStart="@dimen/standart_topBottom_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_buy_now"
+            android:layout_weight="1"
+            android:text="@string/button_buy_now">
+
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

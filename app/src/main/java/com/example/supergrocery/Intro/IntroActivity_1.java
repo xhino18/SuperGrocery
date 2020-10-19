@@ -14,11 +14,13 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.supergrocery.Login_RegisterAcitivity.LoginActivity;
 import com.example.supergrocery.MainActivity;
+import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityIntro1Binding;
 
 public class IntroActivity_1 extends AppCompatActivity {
     ActivityIntro1Binding activityIntro1Binding;
+    SaveData saveData;
 
 
     private static int HAPJE_ACTIVITY= 6000;
@@ -29,14 +31,20 @@ public class IntroActivity_1 extends AppCompatActivity {
         final View view=activityIntro1Binding.getRoot();
         setContentView(view);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        saveData=new SaveData(this);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(IntroActivity_1.this, LoginActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.intro_login, R.anim.slide_out_right);
-                finish();
+                if (saveData.getToken().equals("")) {
+                    Intent intent = new Intent(IntroActivity_1.this, LoginActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.intro_login, R.anim.slide_out_right);
+                    finish();
+                }else{
+                    Intent intent1 = new Intent(IntroActivity_1.this, MainActivity.class);
+                    startActivity(intent1);
+                    overridePendingTransition(R.anim.intro_login, R.anim.slide_out_right);
+                }
             }
         },HAPJE_ACTIVITY);
     }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.GetModels.FreeDeliveryProductsData;
+import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
 
@@ -35,6 +36,10 @@ public class AdapterFreeDeliveryProducts extends RecyclerView.Adapter<AdapterFre
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Glide.with(context).load(Links.categories_images+freeDeliveryProductsData.get(position).getImage()).into(holder.imageview_free_delivery_product);
+        holder.imageview_free_delivery_product.setOnClickListener(v -> {
+
+            ((ItemClickInterface)context).freeDeliveryClicked(freeDeliveryProductsData.get(position));
+        });
 
     }
 

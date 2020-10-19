@@ -26,6 +26,9 @@ public interface ItemsDao {
     @Query("SELECT * FROM OrderItems ORDER BY id")
     List<OrderItem> getAllItems();
 
+//    @Query("SELECT * FROM OrderItems WHERE name = :userName")
+//    void getItemByName(String userName);
+
     @Delete
     void delete(OrderItem itemModel);
 

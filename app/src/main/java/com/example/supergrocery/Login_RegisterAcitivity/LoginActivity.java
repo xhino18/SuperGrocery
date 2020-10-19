@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding activityLoginBinding;
     SaveData saveData;
     Gson gson;
+    boolean doubleBackToExitPressedOnce = false;
     String phone;
 
     @Override
@@ -70,9 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                                      intent.putExtra("register_type", "login");
                                      intent.putExtra("phone",phone);
                                      startActivity(intent);
+                                     finish();
                                  }
                                  else{
-                                     Toast.makeText(LoginActivity.this, "Ndodhi një gabim!", Toast.LENGTH_SHORT).show();
+                                     Toast.makeText(LoginActivity.this, "Incorrect number!", Toast.LENGTH_SHORT).show();
                                  }
 
                              }else
@@ -90,6 +93,25 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            //super.onBackPressed();
+            finishAffinity();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
 }

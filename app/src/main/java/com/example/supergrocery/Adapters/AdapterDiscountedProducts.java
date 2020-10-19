@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.GetModels.DiscountedProductsData;
+import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
 
@@ -35,6 +36,10 @@ public class AdapterDiscountedProducts extends RecyclerView.Adapter<AdapterDisco
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Glide.with(context).load(Links.categories_images + discountedProductsData.get(position).getImage()).into(holder.imageview_discount_product);
+        holder.imageview_discount_product.setOnClickListener(v -> {
+
+            ((ItemClickInterface)context).dicountedProductsClicked(discountedProductsData.get(position));
+        });
 
     }
 

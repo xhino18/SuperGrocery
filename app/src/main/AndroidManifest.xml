@@ -11,13 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Payment.PaymentActivity"></activity>
+        <activity android:name=".Other.DiscountedProductsActivity"></activity>
+        <activity android:name=".Other.FreeDeliveryActivity" />
+        <activity android:name=".Payment.PaymentActivity" />
         <activity android:name=".Login_RegisterAcitivity.LoginCodeActivity" />
-        <activity android:name=".Login_RegisterAcitivity.RegisterActivity"></activity>
+        <activity android:name=".Login_RegisterAcitivity.RegisterActivity" />
         <activity android:name=".Other.ProductsActivity" />
-        <activity android:name=".Login_RegisterAcitivity.LoginActivity">
-        </activity>
-        <activity android:name=".Intro.IntroActivity_1" >
+        <activity android:name=".Login_RegisterAcitivity.LoginActivity" />
+        <activity android:name=".Intro.IntroActivity_1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity2" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

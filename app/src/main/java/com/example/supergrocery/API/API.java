@@ -1,5 +1,6 @@
 package com.example.supergrocery.API;
 
+import com.example.supergrocery.GetModels.AllProducts;
 import com.example.supergrocery.GetModels.Banner;
 import com.example.supergrocery.GetModels.Categories;
 import com.example.supergrocery.GetModels.DiscountedProducts;
@@ -24,6 +25,9 @@ public interface API {
 
         @GET("categories")
         Call<Categories> getCategories();
+
+        @GET("all_products")
+        Call<AllProducts> getAllProducts();
 
         @GET("banners")
         Call<Banner> getBanners();

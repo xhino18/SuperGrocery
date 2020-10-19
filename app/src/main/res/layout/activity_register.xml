@@ -4,26 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/standart_topBottom_margin"
     tools:context=".Login_RegisterAcitivity.RegisterActivity">
 
-
-    <ImageView
-        android:id="@+id/right_Arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_right_arrow">
-
-    </ImageView>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_register"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/standart_loginRegister_margin"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loginanim">
@@ -34,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/standart_left_margin"
-        android:layout_below="@id/lottie_register"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linear_register"
         android:orientation="vertical">
 
         <LinearLayout
@@ -214,7 +204,7 @@
     android:layout_marginRight="@dimen/standart_right_margin"
     android:layout_marginEnd="@dimen/standart_right_margin"
     app:cardElevation="@dimen/login_elevation"
-    app:cardCornerRadius="@dimen/standart_button_radius">
+    app:cardCornerRadius="@dimen/button_radius">
         <Button
             android:id="@+id/button_register"
             android:layout_width="match_parent"
@@ -247,6 +237,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/tv_login"
+                android:id="@+id/tv_login"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary">
 
