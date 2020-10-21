@@ -53,10 +53,15 @@
     <string name="confirmation_logout">Are you sure?</string>
     <string name="tv_banner_item_static_name">Name :</string>
     <string name="tv_banner_item_static_price">  Price :</string>
-    <string name="button_add_to_card">Add to card</string>
+    <string name="button_add_to_card">Add to cart</string>
     <string name="button_buy_now">Buy now</string>
     <string name="tv_header_free_delivery">Free delivery</string>
     <string name="tv_header_discounted_products">Discounted products</string>
+    <string name="delete_all">Delete all</string>
+    <string name="tv_more_discounted_products">More products :</string>
+    <string name="tv_more_free_products">More products :</string>
+    <string name="tv_header_products">Products</string>
+    <string name="tv_products_static_description">Description :</string>
 
     <string-array name="spinner_city">
         <item>Mercury</item>

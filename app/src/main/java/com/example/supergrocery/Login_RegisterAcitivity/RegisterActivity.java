@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.PostModels.UserRegister;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityRegisterBinding;
@@ -23,7 +22,7 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity{
 
-    ActivityRegisterBinding activityRegisterBinding;
+    ActivityRegisterBinding binding;
     int acc_type;
     String name, email, nuis, phone;
     Gson gson;
@@ -31,8 +30,8 @@ public class RegisterActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityRegisterBinding=ActivityRegisterBinding.inflate(getLayoutInflater());
-        View view=activityRegisterBinding.getRoot();
+        binding =ActivityRegisterBinding.inflate(getLayoutInflater());
+        View view= binding.getRoot();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
@@ -43,23 +42,23 @@ public class RegisterActivity extends AppCompatActivity{
     private void init() {
 
         gson= new GsonBuilder().create();
-        activityRegisterBinding.tvProfilePersonal.setOnClickListener(v -> {
-            activityRegisterBinding.linearNuis.setVisibility(View.INVISIBLE);
+        binding.tvProfilePersonal.setOnClickListener(v -> {
+            binding.linearNuis.setVisibility(View.INVISIBLE);
         });
-        activityRegisterBinding.tvProfileBusiness.setOnClickListener(v -> {
-            activityRegisterBinding.linearNuis.setVisibility(View.VISIBLE);
+        binding.tvProfileBusiness.setOnClickListener(v -> {
+            binding.linearNuis.setVisibility(View.VISIBLE);
         });
-        activityRegisterBinding.tvLogin.setOnClickListener(v -> {
+        binding.tvLogin.setOnClickListener(v -> {
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
-        activityRegisterBinding.buttonRegister.setOnClickListener(view -> {
-            name = activityRegisterBinding.tvProfileName.getText().toString();
-            email = activityRegisterBinding.tvProfileEmail.getText().toString();
-            nuis = activityRegisterBinding.tvProfileNuis.getText().toString();
-            phone = activityRegisterBinding.tvProfilePhone.getText().toString();
-            if(activityRegisterBinding.tvProfilePersonal.isChecked()) {
+        binding.buttonRegister.setOnClickListener(view -> {
+            name = binding.tvProfileName.getText().toString();
+            email = binding.tvProfileEmail.getText().toString();
+            nuis = binding.tvProfileNuis.getText().toString();
+            phone = binding.tvProfilePhone.getText().toString();
+            if(binding.tvProfilePersonal.isChecked()) {
                 if (!name.equals("") && !email.equals("") && !phone.equals("")) {
                     if (email.contains("@")) {
                         acc_type=2;
@@ -73,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity{
                 }
             }
 
-            if(activityRegisterBinding.tvProfileBusiness.isChecked()) {
+            if(binding.tvProfileBusiness.isChecked()) {
                 if (!name.equals("") && !email.equals("") && !nuis.equals("")&& !phone.equals("")) {
                     if (email.contains("@")) {
                         acc_type=1;

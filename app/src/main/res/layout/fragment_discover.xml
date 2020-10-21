@@ -9,6 +9,44 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/relative"
+            android:layout_marginBottom="@dimen/standart_header_marginBottom"
+            android:layout_marginTop="@dimen/standart_header_marginTop"
+            android:layout_height="@dimen/relative_height">
+
+            <ImageView
+                android:id="@+id/iv_header_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_main_title"
+                android:layout_toStartOf="@+id/tv_main_title"
+                android:layout_marginRight="@dimen/header_icon_right_margin"
+                android:layout_marginEnd="@dimen/header_icon_right_margin"
+                android:src="@drawable/ic_grocery">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_main_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/rock_salt"
+                android:rotation="2"
+                android:rotationX="17"
+                android:rotationY="-11"
+                android:text="@string/menu_title"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/menu_title_size"
+                android:textStyle="bold">
+
+            </TextView>
+
+        </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +61,6 @@
             android:layout_height="200dp"
             app:lottie_rawRes="@raw/underconstruction"
             android:layout_centerInParent="true"
-
             app:lottie_loop="true"
             app:lottie_autoPlay="true"
             android:id="@+id/lottie_coming_soon">

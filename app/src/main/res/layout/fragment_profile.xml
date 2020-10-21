@@ -9,37 +9,57 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
-            android:id="@+id/iv_logout"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_logout">
-
-        </ImageView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_profile_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/linear_profile"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40dp"
-            app:cardCornerRadius="60dp"
-            app:cardElevation="@dimen/cardview_default_elevation">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/relative"
+            android:layout_marginBottom="@dimen/standart_header_marginBottom"
+            android:layout_marginTop="@dimen/standart_header_marginTop"
+            android:layout_height="@dimen/relative_height">
 
             <ImageView
-                android:id="@+id/iv_profile_photo"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_profile">
+                android:id="@+id/iv_header_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_main_title"
+                android:layout_toStartOf="@+id/tv_main_title"
+                android:layout_marginRight="@dimen/header_icon_right_margin"
+                android:layout_marginEnd="@dimen/header_icon_right_margin"
+                android:src="@drawable/ic_grocery">
 
             </ImageView>
 
-        </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/tv_main_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/rock_salt"
+                android:rotation="2"
+                android:rotationX="17"
+                android:rotationY="-11"
+                android:text="@string/menu_title"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/menu_title_size"
+                android:textStyle="bold">
+
+            </TextView>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/delete_icon_marginRight"
+                android:layout_marginEnd="@dimen/delete_icon_marginRight"
+                android:id="@+id/iv_logout"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_logout">
+
+            </ImageView>
+        </RelativeLayout>
+
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,6 +70,29 @@
             android:id="@+id/linear_profile"
             android:layout_marginRight="30dp"
             android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview_profile_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="40dp"
+                app:cardCornerRadius="60dp"
+                app:cardElevation="@dimen/cardview_default_elevation">
+
+                <ImageView
+                    android:id="@+id/iv_profile_photo"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_profile">
+
+                </ImageView>
+
+            </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

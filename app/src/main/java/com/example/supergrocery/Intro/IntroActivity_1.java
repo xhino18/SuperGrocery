@@ -7,19 +7,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.example.supergrocery.Login_RegisterAcitivity.LoginActivity;
-import com.example.supergrocery.MainActivity;
+import com.example.supergrocery.MainActivity2;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityIntro1Binding;
 
 public class IntroActivity_1 extends AppCompatActivity {
-    ActivityIntro1Binding activityIntro1Binding;
+    ActivityIntro1Binding binding;
     SaveData saveData;
 
 
@@ -27,8 +23,8 @@ public class IntroActivity_1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityIntro1Binding=ActivityIntro1Binding.inflate(getLayoutInflater());
-        final View view=activityIntro1Binding.getRoot();
+        binding =ActivityIntro1Binding.inflate(getLayoutInflater());
+        final View view= binding.getRoot();
         setContentView(view);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         saveData=new SaveData(this);
@@ -41,7 +37,7 @@ public class IntroActivity_1 extends AppCompatActivity {
                     overridePendingTransition(R.anim.intro_login, R.anim.slide_out_right);
                     finish();
                 }else{
-                    Intent intent1 = new Intent(IntroActivity_1.this, MainActivity.class);
+                    Intent intent1 = new Intent(IntroActivity_1.this, MainActivity2.class);
                     startActivity(intent1);
                     overridePendingTransition(R.anim.intro_login, R.anim.slide_out_right);
                 }

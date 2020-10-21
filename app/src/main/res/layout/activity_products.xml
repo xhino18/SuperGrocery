@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/standart_header_marginTop"
+        android:layout_marginBottom="@dimen/standart_topBottom_margin"
         android:id="@+id/relative_main2"
         android:elevation="2dp">
 
@@ -31,7 +32,7 @@
             android:layout_centerInParent="true"
             android:text="jksdfahfakf"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="@dimen/standart_header_category_textSize"
             android:id="@+id/tv_product_category">
 
         </TextView>
@@ -43,6 +44,7 @@
             android:id="@+id/cardview_basket_items"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
+            android:visibility="gone"
             app:cardCornerRadius="@dimen/cardview_basket_radius">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -68,6 +70,29 @@
 
                 </TextView>
             </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/delete_icon_marginRight"
+            android:layout_marginRight="@dimen/delete_icon_marginRight"
+            app:cardCornerRadius="20dp">
+
+            <SearchView
+                android:id="@+id/searchview_main_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/grey"
+                android:focusable="false"
+                android:focusedByDefault="false"
+                android:iconifiedByDefault="true"
+                android:queryBackground="@android:color/transparent"
+                android:queryHint="Search Product">
+
+            </SearchView>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView

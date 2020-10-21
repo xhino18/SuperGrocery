@@ -6,7 +6,7 @@
     <dimen name="standart_elevation">20dp</dimen>
     <dimen name="standart_left_margin">20dp</dimen>
     <dimen name="standart_right_margin">20dp</dimen>
-    <dimen name="iv_menuicon_left_margin">30dp</dimen>
+    <dimen name="iv_menuicon_left_margin">50dp</dimen>
     <dimen name="tv_address_location_left_margin">15dp</dimen>
     <dimen name="tv_address_location_right_margin">20dp</dimen>
     <dimen name="searchview_main_radius">10dp</dimen>
@@ -35,12 +35,12 @@
     <dimen name="et_code_width">250dp</dimen>
     <dimen name="button_verify_margintop">80dp</dimen>
     <dimen name="standart_linear_marginBottom">5dp</dimen>
-    <dimen name="relative_height">80dp</dimen>
+    <dimen name="relative_height">56dp</dimen>
     <dimen name="menu_title_size">20sp</dimen>
     <dimen name="relative_marginBottom">10dp</dimen>
     <dimen name="relative2_height">180dp</dimen>
     <dimen name="tv_seeAll_paddingTop">8dp</dimen>
-    <dimen name="button_verify_width">150dp</dimen>
+    <dimen name="button_verify_width">300dp</dimen>
     <dimen name="button_register_topMargin">50dp</dimen>
     <dimen name="standart_button_radius">20dp</dimen>
     <dimen name="profile_info_height">40dp</dimen>
@@ -50,4 +50,12 @@
     <dimen name="standart_toggleGroup_height">50dp</dimen>
     <dimen name="button_radius">20dp</dimen>
     <dimen name="standart_loginRegister_margin">40dp</dimen>
+    <dimen name="standart_header_marginTop">20dp</dimen>
+    <dimen name="standart_header_marginBottom">10dp</dimen>
+    <dimen name="standart_header_category_textSize">25sp</dimen>
+    <dimen name="basket_item_quantity_textSize">20sp</dimen>
+    <dimen name="header_icon_right_margin">5dp</dimen>
+    <dimen name="delete_icon_marginRight">35dp</dimen>
+    <dimen name="standart_product_height">200dp</dimen>
+    <dimen name="tv_categories_shop_textSize">30sp</dimen>
 </resources>

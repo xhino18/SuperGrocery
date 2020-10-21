@@ -8,6 +8,9 @@
         android:layout_width="250dp"
         android:layout_height="170dp"
         app:cardElevation="@dimen/cardview_default_elevation"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="@dimen/standart_topBottom_margin"
+        android:layout_marginEnd="@dimen/standart_topBottom_margin"
         android:id="@+id/cardview_discount_products"
         app:cardCornerRadius="@dimen/standart_image_cardview_radius">
 

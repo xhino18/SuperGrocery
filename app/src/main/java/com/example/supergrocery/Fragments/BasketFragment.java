@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -50,6 +51,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
             if (!orderItemsModels.isEmpty()) {
                 Intent intent = new Intent(getActivity(), PaymentActivity.class);
                 String total = fragmentBasketBinding.tvFinalTotal.getText().toString();
+                intent.putExtra("payment_type","checkout");
                 intent.putExtra("getTotal", total);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -57,11 +59,31 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
                 Toast.makeText(getContext(), "Basket empty!", Toast.LENGTH_SHORT).show();
             }
         });
+        fragmentBasketBinding.ivDeleteAll.setOnClickListener(view1 -> {
+            if(!orderItemsModels.isEmpty()) {
+                new AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.delete_all)
+                        .setMessage(R.string.confirmation_logout)
+                        .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> deleteAll())
+                        .setNegativeButton(android.R.string.no, null).show();
+            }else{
+                Toast.makeText(getContext(), "Basket is already empty!", Toast.LENGTH_SHORT).show();
+            }
+
+        });
         getTotalQuantity();
         showBasketItems();
         updateTotal();
 
         return view;
+    }
+
+    private void deleteAll() {
+        ItemsDB.getInstance(getContext()).orderItemDao().deleteAll();
+        showBasketItems();
+        updateTotal();
+        getTotalQuantity();
+
     }
 
     private void getTotalQuantity() {

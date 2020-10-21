@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
@@ -15,6 +16,7 @@ import com.example.supergrocery.Adapters.AdapterShopProducts;
 import com.example.supergrocery.GetModels.ShopProducts;
 import com.example.supergrocery.GetModels.ShopProductsData;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
+import com.example.supergrocery.Interfaces.ProductClickedInterface;
 import com.example.supergrocery.MainActivity2;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
@@ -32,20 +34,20 @@ import retrofit2.Response;
 
 import static com.example.supergrocery.MainActivity.token_login;
 
-public class ProductsActivity extends AppCompatActivity implements AddItemInBasket {
-    ActivityProductsBinding activityProductsBinding;
+public class ProductsActivity extends AppCompatActivity implements AddItemInBasket, ProductClickedInterface {
+    ActivityProductsBinding binding;
 
     Gson gson;
     List<ShopProductsData> modelShopProductsDataList = new ArrayList<>();
     List<OrderItem> orderItemsModels = new ArrayList<>();
-
     AdapterShopProducts adapterShopProducts;
+    int catId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityProductsBinding=ActivityProductsBinding.inflate(getLayoutInflater());
-        final View view=activityProductsBinding.getRoot();
+        binding =ActivityProductsBinding.inflate(getLayoutInflater());
+        final View view= binding.getRoot();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
@@ -56,14 +58,14 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
 
     private void init() {
 
-        activityProductsBinding.recycleviewShopProducts.setLayoutManager(new GridLayoutManager(ProductsActivity.this, 2));
+        binding.recycleviewShopProducts.setLayoutManager(new GridLayoutManager(ProductsActivity.this, 2));
         gson = new GsonBuilder().create();
-        activityProductsBinding.ivBackimage.setOnClickListener(v -> {
+        binding.ivBackimage.setOnClickListener(v -> {
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
-        activityProductsBinding.cardviewBasketItems.setOnClickListener(v -> {
+        binding.cardviewBasketItems.setOnClickListener(v -> {
             Intent intent=new Intent(ProductsActivity.this, MainActivity2.class);
             intent.putExtra("goToBasket",true);
             startActivity(intent);
@@ -71,13 +73,26 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
 
         });
 
-        int catId = getIntent().getIntExtra("cat_id", -1);
-        activityProductsBinding.tvProductCategory.setText(getIntent().getStringExtra("cat_name"));
+        catId = getIntent().getIntExtra("cat_id", -1);
+        binding.tvProductCategory.setText(getIntent().getStringExtra("cat_name"));
         System.out.println("Id contoller " + catId);
         getall(token_login, catId);
         getTotalQuantity();
 
-    }
+        binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchCategory(newText);
+                return true;
+            }
+        });
+
+}
 
     public void getall(String token, int catId) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
@@ -89,7 +104,7 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
                     if (!response.body().getError()) {
                         modelShopProductsDataList.addAll(response.body().getData());
                         adapterShopProducts = new AdapterShopProducts(ProductsActivity.this, modelShopProductsDataList);
-                        activityProductsBinding.recycleviewShopProducts.setAdapter(adapterShopProducts);
+                        binding.recycleviewShopProducts.setAdapter(adapterShopProducts);
                     } else {
                         Toast.makeText(ProductsActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -153,10 +168,36 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
             totalquantity = totalquantity + orderItemsModels.get(i).getQuantity();
         }
         if (totalquantity == 0) {
-            activityProductsBinding.tvBasketQuantity.setVisibility(View.GONE);
+            binding.tvBasketQuantity.setVisibility(View.GONE);
         } else {
-            activityProductsBinding.tvBasketQuantity.setVisibility(View.VISIBLE);
+            binding.tvBasketQuantity.setVisibility(View.VISIBLE);
         }
-        activityProductsBinding.tvBasketQuantity.setText(totalquantity + "");
+        binding.tvBasketQuantity.setText(totalquantity + "");
     }
+
+    @Override
+    public void productClicked(ShopProductsData data) {
+        Intent intent = new Intent(ProductsActivity.this, SelectedProductActivity.class);
+        intent.putExtra("cat_id", catId);
+        intent.putExtra("cat_name", data.getName());
+        intent.putExtra("cat_description", data.getDescription());
+        intent.putExtra("cat_price", data.getPrice());
+        intent.putExtra("cat_image", data.getImage());
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+    }
+    private void searchCategory(String s) {
+        List<ShopProductsData> data = new ArrayList<>();
+        data.addAll(modelShopProductsDataList);
+        for (int i = 0; i < data.size(); i++) {
+            if (!data.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
+                data.remove(i);
+                i--;
+            }
+        }
+        adapterShopProducts = new AdapterShopProducts(ProductsActivity.this,data);
+        binding.recycleviewShopProducts.setAdapter(adapterShopProducts);
+    }
+
 }

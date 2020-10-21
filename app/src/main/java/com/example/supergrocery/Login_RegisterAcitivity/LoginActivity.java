@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.PostModels.ModelSendCode;
 import com.example.supergrocery.R;
@@ -24,7 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    ActivityLoginBinding activityLoginBinding;
+    ActivityLoginBinding binding;
     SaveData saveData;
     Gson gson;
     boolean doubleBackToExitPressedOnce = false;
@@ -33,8 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityLoginBinding=ActivityLoginBinding.inflate(getLayoutInflater());
-        final View view=activityLoginBinding.getRoot();
+        binding =ActivityLoginBinding.inflate(getLayoutInflater());
+        final View view= binding.getRoot();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
         gson=new GsonBuilder().create();
@@ -46,13 +45,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void init() {
 
-       activityLoginBinding.buttonRegister.setOnClickListener(v -> {
+       binding.buttonRegister.setOnClickListener(v -> {
            Intent intent= new Intent(LoginActivity.this,RegisterActivity.class);
            startActivity(intent);
            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
        });
-       activityLoginBinding.buttonLogin.setOnClickListener(v -> {
-           phone=activityLoginBinding.etLoginPhone.getText().toString();
+       binding.buttonLogin.setOnClickListener(v -> {
+           phone= binding.etLoginPhone.getText().toString();
            login_phoneNumber(phone);
            
        });

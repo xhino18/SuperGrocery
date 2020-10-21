@@ -121,6 +121,8 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:maxLines="1"
+                android:inputType="textPersonName"
+                android:singleLine="true"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
@@ -156,6 +158,8 @@
                 android:layout_marginStart="5dp"
                 android:background="@null"
                 android:maxLines="1"
+                android:inputType="textPersonName"
+                android:singleLine="true"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical">
@@ -192,6 +196,8 @@
                 android:layout_marginLeft="5dp"
                 android:background="@null"
                 android:maxLines="1"
+                android:inputType="phone"
+                android:singleLine="true"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical">
 
@@ -227,6 +233,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:singleLine="true"
                 android:gravity="start|center_vertical">
 
             </EditText>

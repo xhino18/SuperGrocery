@@ -9,6 +9,54 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/relative"
+            android:layout_marginTop="@dimen/standart_header_marginTop"
+            android:layout_marginBottom="@dimen/standart_header_marginBottom"
+            android:layout_height="@dimen/relative_height">
+
+            <ImageView
+                android:id="@+id/iv_header_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_main_title"
+                android:layout_toStartOf="@+id/tv_main_title"
+                android:layout_marginRight="@dimen/header_icon_right_margin"
+                android:layout_marginEnd="@dimen/header_icon_right_margin"
+                android:src="@drawable/ic_grocery">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_main_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/rock_salt"
+                android:rotation="2"
+                android:rotationX="17"
+                android:rotationY="-11"
+                android:text="@string/menu_title"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/menu_title_size"
+                android:textStyle="bold">
+
+            </TextView>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/iv_delete_all"
+                android:layout_marginRight="@dimen/delete_icon_marginRight"
+                android:src="@drawable/ic_delete">
+
+            </ImageView>
+        </RelativeLayout>
+
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,6 +78,7 @@
             android:id="@+id/recycleview_basket_items"
             android:elevation="@dimen/cardview_default_elevation"
             tools:listitem="@layout/basket_item_model"
+            android:layout_below="@id/relative"
             android:layout_above="@+id/linear_basket_total">
 
         </androidx.recyclerview.widget.RecyclerView>

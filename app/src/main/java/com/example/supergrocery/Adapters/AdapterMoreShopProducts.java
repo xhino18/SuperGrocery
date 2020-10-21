@@ -19,11 +19,11 @@ import com.example.supergrocery.R;
 
 import java.util.List;
 
-public class AdapterShopProducts extends RecyclerView.Adapter<AdapterShopProducts.ViewHolder> {
+public class AdapterMoreShopProducts extends RecyclerView.Adapter<AdapterMoreShopProducts.ViewHolder> {
     Context context;
     List<ShopProductsData> modelShopProductsData;
 
-    public AdapterShopProducts(Context context, List<ShopProductsData> modelShopProductsData) {
+    public AdapterMoreShopProducts(Context context, List<ShopProductsData> modelShopProductsData) {
         this.context = context;
         this.modelShopProductsData = modelShopProductsData;
     }
@@ -31,17 +31,14 @@ public class AdapterShopProducts extends RecyclerView.Adapter<AdapterShopProduct
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.shop_products_model, parent, false);
+        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.more_products_model, parent, false);
         return new ViewHolder(viewholder);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.tv_product_name.setText(modelShopProductsData.get(position).getName());
-        holder.tv_product_price.setText(modelShopProductsData.get(position).getPrice()+" ALL");
-        Glide.with(context).load(Links.categories_images+modelShopProductsData.get(position).getImage()).into(holder.iv_products_model);
-        holder.iv_add_product.setOnClickListener(view -> ((AddItemInBasket)context).addtoBasket(modelShopProductsData.get(position)));
-        holder.iv_products_model.setOnClickListener(view -> {
+        Glide.with(context).load(Links.categories_images+modelShopProductsData.get(position).getImage()).into(holder.imageview_more_products);
+        holder.imageview_more_products.setOnClickListener(view -> {
             ((ProductClickedInterface)context).productClicked(modelShopProductsData.get(position));
         });
     }
@@ -52,16 +49,14 @@ public class AdapterShopProducts extends RecyclerView.Adapter<AdapterShopProduct
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView iv_products_model,iv_add_product;
-        TextView tv_product_price,tv_product_name;
+        ImageView imageview_more_products;
+
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv_add_product=itemView.findViewById(R.id.iv_add_product);
-            iv_products_model=itemView.findViewById(R.id.iv_products_model);
-            tv_product_price=itemView.findViewById(R.id.tv_product_price);
-            tv_product_name=itemView.findViewById(R.id.tv_product_name);
+            imageview_more_products=itemView.findViewById(R.id.imageview_more_products);
+
         }
     }
 }

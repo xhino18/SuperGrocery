@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.MainActivity;
+import com.example.supergrocery.MainActivity2;
 import com.example.supergrocery.Other.SaveData;
 
 import com.example.supergrocery.PostModels.ModelSendCode;
@@ -25,7 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginCodeActivity extends AppCompatActivity {
-    ActivityLoginCodeBinding activityLoginCodeBinding;
+    ActivityLoginCodeBinding binding;
 
     Bundle bundle;
     Gson gson;
@@ -37,8 +37,8 @@ public class LoginCodeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityLoginCodeBinding = ActivityLoginCodeBinding.inflate(getLayoutInflater());
-        final View view = activityLoginCodeBinding.getRoot();
+        binding = ActivityLoginCodeBinding.inflate(getLayoutInflater());
+        final View view = binding.getRoot();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
@@ -70,18 +70,18 @@ public class LoginCodeActivity extends AppCompatActivity {
                     }
             }
         }
-        activityLoginCodeBinding.buttonResendCode.setOnClickListener(v -> {
+        binding.buttonResendCode.setOnClickListener(v -> {
             user_phone = bundle.getString("phone");
             if (!user_phone.equalsIgnoreCase("")) {
                 startPhoneNumberVerification(user_phone);
             }
 
         });
-        activityLoginCodeBinding.buttonVerify.setOnClickListener(v -> {
-            if (activityLoginCodeBinding.buttonVerify.getText().toString().length() < 6) {
+        binding.buttonVerify.setOnClickListener(v -> {
+            if (binding.buttonVerify.getText().toString().length() < 6) {
                 Toast.makeText(LoginCodeActivity.this, "Kodi i verifikimit i pasakte!", Toast.LENGTH_SHORT).show();
             } else {
-                verifyPhoneNumberWithCode(activityLoginCodeBinding.code.getText().toString(), userId);
+                verifyPhoneNumberWithCode(binding.code.getText().toString(), userId);
             }
 
         });
@@ -109,7 +109,7 @@ public class LoginCodeActivity extends AppCompatActivity {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         userId = response.body().getUser_id();
-                        activityLoginCodeBinding.buttonVerify.setEnabled(true);
+                        binding.buttonVerify.setEnabled(true);
                         Toast.makeText(LoginCodeActivity.this, "Code sent sucessfully!", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(LoginCodeActivity.this, "Unexpected error :(", Toast.LENGTH_SHORT).show();
@@ -161,7 +161,7 @@ public class LoginCodeActivity extends AppCompatActivity {
 
 
     public void gotomenu() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity2.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         Toast.makeText(LoginCodeActivity.this, "Wellcome back " + saveData.get_name() + " !", Toast.LENGTH_SHORT).show();

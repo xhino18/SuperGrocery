@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/standart_topBottom_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ShopFragment">
+
 <ScrollView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -13,27 +14,79 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/relative"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/relative_main3">
+            android:layout_height="@dimen/relative_height"
+            android:layout_marginTop="@dimen/standart_header_marginTop"
+            android:layout_marginBottom="@dimen/standart_header_marginBottom">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycleview_fragment_discounted_products"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/iv_header_icon"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:listitem="@layout/fragment_discounted_products_model">
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/header_icon_right_margin"
+                android:layout_marginRight="@dimen/header_icon_right_margin"
+                android:layout_toStartOf="@+id/tv_main_title"
+                android:layout_toLeftOf="@+id/tv_main_title"
+                android:src="@drawable/ic_grocery">
 
-            </androidx.recyclerview.widget.RecyclerView>
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_main_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/rock_salt"
+                android:rotation="2"
+                android:rotationX="17"
+                android:rotationY="-11"
+                android:text="@string/menu_title"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/menu_title_size"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/delete_icon_marginRight"
+                android:layout_marginRight="@dimen/delete_icon_marginRight"
+                app:cardCornerRadius="20dp">
+
+                <SearchView
+                    android:id="@+id/searchview_main_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey"
+                    android:focusable="false"
+                    android:focusedByDefault="false"
+                    android:iconifiedByDefault="true"
+                    android:queryBackground="@android:color/transparent"
+                    android:queryHint="Search Category">
+
+                </SearchView>
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="@dimen/tv_categories_shop_textSize"
             android:layout_marginTop="@dimen/standart_topBottom_margin"
             android:textStyle="bold"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/black"
             android:id="@+id/tv_fragment_categories"
-            android:layout_below="@+id/relative_main3"
+            android:layout_below="@+id/relative"
+            android:layout_marginBottom="@dimen/standart_topBottom_margin"
             android:layout_marginLeft="@dimen/standart_left_margin"
             android:layout_marginStart="@dimen/standart_left_margin"
             android:text="@string/tv_categories"

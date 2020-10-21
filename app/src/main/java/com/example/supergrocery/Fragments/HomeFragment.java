@@ -4,31 +4,212 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.example.supergrocery.API.API;
+import com.example.supergrocery.API.ClientAPI;
+import com.example.supergrocery.Adapters.AdapterBanner;
+import com.example.supergrocery.Adapters.AdapterCategories;
+import com.example.supergrocery.Adapters.AdapterDiscountedProducts;
+import com.example.supergrocery.Adapters.AdapterFreeDeliveryProducts;
+import com.example.supergrocery.GetModels.Banner;
+import com.example.supergrocery.GetModels.BannerData;
+import com.example.supergrocery.GetModels.Categories;
+import com.example.supergrocery.GetModels.CategoriesData;
+import com.example.supergrocery.GetModels.DiscountedProducts;
+import com.example.supergrocery.GetModels.DiscountedProductsData;
+import com.example.supergrocery.GetModels.FreeDeliveryProducts;
+import com.example.supergrocery.GetModels.FreeDeliveryProductsData;
 import com.example.supergrocery.MainActivity;
+import com.example.supergrocery.MainActivity2;
+import com.example.supergrocery.Other.ProductsActivity;
+import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.FragmentHomeBinding;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class HomeFragment extends Fragment {
-    private void go(){
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
+    FragmentHomeBinding binding;
+    Gson gson;
+    List<CategoriesData> categoriesDataList = new ArrayList<>();
+    List<CategoriesData> categoriesData = new ArrayList<>();
+    List<BannerData> bannerData = new ArrayList<>();
+    List<DiscountedProductsData> modelDiscountedProductsData = new ArrayList<>();
+    List<FreeDeliveryProductsData> modelFreeDeliveryProductsData = new ArrayList<>();
+    AdapterCategories adapterCategories;
+    AdapterBanner adapterBanner;
+    AdapterDiscountedProducts adapterDiscountedProducts;
+    AdapterFreeDeliveryProducts adapterFreeDeliveryProducts;
+    public static final String token_login = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMGQ1YmY4MDY0MzUxNjU4NWNiY2M2MDYxZGIxMGYyYTkyMTM3ZWU3MTgyOWRlZWYyMzA5NDc1ZDU1MTk5ZDVlNDk2MjMxOGE3YzEzOWZkMmEiLCJpYXQiOjE1ODIxMDc1OTIsIm5iZiI6MTU4MjEwNzU5MiwiZXhwIjoxNjEzNzI5OTkyLCJzdWIiOiIxNSIsInNjb3BlcyI6W119.j-4iSBeEN-OSICn_-1Q26hkB4i3x2KP3WnW9bueL96W_MISJkoNhlFuvfDUPGIvunvVndwMJpGtHPvTjSSt2U9EXDtzq2XLIy1s7nchEhjNhlBBtABuJ1TWo7IyCpz4IPzwdLw_q8-LbjrG6EUcy8O6ZhuROV5JL2iftaMoYHHqpVwxZL2o2YG_cJjSHs_PgQS1IgVmkgVakgg5-u8n28qT_QIS36mcectV5OYdK_eDIsaAwDtuZKWp7KcndSXECwI9S6_bYCaJw6hYTrcq-hY_v_nVLzjS9vtOymbnuzSVkGgaincnne3Kw4PXBEOMBFu3L7Bcp9feQT7p-ra6VIbZUP3Z14h_6St93M8XupeyQP2FhHnlfJZFEKgz4rVN2Qo8nltkm_3Pkum-yXIQrys3F6p2Md2d6-pndGyaLT5W_pbuX7NXf6Jsa8YzQit1m9nS_mYzBJ1j8TvDC8ZlmvCoK7Cm9DLNn-ipzOQ76nOWvJun3DRdgek0uYyB26RPvwXRKfAhNwkj3dGmY7ejAFxrj0MbtWda59OGoGDJZZrs0DCbVwjo370sPLC4HiCM7nbVI4Y-_y4-AKI-SQkzGANyM2YZGPxGUpQpMwxp8hG3L0o6fz8jRkdklLUorFFnMeJUzfNmMQg_wKx10V4BAconKdrJDBqsWdFddRkRlzyA";
+    SaveData saveData;
 
 
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        go();
-        final View view =  inflater.inflate(R.layout.fragment_home, container, false);
+        binding=FragmentHomeBinding.inflate(inflater,container,false);
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        final View view =binding.getRoot();
+        init();
+//        getall(token_login);
+        getall(saveData.getToken());
 
         return view;
     }
+    public void init() {
+        gson = new GsonBuilder().create();
+        saveData = new SaveData(getContext());
+        binding.recycleviewFoodCategories.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        binding.recycleviewBanner.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        binding.recycleviewDicountedProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        binding.recycleviewFreeDeliveryProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        binding.tvSeeAll.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MainActivity2.class);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
+
+        binding.searchviewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchCategory(newText);
+                return true;
+            }
+        });
+
+    }
+    public void getall(String token) {
+        API apiClient = ClientAPI.createAPI_With_Token(token);
+        Call<Categories> call = apiClient.getCategories();
+        Call<Banner> call1 = apiClient.getBanners();
+        Call<FreeDeliveryProducts> call2 = apiClient.getFreeDeliveryProducts();
+        Call<DiscountedProducts> call3 = apiClient.getDiscountedProducts();
+        call.enqueue(new Callback<Categories>() {
+            @Override
+            public void onResponse(Call<Categories> call, Response<Categories> response) {
+                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
+                    if (!response.body().getError()) {
+                        categoriesDataList.addAll(response.body().getData());
+                        adapterCategories = new AdapterCategories(getContext(), categoriesDataList);
+                        binding.recycleviewFoodCategories.setAdapter(adapterCategories);
+                    } else {
+                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(),"Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Categories> call, Throwable t) {
+                Toast.makeText(getContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        call1.enqueue(new Callback<Banner>() {
+            @Override
+            public void onResponse(Call<Banner> call, Response<Banner> response) {
+                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
+                    if (!response.body().getError()) {
+                        bannerData.addAll(response.body().getData());
+                        adapterBanner = new AdapterBanner(getContext(),bannerData);
+                        binding.recycleviewBanner.setAdapter(adapterBanner);
+
+                    } else {
+                        Toast.makeText(getContext(),response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(),"Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Banner> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        call2.enqueue(new Callback<FreeDeliveryProducts>() {
+            @Override
+            public void onResponse(Call<FreeDeliveryProducts> call, Response<FreeDeliveryProducts> response) {
+                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
+                    if (!response.body().getError()) {
+                        modelFreeDeliveryProductsData.addAll(response.body().getData());
+                        adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(getContext(), modelFreeDeliveryProductsData);
+                        binding.recycleviewFreeDeliveryProducts.setAdapter(adapterFreeDeliveryProducts);
+                    } else {
+                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FreeDeliveryProducts> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        call3.enqueue(new Callback<DiscountedProducts>() {
+            @Override
+            public void onResponse(Call<DiscountedProducts> call, Response<DiscountedProducts> response) {
+                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
+                    if (!response.body().getError()) {
+                        modelDiscountedProductsData.addAll(response.body().getData());
+                        adapterDiscountedProducts = new AdapterDiscountedProducts(getContext(), modelDiscountedProductsData);
+                        binding.recycleviewDicountedProducts.setAdapter(adapterDiscountedProducts);
+                    } else {
+                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DiscountedProducts> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void searchCategory(String s) {
+
+        categoriesData.addAll(categoriesDataList);
+        for (int i = 0; i < categoriesData.size(); i++) {
+            if (!categoriesData.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
+                categoriesData.remove(i);
+                i--;
+            }
+        }
+        if (!categoriesData.isEmpty()) {
+            adapterBanner = new AdapterBanner(getContext(),bannerData);
+            binding.recycleviewBanner.setAdapter(adapterBanner);
 
 
-
+        }
+    }
 }

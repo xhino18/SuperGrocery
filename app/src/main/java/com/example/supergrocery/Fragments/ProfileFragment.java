@@ -26,9 +26,7 @@ import java.util.List;
 
 
 public class ProfileFragment extends Fragment {
-    FragmentProfileBinding fragmentProfileBinding;
-    ActivityMain2Binding activityMain2Binding;
-    List<OrderItem> list = new ArrayList<>();
+    FragmentProfileBinding binding;
     SaveData saveData;
 
     @Override
@@ -36,19 +34,17 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        fragmentProfileBinding=FragmentProfileBinding.inflate(inflater,container,false);
-        View view=fragmentProfileBinding.getRoot();
+        binding=FragmentProfileBinding.inflate(inflater,container,false);
+        View view=binding.getRoot();
 
-        activityMain2Binding=ActivityMain2Binding.inflate(getLayoutInflater());
         final EditProfileDialog alertDialog = new EditProfileDialog();
-        getTotalQuantity();
         saveData=new SaveData(getActivity());
-        fragmentProfileBinding.buttonEditProfile.setOnClickListener(v -> alertDialog.showDialog(getActivity(),"Title"));
-        fragmentProfileBinding.tvProfileName.setText(saveData.get_name());
-        fragmentProfileBinding.tvProfileEmail.setText(saveData.get_email());
-        fragmentProfileBinding.tvProfilePhone.setText(saveData.get_phone_number());
-        fragmentProfileBinding.tvProfileNuis.setText(saveData.get_nuis());
-        fragmentProfileBinding.ivLogout.setOnClickListener(v -> {
+        binding.buttonEditProfile.setOnClickListener(v -> alertDialog.showDialog(getActivity(),"Title"));
+        binding.tvProfileName.setText(saveData.get_name());
+        binding.tvProfileEmail.setText(saveData.get_email());
+        binding.tvProfilePhone.setText(saveData.get_phone_number());
+        binding.tvProfileNuis.setText(saveData.get_nuis());
+        binding.ivLogout.setOnClickListener(v -> {
             new AlertDialog.Builder(requireContext())
                     .setTitle(R.string.logout)
                     .setMessage(R.string.confirmation_logout)
@@ -69,17 +65,5 @@ public class ProfileFragment extends Fragment {
         getActivity().finish();
     }
 
-    private void getTotalQuantity() {
-        int totalquantity = 0;
-        list = ItemsDB.getInstance(getActivity()).orderItemDao().getAllItems();
-        for (int i = 0; i < list.size(); i++) {
-            totalquantity = totalquantity + list.get(i).getQuantity();
-        }
-        if (totalquantity == 0) {
-            activityMain2Binding.tvBasketQuantity.setVisibility(View.GONE);
-        } else {
-            activityMain2Binding.tvBasketQuantity.setVisibility(View.VISIBLE);
-        }
-        activityMain2Binding.tvBasketQuantity.setText(totalquantity + "");
-    }
+
 }

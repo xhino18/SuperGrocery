@@ -12,4 +12,5 @@ public interface ItemClickInterface {
     void dicountedProductsClicked(DiscountedProductsData data);
 
     void categoryClicked(CategoriesData data);
+
 }

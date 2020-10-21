@@ -42,7 +42,7 @@
         android:layout_centerInParent="true"
         android:cursorVisible="false"
         android:digits="1234567890"
-        android:inputType="number"
+        android:inputType="phone"
         android:maxLength="6"
         app:pinLineStroke="2dp"
         android:textIsSelectable="false"

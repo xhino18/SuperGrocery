@@ -19,35 +19,18 @@ import java.util.List;
 
 
 public class DiscoverFragment extends Fragment {
-    FragmentDiscoverBinding fragmentDiscoverBinding;
-    ActivityMain2Binding activityMain2Binding;
-    List<OrderItem> list = new ArrayList<>();
+    FragmentDiscoverBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        fragmentDiscoverBinding=FragmentDiscoverBinding.inflate(inflater,container,false);
-        View view = fragmentDiscoverBinding.getRoot();
+        binding=FragmentDiscoverBinding.inflate(inflater,container,false);
+        View view = binding.getRoot();
 
-        activityMain2Binding=ActivityMain2Binding.inflate(getLayoutInflater());
-        getTotalQuantity();
         return view;
     }
 
-    private void getTotalQuantity() {
-        int totalquantity = 0;
-        list = ItemsDB.getInstance(getActivity()).orderItemDao().getAllItems();
-        for (int i = 0; i < list.size(); i++) {
-            totalquantity = totalquantity + list.get(i).getQuantity();
-        }
-        if (totalquantity == 0) {
-            activityMain2Binding.tvBasketQuantity.setVisibility(View.GONE);
-        } else {
-            activityMain2Binding.tvBasketQuantity.setVisibility(View.VISIBLE);
-        }
-        activityMain2Binding.tvBasketQuantity.setText(totalquantity + "");
-    }
 
 
 }

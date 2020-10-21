@@ -5,71 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity2">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/relative_main2">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="90dp"
-            app:cardCornerRadius="10dp">
-
-            <SearchView
-                android:id="@+id/searchview_main_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#0D000000"
-                android:focusedByDefault="false"
-                android:focusable="false"
-                android:iconifiedByDefault="false"
-                android:queryBackground="@android:color/transparent"
-                android:queryHint="Search Product">
-
-            </SearchView>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:id="@+id/cardview_basket_quantity"
-            android:layout_marginRight="10dp"
-            app:cardCornerRadius="@dimen/cardview_basket_radius">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#03CDC6">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
-                    android:id="@+id/iv_basket_cart"
-                    android:src="@drawable/ic_shopping_cart"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true">
-                </ImageView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_basket_quantity"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:layout_marginRight="7dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true">
-
-                </TextView>
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </RelativeLayout>
 
       <FrameLayout
         android:id="@+id/fragment_container"

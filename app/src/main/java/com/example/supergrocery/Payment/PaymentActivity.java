@@ -11,27 +11,34 @@ import android.widget.Toast;
 
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityPaymentBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    ActivityPaymentBinding activityPaymentBinding;
+    ActivityPaymentBinding binding;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityPaymentBinding = ActivityPaymentBinding.inflate(getLayoutInflater());
-        final View view = activityPaymentBinding.getRoot();
+        binding = ActivityPaymentBinding.inflate(getLayoutInflater());
+        final View view = binding.getRoot();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
-        activityPaymentBinding.spinnerCity.setOnItemSelectedListener(this);
-        activityPaymentBinding.spinnerCountry.setOnItemSelectedListener(this);
+        bundle=getIntent().getExtras();
+        binding.spinnerCity.setOnItemSelectedListener(this);
+        binding.spinnerCountry.setOnItemSelectedListener(this);
 
-
-        String total = getIntent().getStringExtra("getTotal");
-        activityPaymentBinding.tvFinalTotal.setText(total);
+        if(bundle!=null) {
+            if (bundle.getString("payment_type").equalsIgnoreCase("buy_now")) {
+                String total = getIntent().getStringExtra("item_price");
+                binding.tvFinalTotal.setText(total);
+            } else {
+                String total = getIntent().getStringExtra("getTotal");
+                binding.tvFinalTotal.setText(total);
+            }
+        }
 
         // Spinner Drop down elements
         List<String> cities = new ArrayList<String>();
@@ -73,8 +80,8 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        activityPaymentBinding.spinnerCity.setAdapter(cityAdapter);
-        activityPaymentBinding.spinnerCountry.setAdapter(countryAdapter);
+        binding.spinnerCity.setAdapter(cityAdapter);
+        binding.spinnerCountry.setAdapter(countryAdapter);
     }
 
     @Override

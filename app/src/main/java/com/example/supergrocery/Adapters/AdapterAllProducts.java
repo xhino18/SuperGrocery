@@ -43,9 +43,6 @@ public class AdapterAllProducts extends RecyclerView.Adapter<AdapterAllProducts.
         holder.price.setText(Integer.toString(allProductsData.get(position).getPrice()));
         Glide.with(context).load(Links.categories_images+allProductsData.get(position).getImage()).into(holder.image);
 
-
-
-
     }
 
     @Override
