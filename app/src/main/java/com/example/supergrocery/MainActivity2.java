@@ -16,6 +16,8 @@ import com.example.supergrocery.Fragments.DiscoverFragment;
 import com.example.supergrocery.Fragments.HomeFragment;
 import com.example.supergrocery.Fragments.ProfileFragment;
 import com.example.supergrocery.Fragments.ShopFragment;
+import com.example.supergrocery.GetModels.AllProducts;
+import com.example.supergrocery.GetModels.AllProductsData;
 import com.example.supergrocery.GetModels.CategoriesData;
 import com.example.supergrocery.GetModels.DiscountedProductsData;
 import com.example.supergrocery.GetModels.FreeDeliveryProductsData;
@@ -72,6 +74,10 @@ public class MainActivity2 extends AppCompatActivity implements ItemClickInterfa
         if (basket) {
             binding.bottomNavigation.setSelectedItemId(R.id.nav_basket);
         }
+        Boolean shop = getIntent().getBooleanExtra("goToShop", false);
+        if (shop) {
+            binding.bottomNavigation.setSelectedItemId(R.id.nav_shop);
+        }
 
     }
 
@@ -108,8 +114,9 @@ public class MainActivity2 extends AppCompatActivity implements ItemClickInterfa
     }
 
     @Override
-    public void freeDeliveryClicked(FreeDeliveryProductsData data) {
+    public void freeDeliveryClicked(AllProductsData data) {
         Intent intent = new Intent(MainActivity2.this, FreeDeliveryActivity.class);
+        intent.putExtra("cat_id",data.getId());
         intent.putExtra("cat_name", data.getName());
         intent.putExtra("cat_price", data.getPrice());
         intent.putExtra("cat_image",data.getImage());
@@ -121,6 +128,7 @@ public class MainActivity2 extends AppCompatActivity implements ItemClickInterfa
     @Override
     public void dicountedProductsClicked(DiscountedProductsData data) {
         Intent intent = new Intent(MainActivity2.this, DiscountedProductsActivity.class);
+        intent.putExtra("cat_id",data.getId());
         intent.putExtra("cat_name", data.getName());
         intent.putExtra("cat_price", data.getPrice());
         intent.putExtra("cat_image",data.getImage());

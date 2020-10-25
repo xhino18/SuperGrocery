@@ -331,30 +331,42 @@
 
             </TextView>
          </LinearLayout>
-        <androidx.cardview.widget.CardView
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_confirm"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/button_confirm"
             android:layout_marginStart="@dimen/standart_basket_items_margin"
             android:layout_marginLeft="@dimen/standart_basket_items_margin"
             android:layout_marginTop="@dimen/standart_topBottom_margin"
             android:layout_marginEnd="@dimen/standart_basket_items_margin"
             android:layout_marginRight="@dimen/standart_basket_items_margin"
-            android:layout_marginBottom="@dimen/standart_basket_items_margin"
-            app:cardElevation="@dimen/cardview_default_elevation"
-            app:cardCornerRadius="@dimen/standart_button_radius">
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            app:cornerRadius="10dp">
 
-        <Button
-            android:id="@+id/button_confirm"
-            style="@android:style/Widget.Holo.Light.Button.Small"
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_cancel"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="@string/button_confirm"
-            android:textColor="@color/white"
-            android:textSize="20sp">
+            android:layout_marginStart="@dimen/standart_basket_items_margin"
+            android:layout_marginLeft="@dimen/standart_basket_items_margin"
+            android:layout_marginEnd="@dimen/standart_basket_items_margin"
+            android:layout_marginRight="@dimen/standart_basket_items_margin"
+            android:layout_marginBottom="@dimen/standart_basket_items_margin"
+            android:text="@string/button_cancel"
+            android:textColor="@color/text_cancelcolor"
+            app:backgroundTint="@color/cancelColor"
+            app:cornerRadius="10dp">
 
-        </Button>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.button.MaterialButton>
+
 
     </LinearLayout>
 </RelativeLayout>

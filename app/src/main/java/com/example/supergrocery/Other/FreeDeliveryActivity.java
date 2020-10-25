@@ -13,13 +13,22 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
+import com.example.supergrocery.Adapters.AdapterAllProducts;
 import com.example.supergrocery.Adapters.AdapterFreeDeliveryProducts;
+import com.example.supergrocery.Adapters.AdapterMoreFreeDeliveryProducts;
+import com.example.supergrocery.GetModels.AllProducts;
+import com.example.supergrocery.GetModels.AllProductsData;
 import com.example.supergrocery.GetModels.CategoriesData;
 import com.example.supergrocery.GetModels.DiscountedProductsData;
 import com.example.supergrocery.GetModels.FreeDeliveryProducts;
 import com.example.supergrocery.GetModels.FreeDeliveryProductsData;
+import com.example.supergrocery.GetModels.ShopProductsData;
+import com.example.supergrocery.Interfaces.AddFreeDeliveryProductInBasket;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
+import com.example.supergrocery.Payment.PaymentActivity;
 import com.example.supergrocery.R;
+import com.example.supergrocery.ROOM.ItemsDB;
+import com.example.supergrocery.ROOM.OrderItem;
 import com.example.supergrocery.databinding.ActivityFreeDeliveryBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -34,9 +43,11 @@ import retrofit2.Response;
 public class FreeDeliveryActivity extends AppCompatActivity implements ItemClickInterface {
     ActivityFreeDeliveryBinding binding;
     SaveData saveData;
-    List<FreeDeliveryProductsData> freeDeliveryProductsData=new ArrayList<>();
-    AdapterFreeDeliveryProducts adapterFreeDeliveryProducts;
+    List<AllProductsData> allProductsData=new ArrayList<>();
+    AdapterMoreFreeDeliveryProducts adapterMoreFreeDeliveryProducts;
     Gson gson;
+    int id,price;
+    String name,image;
 
 
     @Override
@@ -56,34 +67,58 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
         gson=new GsonBuilder().create();
         saveData=new SaveData(this);
         binding.recycleviewMoreFreeProducts.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
-        String name=getIntent().getStringExtra("cat_name");
-        int price=getIntent().getIntExtra("cat_price",-1);
-        String image=getIntent().getStringExtra("cat_image");
+        id=getIntent().getIntExtra("cat_id",-1);
+        name=getIntent().getStringExtra("cat_name");
+        price=getIntent().getIntExtra("cat_price",-1);
+        image=getIntent().getStringExtra("cat_image");
 
         binding.bannerItemName.setText(name);
-        binding.bannerItemPrice.setText(price+" ALL");
+        binding.bannerItemPrice.setText((price)+" ALL");
         Glide.with(this).load(Links.categories_images+image).into(binding.imageviewDiscountProduct);
 
         binding.ivBackimage.setOnClickListener(v -> {
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
-        binding.buttonAddToCart.setOnClickListener(v -> {
-
-
+        binding.buttonBuyNow.setOnClickListener(view -> {
+            Intent intent=new Intent(FreeDeliveryActivity.this, PaymentActivity.class);
+            intent.putExtra("payment_type","buy_now");
+            intent.putExtra("item_price",price);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
+        binding.buttonAddToCart.setOnClickListener(v -> {
+            OrderItem orderItemsModel = parseProductToOrderItems(id,name,image,price);
+            boolean found = false;
+            for (OrderItem basketOrderItem : ItemsDB.getInstance(this).orderItemDao().getAllItems()) {
+                if (basketOrderItem.getId()==(orderItemsModel.getId())) {
+                    found = true;
+                    basketOrderItem.incrementQuantity();
+                    ItemsDB.getInstance(this).orderItemDao().update(basketOrderItem);
+                    Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
+                    break;
+
+                }
+            }
+            if (!found) {
+                ItemsDB.getInstance(this).orderItemDao().insert(orderItemsModel);
+                Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
     }
     public void getall(String token) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<FreeDeliveryProducts> call = apiClient.getFreeDeliveryProducts();
-        call.enqueue(new Callback<FreeDeliveryProducts>() {
+        Call<AllProducts> call = apiClient.getFreeDeliveryProducts();
+        call.enqueue(new Callback<AllProducts>() {
             @Override
-            public void onResponse(Call<FreeDeliveryProducts> call, Response<FreeDeliveryProducts> response) {
+            public void onResponse(Call<AllProducts> call, Response<AllProducts> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
-                        freeDeliveryProductsData.addAll(response.body().getData());
-                        adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(FreeDeliveryActivity.this, freeDeliveryProductsData);
-                        binding.recycleviewMoreFreeProducts.setAdapter(adapterFreeDeliveryProducts);
+                        allProductsData.addAll(response.body().getData());
+                        adapterMoreFreeDeliveryProducts = new AdapterMoreFreeDeliveryProducts(FreeDeliveryActivity.this, allProductsData);
+                        binding.recycleviewMoreFreeProducts.setAdapter(adapterMoreFreeDeliveryProducts);
                     } else {
                         Toast.makeText(FreeDeliveryActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -93,7 +128,7 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
             }
 
             @Override
-            public void onFailure(Call<FreeDeliveryProducts> call, Throwable t) {
+            public void onFailure(Call<AllProducts> call, Throwable t) {
                 Toast.makeText(FreeDeliveryActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -108,8 +143,9 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
     }
 
     @Override
-    public void freeDeliveryClicked(FreeDeliveryProductsData data) {
+    public void freeDeliveryClicked(AllProductsData data) {
         Intent intent = new Intent(FreeDeliveryActivity.this, FreeDeliveryActivity.class);
+        intent.putExtra("cat_id",data.getId());
         intent.putExtra("cat_name", data.getName());
         intent.putExtra("cat_price", data.getPrice());
         intent.putExtra("cat_image",data.getImage());
@@ -117,6 +153,17 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
 
+    }
+    public OrderItem parseProductToOrderItems(int id,String name,String image,int price) {
+        return new OrderItem(
+                new Long(id),
+                id,
+                name,
+                image,
+                price,
+                1
+
+        );
     }
 
     @Override

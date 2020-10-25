@@ -21,6 +21,8 @@ import com.example.supergrocery.Adapters.AdapterBanner;
 import com.example.supergrocery.Adapters.AdapterCategories;
 import com.example.supergrocery.Adapters.AdapterDiscountedProducts;
 import com.example.supergrocery.Adapters.AdapterFreeDeliveryProducts;
+import com.example.supergrocery.GetModels.AllProducts;
+import com.example.supergrocery.GetModels.AllProductsData;
 import com.example.supergrocery.GetModels.Banner;
 import com.example.supergrocery.GetModels.BannerData;
 import com.example.supergrocery.GetModels.Categories;
@@ -53,7 +55,7 @@ public class HomeFragment extends Fragment {
     List<CategoriesData> categoriesData = new ArrayList<>();
     List<BannerData> bannerData = new ArrayList<>();
     List<DiscountedProductsData> modelDiscountedProductsData = new ArrayList<>();
-    List<FreeDeliveryProductsData> modelFreeDeliveryProductsData = new ArrayList<>();
+    List<AllProductsData> allProductsData = new ArrayList<>();
     AdapterCategories adapterCategories;
     AdapterBanner adapterBanner;
     AdapterDiscountedProducts adapterDiscountedProducts;
@@ -83,8 +85,9 @@ public class HomeFragment extends Fragment {
         binding.recycleviewFreeDeliveryProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.tvSeeAll.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), MainActivity2.class);
+            intent.putExtra("goToShop",true);
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            getActivity().overridePendingTransition(R.anim.see_all_anim, R.anim.see_all_anim);
         });
 
         binding.searchviewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -106,7 +109,7 @@ public class HomeFragment extends Fragment {
         API apiClient = ClientAPI.createAPI_With_Token(token);
         Call<Categories> call = apiClient.getCategories();
         Call<Banner> call1 = apiClient.getBanners();
-        Call<FreeDeliveryProducts> call2 = apiClient.getFreeDeliveryProducts();
+        Call<AllProducts> call2 = apiClient.getFreeDeliveryProducts();
         Call<DiscountedProducts> call3 = apiClient.getDiscountedProducts();
         call.enqueue(new Callback<Categories>() {
             @Override
@@ -152,13 +155,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        call2.enqueue(new Callback<FreeDeliveryProducts>() {
+        call2.enqueue(new Callback<AllProducts>() {
             @Override
-            public void onResponse(Call<FreeDeliveryProducts> call, Response<FreeDeliveryProducts> response) {
+            public void onResponse(Call<AllProducts> call, Response<AllProducts> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
-                        modelFreeDeliveryProductsData.addAll(response.body().getData());
-                        adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(getContext(), modelFreeDeliveryProductsData);
+                        allProductsData.addAll(response.body().getData());
+                        adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(getContext(), allProductsData);
                         binding.recycleviewFreeDeliveryProducts.setAdapter(adapterFreeDeliveryProducts);
                     } else {
                         Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -169,7 +172,7 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<FreeDeliveryProducts> call, Throwable t) {
+            public void onFailure(Call<AllProducts> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

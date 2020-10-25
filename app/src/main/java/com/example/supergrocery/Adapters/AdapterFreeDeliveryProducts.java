@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.supergrocery.GetModels.AllProductsData;
 import com.example.supergrocery.GetModels.FreeDeliveryProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
@@ -19,11 +20,11 @@ import java.util.List;
 
 public class AdapterFreeDeliveryProducts extends RecyclerView.Adapter<AdapterFreeDeliveryProducts.ViewHolder> {
     Context context;
-    List<FreeDeliveryProductsData> freeDeliveryProductsData;
+    List<AllProductsData> allProductsData;
 
-    public AdapterFreeDeliveryProducts(Context context, List<FreeDeliveryProductsData> freeDeliveryProductsData) {
+    public AdapterFreeDeliveryProducts(Context context, List<AllProductsData> allProductsData) {
         this.context = context;
-        this.freeDeliveryProductsData = freeDeliveryProductsData;
+        this.allProductsData = allProductsData;
     }
 
     @NonNull
@@ -35,17 +36,17 @@ public class AdapterFreeDeliveryProducts extends RecyclerView.Adapter<AdapterFre
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load(Links.categories_images+freeDeliveryProductsData.get(position).getImage()).into(holder.imageview_free_delivery_product);
+        Glide.with(context).load(Links.categories_images+allProductsData.get(position).getImage()).into(holder.imageview_free_delivery_product);
         holder.imageview_free_delivery_product.setOnClickListener(v -> {
 
-            ((ItemClickInterface)context).freeDeliveryClicked(freeDeliveryProductsData.get(position));
+            ((ItemClickInterface)context).freeDeliveryClicked(allProductsData.get(position));
         });
 
     }
 
     @Override
     public int getItemCount() {
-        return freeDeliveryProductsData.size();
+        return allProductsData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

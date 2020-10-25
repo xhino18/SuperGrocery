@@ -3,6 +3,7 @@ package com.example.supergrocery.Payment;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -17,6 +18,7 @@ import java.util.List;
 public class PaymentActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ActivityPaymentBinding binding;
     Bundle bundle;
+    Boolean doubleBackToExitPressedOnce=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +28,18 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
+        init();
+    }
+
+    private void init() {
         bundle=getIntent().getExtras();
         binding.spinnerCity.setOnItemSelectedListener(this);
         binding.spinnerCountry.setOnItemSelectedListener(this);
 
         if(bundle!=null) {
             if (bundle.getString("payment_type").equalsIgnoreCase("buy_now")) {
-                String total = getIntent().getStringExtra("item_price");
-                binding.tvFinalTotal.setText(total);
+                int total = getIntent().getIntExtra("item_price",-1);
+                binding.tvFinalTotal.setText(total+" ALL");
             } else {
                 String total = getIntent().getStringExtra("getTotal");
                 binding.tvFinalTotal.setText(total);
@@ -82,6 +88,11 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
         // attaching data adapter to spinner
         binding.spinnerCity.setAdapter(cityAdapter);
         binding.spinnerCountry.setAdapter(countryAdapter);
+        binding.buttonCancel.setOnClickListener(view -> {
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
+        });
     }
 
     @Override
@@ -99,8 +110,20 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
 
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press back again to exit Payment", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }

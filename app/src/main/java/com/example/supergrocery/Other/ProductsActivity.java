@@ -179,10 +179,13 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
     public void productClicked(ShopProductsData data) {
         Intent intent = new Intent(ProductsActivity.this, SelectedProductActivity.class);
         intent.putExtra("cat_id", catId);
-        intent.putExtra("cat_name", data.getName());
-        intent.putExtra("cat_description", data.getDescription());
-        intent.putExtra("cat_price", data.getPrice());
-        intent.putExtra("cat_image", data.getImage());
+        intent.putExtra("prod_id", data.getId());
+        intent.putExtra("prod_name", data.getName());
+        intent.putExtra("prod_price", data.getPrice());
+        intent.putExtra("prod_description", data.getDescription());
+        intent.putExtra("prod_image", data.getImage());
+
+
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

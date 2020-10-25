@@ -5,6 +5,7 @@ import com.example.supergrocery.GetModels.Banner;
 import com.example.supergrocery.GetModels.Categories;
 import com.example.supergrocery.GetModels.DiscountedProducts;
 import com.example.supergrocery.GetModels.FreeDeliveryProducts;
+import com.example.supergrocery.GetModels.GetProductByID;
 import com.example.supergrocery.GetModels.ShopProducts;
 import com.example.supergrocery.PostModels.ModelSendCode;
 import com.example.supergrocery.PostModels.UserRegister;
@@ -35,12 +36,15 @@ public interface API {
         @GET("packages")
         Call<DiscountedProducts> getDiscountedProducts();
 
-        @GET("package_items/1")
-        Call<FreeDeliveryProducts> getFreeDeliveryProducts();
+        @GET("products_by_category/13")
+        Call<AllProducts> getFreeDeliveryProducts();
 
 
         @GET("products_by_category/{id}")
         Call<ShopProducts> getProducts(@Path("id") int id);
+
+        @GET("product_info/{id}")
+        Call<GetProductByID> getProductByID(@Path("id") int id);
 
         @FormUrlEncoded
         @POST("register")

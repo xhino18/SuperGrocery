@@ -37,7 +37,6 @@ public class AdapterDiscountedProducts extends RecyclerView.Adapter<AdapterDisco
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Glide.with(context).load(Links.categories_images + discountedProductsData.get(position).getImage()).into(holder.imageview_discount_product);
         holder.imageview_discount_product.setOnClickListener(v -> {
-
             ((ItemClickInterface)context).dicountedProductsClicked(discountedProductsData.get(position));
         });
 

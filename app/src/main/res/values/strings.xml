@@ -62,6 +62,7 @@
     <string name="tv_more_free_products">More products :</string>
     <string name="tv_header_products">Products</string>
     <string name="tv_products_static_description">Description :</string>
+    <string name="button_cancel">Cancel</string>
 
     <string-array name="spinner_city">
         <item>Mercury</item>
