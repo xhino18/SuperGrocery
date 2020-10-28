@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Other.SaveData;
-import com.example.supergrocery.PostModels.ModelSendCode;
+import com.example.supergrocery.ModelsPost.ModelSendCode;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityLoginBinding;
 import com.google.gson.Gson;

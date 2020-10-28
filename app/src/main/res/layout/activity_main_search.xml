@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Other.MainSearchActivity">
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/relative_height"
+        android:layout_marginTop="@dimen/standart_header_marginTop"
+        android:layout_marginBottom="@dimen/standart_header_marginBottom">
+
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/standart_left_margin"
+            android:src="@drawable/ic_backicon">
+
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/iv_header_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/header_icon_right_margin"
+            android:layout_marginRight="@dimen/header_icon_right_margin"
+            android:layout_toStartOf="@+id/tv_main_title"
+            android:layout_toLeftOf="@+id/tv_main_title"
+            android:src="@drawable/ic_grocery">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/tv_main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/rock_salt"
+            android:rotation="2"
+            android:rotationX="17"
+            android:rotationY="-11"
+            android:text="@string/menu_title"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/menu_title_size"
+            android:textStyle="bold">
+
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/relative_marginBottom"
+        android:focusable="true">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/searchview_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/searchview_leftmargin"
+            android:layout_marginLeft="@dimen/searchview_leftmargin"
+            android:layout_marginEnd="@dimen/searchview_rightmargin"
+            android:layout_marginRight="@dimen/searchview_rightmargin"
+            android:focusable="true"
+            app:cardCornerRadius="@dimen/searchview_main_radius">
+
+            <SearchView
+                android:id="@+id/searchview_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/search_view_background"
+                android:focusable="true"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@android:color/transparent"
+                android:queryHint="Search Product or Category">
+
+            </SearchView>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleview_searched_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/standart_left_margin"
+        android:layout_marginLeft="@dimen/standart_left_margin"
+        android:layout_marginEnd="@dimen/standart_right_margin"
+        android:layout_marginRight="@dimen/standart_right_margin"
+        android:layout_marginBottom="@dimen/standart_topBottom_margin">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>

@@ -1,8 +1,6 @@
 package com.example.supergrocery.Interfaces;
 
-import com.example.supergrocery.GetModels.AllProducts;
-import com.example.supergrocery.GetModels.AllProductsData;
-import com.example.supergrocery.GetModels.FreeDeliveryProductsData;
+import com.example.supergrocery.ModelsGet.AllProductsData;
 
 public interface AddFreeDeliveryProductInBasket {
 

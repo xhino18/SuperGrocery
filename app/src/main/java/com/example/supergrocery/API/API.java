@@ -1,14 +1,13 @@
 package com.example.supergrocery.API;
 
-import com.example.supergrocery.GetModels.AllProducts;
-import com.example.supergrocery.GetModels.Banner;
-import com.example.supergrocery.GetModels.Categories;
-import com.example.supergrocery.GetModels.DiscountedProducts;
-import com.example.supergrocery.GetModels.FreeDeliveryProducts;
-import com.example.supergrocery.GetModels.GetProductByID;
-import com.example.supergrocery.GetModels.ShopProducts;
-import com.example.supergrocery.PostModels.ModelSendCode;
-import com.example.supergrocery.PostModels.UserRegister;
+import com.example.supergrocery.ModelsGet.AllProducts;
+import com.example.supergrocery.ModelsGet.Banner;
+import com.example.supergrocery.ModelsGet.Categories;
+import com.example.supergrocery.ModelsGet.DiscountedProducts;
+import com.example.supergrocery.ModelsGet.GetProductByID;
+import com.example.supergrocery.ModelsGet.ShopProducts;
+import com.example.supergrocery.ModelsPost.ModelSendCode;
+import com.example.supergrocery.ModelsPost.UserRegister;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

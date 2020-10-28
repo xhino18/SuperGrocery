@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.PostModels.UserRegister;
+import com.example.supergrocery.ModelsPost.UserRegister;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityRegisterBinding;
 import com.google.gson.Gson;

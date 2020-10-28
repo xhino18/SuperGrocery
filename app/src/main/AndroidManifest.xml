@@ -11,13 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Other.SelectedProductActivity"></activity>
-        <activity android:name=".Other.DiscountedProductsActivity" />
-        <activity android:name=".Other.FreeDeliveryActivity" />
+        <activity android:name=".Other.MainSearchActivity"/>
+        <activity android:name=".ProductModelActivity.SelectedProductActivity" />
+        <activity android:name=".ProductModelActivity.DiscountedProductsActivity" />
+        <activity android:name=".ProductModelActivity.FreeDeliveryActivity" />
         <activity android:name=".Payment.PaymentActivity" />
         <activity android:name=".Login_RegisterAcitivity.LoginCodeActivity" />
         <activity android:name=".Login_RegisterAcitivity.RegisterActivity" />
-        <activity android:name=".Other.ProductsActivity" />
+        <activity android:name=".ProductModelActivity.ProductsActivity" />
         <activity android:name=".Login_RegisterAcitivity.LoginActivity" />
         <activity android:name=".Intro.IntroActivity_1">
             <intent-filter>

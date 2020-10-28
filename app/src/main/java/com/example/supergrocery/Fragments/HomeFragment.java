@@ -7,12 +7,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
@@ -21,19 +19,16 @@ import com.example.supergrocery.Adapters.AdapterBanner;
 import com.example.supergrocery.Adapters.AdapterCategories;
 import com.example.supergrocery.Adapters.AdapterDiscountedProducts;
 import com.example.supergrocery.Adapters.AdapterFreeDeliveryProducts;
-import com.example.supergrocery.GetModels.AllProducts;
-import com.example.supergrocery.GetModels.AllProductsData;
-import com.example.supergrocery.GetModels.Banner;
-import com.example.supergrocery.GetModels.BannerData;
-import com.example.supergrocery.GetModels.Categories;
-import com.example.supergrocery.GetModels.CategoriesData;
-import com.example.supergrocery.GetModels.DiscountedProducts;
-import com.example.supergrocery.GetModels.DiscountedProductsData;
-import com.example.supergrocery.GetModels.FreeDeliveryProducts;
-import com.example.supergrocery.GetModels.FreeDeliveryProductsData;
-import com.example.supergrocery.MainActivity;
+import com.example.supergrocery.ModelsGet.AllProducts;
+import com.example.supergrocery.ModelsGet.AllProductsData;
+import com.example.supergrocery.ModelsGet.Banner;
+import com.example.supergrocery.ModelsGet.BannerData;
+import com.example.supergrocery.ModelsGet.Categories;
+import com.example.supergrocery.ModelsGet.CategoriesData;
+import com.example.supergrocery.ModelsGet.DiscountedProducts;
+import com.example.supergrocery.ModelsGet.DiscountedProductsData;
 import com.example.supergrocery.MainActivity2;
-import com.example.supergrocery.Other.ProductsActivity;
+import com.example.supergrocery.Other.MainSearchActivity;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.FragmentHomeBinding;
@@ -87,21 +82,14 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(getContext(), MainActivity2.class);
             intent.putExtra("goToShop",true);
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.see_all_anim, R.anim.see_all_anim);
+            getActivity().overridePendingTransition(R.anim.see_all_anim, R.anim.slide_out_left);
         });
 
-        binding.searchviewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
+        binding.tvSearchBar.setOnClickListener(view -> {
+                Intent intent=new Intent(getContext(),MainSearchActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchCategory(newText);
-                return true;
-            }
         });
 
     }

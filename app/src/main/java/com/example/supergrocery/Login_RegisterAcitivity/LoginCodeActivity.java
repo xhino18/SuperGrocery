@@ -13,8 +13,8 @@ import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.MainActivity2;
 import com.example.supergrocery.Other.SaveData;
 
-import com.example.supergrocery.PostModels.ModelSendCode;
-import com.example.supergrocery.PostModels.UserRegister;
+import com.example.supergrocery.ModelsPost.ModelSendCode;
+import com.example.supergrocery.ModelsPost.UserRegister;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityLoginCodeBinding;
 import com.google.gson.Gson;

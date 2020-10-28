@@ -18,21 +18,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:id="@+id/iv_cashOnDelivery"
+            android:scaleType="fitXY"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_margin="5dp"
-            android:elevation="@dimen/cardview_default_elevation"
-            app:cardCornerRadius="@dimen/cardview_default_radius">
-
-            <ImageView
-                android:id="@+id/iv_cashOnDelivery"
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:src="@drawable/cash">
-
-            </ImageView>
-        </androidx.cardview.widget.CardView>
+            android:src="@drawable/cash">
+        </ImageButton>
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
