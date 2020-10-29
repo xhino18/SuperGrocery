@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_centerInParent="true"
         android:layout_height="match_parent"
-        android:paddingBottom="150dp"
+        android:paddingBottom="@dimen/intro_padding_bottom"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/introanim">
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
-        android:paddingTop="120dp"
+        android:paddingTop="@dimen/intro_loading_padding_top"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/introanimloading">

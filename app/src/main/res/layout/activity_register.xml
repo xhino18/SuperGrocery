@@ -10,7 +10,7 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_register"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/standart_login_lottie_height"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/standart_loginRegister_margin"
         app:lottie_autoPlay="true"
@@ -53,8 +53,9 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:inputType="textPersonName"
-                android:background="@null"                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:background="@null"
+                android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical">
 
@@ -64,7 +65,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/standart_registration_dimension"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/register_input_marginTop"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"
             android:orientation="horizontal"
@@ -88,8 +89,9 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:inputType="textEmailAddress"
-                android:background="@null"                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:background="@null"
+                android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical">
 
@@ -100,7 +102,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/standart_registration_dimension"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/register_input_marginTop"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"
             android:orientation="horizontal"
@@ -125,8 +127,8 @@
                 android:singleLine="true"
                 android:inputType="phone"
                 android:background="@null"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical">
 
@@ -168,7 +170,7 @@
             android:id="@+id/linear_nuis"
             android:layout_width="match_parent"
             android:layout_height="@dimen/standart_registration_dimension"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/register_input_marginTop"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"
             android:orientation="horizontal"
@@ -193,8 +195,8 @@
                 android:background="@null"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical">
 
@@ -231,8 +233,8 @@
                 android:layout_weight="1"
                 android:textAlignment="textEnd"
                 android:layout_gravity="end"
-                android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp">
+                android:layout_marginRight="@dimen/standart_payment_input_marginleft"
+                android:layout_marginEnd="@dimen/standart_payment_input_marginleft">
 
             </TextView>
             <TextView

@@ -24,7 +24,6 @@ public class AdapterAllProducts extends RecyclerView.Adapter<AdapterAllProducts.
     Context context;
 
     public AdapterAllProducts( Context context,List<AllProductsData> allProductsData) {
-
         this.context = context;
         this.allProductsData = allProductsData;
     }

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="20dp">
+        android:layout_margin="@dimen/payment_main_linear_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,27 +20,26 @@
 
 
         <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/standart_payment_image_width"
+            android:layout_height="@dimen/standart_payment_image_height"
             android:id="@+id/iv_cashOnDelivery"
             android:scaleType="fitXY"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_payment_image_margin"
             android:src="@drawable/cash">
         </ImageButton>
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_payment_image_margin"
             android:elevation="@dimen/cardview_default_elevation"
-
             app:cardCornerRadius="@dimen/cardview_default_radius">
 
             <ImageView
                 android:id="@+id/iv_paypal"
-                android:layout_width="80dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/standart_payment_image_width"
+                android:layout_height="@dimen/standart_payment_image_height"
                 android:src="@drawable/paypal">
 
             </ImageView>
@@ -49,14 +48,14 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_payment_image_margin"
             android:elevation="@dimen/cardview_default_elevation"
             app:cardCornerRadius="@dimen/cardview_default_radius">
 
             <ImageView
                 android:id="@+id/iv_masterCard"
-                android:layout_width="80dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/standart_payment_image_width"
+                android:layout_height="@dimen/standart_payment_image_height"
                 android:src="@drawable/mastercard">
 
             </ImageView>
@@ -65,14 +64,14 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_payment_image_margin"
             android:elevation="@dimen/cardview_default_elevation"
             app:cardCornerRadius="@dimen/cardview_default_radius">
 
             <ImageView
                 android:id="@+id/iv_visa"
-                android:layout_width="80dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/standart_payment_image_width"
+                android:layout_height="@dimen/standart_payment_image_height"
                 android:src="@drawable/visa">
 
             </ImageView>
@@ -86,7 +85,7 @@
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/standart_topBottom_margin"
         android:layout_marginBottom="@dimen/standart_topBottom_margin"
-        android:textSize="20sp"
+        android:textSize="@dimen/standart_payment_button_textSize"
         android:textStyle="bold">
 
     </TextView>
@@ -118,8 +117,8 @@
                 android:maxLines="1"
                 android:inputType="textPersonName"
                 android:singleLine="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical">
 
@@ -129,7 +128,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/standart_registration_dimension"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/standart_payment_linear_input_marginTop"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"
             android:orientation="horizontal"
@@ -150,12 +149,12 @@
                 android:id="@+id/et_payment_surname"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="@dimen/standart_payment_input_marginleft"
                 android:background="@null"
                 android:maxLines="1"
                 android:inputType="textPersonName"
                 android:singleLine="true"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical">
 
@@ -166,7 +165,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/standart_registration_dimension"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/standart_payment_linear_input_marginTop"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"
             android:orientation="horizontal"
@@ -187,8 +186,8 @@
                 android:id="@+id/et_payment_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                 android:background="@null"
                 android:maxLines="1"
                 android:inputType="phone"
@@ -202,7 +201,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/standart_registration_dimension"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/standart_payment_linear_input_marginTop"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"
             android:orientation="horizontal"
@@ -225,8 +224,8 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:maxLines="1"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:gravity="start|center_vertical">
@@ -296,7 +295,7 @@
          <LinearLayout
             android:layout_width="match_parent"
              android:layout_height="@dimen/standart_registration_dimension"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="@dimen/payment_total_linear_marginTop"
             android:background="@color/white"
             android:elevation="@dimen/cardview_default_elevation"
             android:orientation="horizontal"
@@ -308,7 +307,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="@dimen/payment_tv_total_textSize"
                 android:gravity="center"
                 android:text="@string/tv_payment_total">
 
@@ -318,9 +317,9 @@
                 android:id="@+id/tv_final_total"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:textSize="20sp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                android:textSize="@dimen/payment_tv_total_textSize"
+                android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                 android:layout_weight="1.5"
                 android:gravity="start|center_vertical">
 
@@ -339,9 +338,9 @@
             android:layout_marginEnd="@dimen/standart_basket_items_margin"
             android:layout_marginRight="@dimen/standart_basket_items_margin"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/standart_payment_button_textSize"
             android:textAllCaps="false"
-            app:cornerRadius="10dp">
+            app:cornerRadius="@dimen/standart_payment_button_radius">
 
         </com.google.android.material.button.MaterialButton>
 
@@ -358,7 +357,7 @@
             android:text="@string/button_cancel"
             android:textColor="@color/text_cancelcolor"
             app:backgroundTint="@color/cancelColor"
-            app:cornerRadius="10dp">
+            app:cornerRadius="@dimen/standart_payment_button_radius">
 
         </com.google.android.material.button.MaterialButton>
 

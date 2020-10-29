@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/standart_header_height"
         android:layout_marginTop="@dimen/standart_header_marginTop"
         android:layout_marginBottom="@dimen/standart_topBottom_margin"
         android:id="@+id/relative_main2"
@@ -38,12 +38,12 @@
         </TextView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/cardview_quantity_width"
+            android:layout_height="@dimen/cardview_quantity_height"
             android:layout_alignParentRight="true"
             android:id="@+id/cardview_basket_items"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="@dimen/cardview_quantity_marginRight"
             android:visibility="gone"
             app:cardCornerRadius="@dimen/cardview_basket_radius">
             <RelativeLayout
@@ -53,7 +53,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
+                    android:layout_marginLeft="@dimen/cardview_quantity_image_marginLeft"
                     android:src="@drawable/ic_shopping_cart"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true">
@@ -62,9 +62,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_basket_quantity"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:layout_marginRight="7dp"
+                    android:layout_marginRight="@dimen/cardview_quantity_image_marginLeft"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true">
 
@@ -79,7 +79,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/delete_icon_marginRight"
             android:layout_marginRight="@dimen/delete_icon_marginRight"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="@dimen/cardview_product_search_radius">
 
             <SearchView
                 android:id="@+id/searchview_main_2"

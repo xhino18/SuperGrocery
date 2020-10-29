@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/standart_header_height"
         android:layout_marginTop="@dimen/standart_header_marginTop"
         android:id="@+id/relative_main2"
         android:elevation="2dp">
@@ -60,7 +60,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="@dimen/product_tv_width"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="@string/tv_banner_item_static_name"
@@ -84,7 +84,7 @@
         android:layout_marginTop="@dimen/standart_topBottom_margin">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="@dimen/product_tv_width"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="@string/tv_banner_item_static_price"
@@ -120,7 +120,7 @@
     android:layout_gravity="center"
     app:strokeColor="@color/colorAccent"
     android:layout_weight="1"
-    app:cornerRadius="10dp"
+    app:cornerRadius="@dimen/standart_payment_button_radius"
     android:text="@string/button_add_to_card"
     android:textAlignment="center">
 
@@ -133,7 +133,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/button_buy_now"
     android:layout_weight="1"
-    app:cornerRadius="10dp"
+    app:cornerRadius="@dimen/standart_payment_button_radius"
     android:text="@string/button_buy_now">
 
 </com.google.android.material.button.MaterialButton>

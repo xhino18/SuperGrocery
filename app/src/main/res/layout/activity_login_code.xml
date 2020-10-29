@@ -36,15 +36,15 @@
     <!--    </EditText>-->
     <com.alimuzaffar.lib.pin.PinEntryEditText
         android:id="@+id/code"
-        android:paddingBottom="80dp"
-        android:layout_width="150dp"
+        android:paddingBottom="@dimen/verifyCode_editText_paddingBottom"
+        android:layout_width="@dimen/verifyCode_editText_width"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:cursorVisible="false"
         android:digits="1234567890"
         android:inputType="phone"
         android:maxLength="6"
-        app:pinLineStroke="2dp"
+        app:pinLineStroke="@dimen/pinLineStroke"
         android:textIsSelectable="false"
         >
 
@@ -86,9 +86,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:paddingRight="210dp"
-        android:paddingEnd="210dp"
-        android:paddingBottom="70dp"
+        android:paddingRight="@dimen/verfiyCode_lottie_paddingRight"
+        android:paddingEnd="@dimen/verfiyCode_lottie_paddingRight"
+        android:paddingBottom="@dimen/verfiyCode_lottie_paddingBottom"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/arrowanim">
