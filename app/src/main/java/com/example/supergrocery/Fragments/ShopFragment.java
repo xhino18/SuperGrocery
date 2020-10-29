@@ -16,6 +16,7 @@ import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterFragmentCategories;
 import com.example.supergrocery.ModelsGet.Categories;
 import com.example.supergrocery.ModelsGet.CategoriesData;
+import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.databinding.FragmentShopBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,7 +28,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.supergrocery.MainActivity.token_login;
 
 
 public class ShopFragment extends Fragment {
@@ -35,6 +35,7 @@ public class ShopFragment extends Fragment {
     List<CategoriesData> categoriesData = new ArrayList<>();
     AdapterFragmentCategories adapterFragmentCategories;
     Gson gson;
+    SaveData saveData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +44,7 @@ public class ShopFragment extends Fragment {
         View view= binding.getRoot();
         binding.recycleviewFragmentCategories.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         gson = new GsonBuilder().create();
+        saveData=new SaveData(getContext());
         binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -56,7 +58,7 @@ public class ShopFragment extends Fragment {
             }
         });
 
-    getCategories(token_login);
+    getCategories(saveData.getToken());
         return view;
     }
 

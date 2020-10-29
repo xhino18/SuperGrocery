@@ -42,8 +42,6 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
     ActivitySelectedProductBinding binding;
     SaveData saveData;
     List<ShopProductsData> shopProductsData=new ArrayList<>();
-    AdapterGetProductByID adapterGetProductByID;
-    GetProductByIDData getProductByIDData;
     AdapterMoreShopProducts adapterMoreShopProducts;
     Gson gson;
     String name,image,description;
@@ -134,45 +132,6 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
                 Toast.makeText(SelectedProductActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-//        call1.enqueue(new Callback<GetProductByID>() {
-//            @Override
-//            public void onResponse(Call<GetProductByID> call, Response<GetProductByID> response) {
-//                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-//                    if (!response.body().getError()) {
-//                        getProductByIDData=new GetProductByIDData(
-//                                response.body().getData().getId(),
-//                                response.body().getData().getName(),
-//                                response.body().getData().getImage(),
-//                                response.body().getData().getDescription(),
-//                                response.body().getData().getPrice(),
-//                                response.body().getData().getStock(),
-//                                response.body().getData().getUnit(),
-//                                response.body().getData().getSizes(),
-//                                response.body().getData().getMinimum_order(),
-//                                response.body().getData().getMaximum_order(),
-//                                response.body().getData().getDiscount(),
-//                                response.body().getData().getDiscounted_price(),
-//                                response.body().getData().getPrices(),
-//                                response.body().getData().getMore_images());
-//                        binding.productsItemName.setText(response.body().getData().getName());
-//                        binding.productsItemPrice.setText(Integer.toString(response.body().getData().getPrice()));
-//                        binding.productsItemDescription.setText(response.body().getData().getDescription());
-//                        Glide.with(SelectedProductActivity.this).load(Links.categories_images+response.body().getData().getImage()).into(binding.imageviewProducts);
-//
-//                    } else {
-//                        Toast.makeText(SelectedProductActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                } else {
-//                    Toast.makeText(SelectedProductActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<GetProductByID> call, Throwable t) {
-//                Toast.makeText(SelectedProductActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//                Toast.makeText(SelectedProductActivity.this, "ops", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
     }
     @Override
@@ -188,6 +147,10 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
         Intent intent = new Intent(SelectedProductActivity.this, SelectedProductActivity.class);
         intent.putExtra("cat_id", cat_id);
         intent.putExtra("prod_id", data.getId());
+        intent.putExtra("prod_name", data.getName());
+        intent.putExtra("prod_price", data.getPrice());
+        intent.putExtra("prod_description", data.getDescription());
+        intent.putExtra("prod_image", data.getImage());
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

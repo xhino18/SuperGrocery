@@ -1,211 +1,120 @@
 package com.example.supergrocery;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.example.supergrocery.API.API;
-import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.Adapters.AdapterCategories;
-import com.example.supergrocery.Adapters.AdapterBanner;
-import com.example.supergrocery.Adapters.AdapterDiscountedProducts;
-import com.example.supergrocery.Adapters.AdapterFreeDeliveryProducts;
-import com.example.supergrocery.ModelsGet.AllProducts;
+import com.example.supergrocery.Fragments.BasketFragment;
+import com.example.supergrocery.Fragments.DiscoverFragment;
+import com.example.supergrocery.Fragments.HomeFragment;
+import com.example.supergrocery.Fragments.Profile.ProfileFragment;
+import com.example.supergrocery.Fragments.ShopFragment;
 import com.example.supergrocery.ModelsGet.AllProductsData;
-import com.example.supergrocery.ModelsGet.Banner;
-import com.example.supergrocery.ModelsGet.BannerData;
-import com.example.supergrocery.ModelsGet.Categories;
 import com.example.supergrocery.ModelsGet.CategoriesData;
-import com.example.supergrocery.ModelsGet.DiscountedProducts;
 import com.example.supergrocery.ModelsGet.DiscountedProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.ProductModelActivity.DiscountedProductsActivity;
 import com.example.supergrocery.ProductModelActivity.FreeDeliveryActivity;
 import com.example.supergrocery.ProductModelActivity.ProductsActivity;
 import com.example.supergrocery.Other.SaveData;
+import com.example.supergrocery.ROOM.ItemsDB;
+import com.example.supergrocery.ROOM.OrderItem;
 import com.example.supergrocery.databinding.ActivityMainBinding;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static android.media.CamcorderProfile.get;
 
 public class MainActivity extends AppCompatActivity implements ItemClickInterface {
-    ActivityMainBinding activityMainBinding;
 
-    Gson gson;
-    List<CategoriesData> categoriesDataList = new ArrayList<>();
-    List<CategoriesData> categoriesData = new ArrayList<>();
-    List<BannerData> bannerData = new ArrayList<>();
-    List<DiscountedProductsData> modelDiscountedProductsData = new ArrayList<>();
-    List<AllProductsData> allProductsData = new ArrayList<>();
-    AdapterCategories adapterCategories;
-    AdapterBanner adapterBanner;
-    AdapterDiscountedProducts adapterDiscountedProducts;
-    AdapterFreeDeliveryProducts adapterFreeDeliveryProducts;
+    ActivityMainBinding binding;
+    List<OrderItem> list = new ArrayList<>();
     boolean doubleBackToExitPressedOnce = false;
-    public static final String token_login = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMGQ1YmY4MDY0MzUxNjU4NWNiY2M2MDYxZGIxMGYyYTkyMTM3ZWU3MTgyOWRlZWYyMzA5NDc1ZDU1MTk5ZDVlNDk2MjMxOGE3YzEzOWZkMmEiLCJpYXQiOjE1ODIxMDc1OTIsIm5iZiI6MTU4MjEwNzU5MiwiZXhwIjoxNjEzNzI5OTkyLCJzdWIiOiIxNSIsInNjb3BlcyI6W119.j-4iSBeEN-OSICn_-1Q26hkB4i3x2KP3WnW9bueL96W_MISJkoNhlFuvfDUPGIvunvVndwMJpGtHPvTjSSt2U9EXDtzq2XLIy1s7nchEhjNhlBBtABuJ1TWo7IyCpz4IPzwdLw_q8-LbjrG6EUcy8O6ZhuROV5JL2iftaMoYHHqpVwxZL2o2YG_cJjSHs_PgQS1IgVmkgVakgg5-u8n28qT_QIS36mcectV5OYdK_eDIsaAwDtuZKWp7KcndSXECwI9S6_bYCaJw6hYTrcq-hY_v_nVLzjS9vtOymbnuzSVkGgaincnne3Kw4PXBEOMBFu3L7Bcp9feQT7p-ra6VIbZUP3Z14h_6St93M8XupeyQP2FhHnlfJZFEKgz4rVN2Qo8nltkm_3Pkum-yXIQrys3F6p2Md2d6-pndGyaLT5W_pbuX7NXf6Jsa8YzQit1m9nS_mYzBJ1j8TvDC8ZlmvCoK7Cm9DLNn-ipzOQ76nOWvJun3DRdgek0uYyB26RPvwXRKfAhNwkj3dGmY7ejAFxrj0MbtWda59OGoGDJZZrs0DCbVwjo370sPLC4HiCM7nbVI4Y-_y4-AKI-SQkzGANyM2YZGPxGUpQpMwxp8hG3L0o6fz8jRkdklLUorFFnMeJUzfNmMQg_wKx10V4BAconKdrJDBqsWdFddRkRlzyA";
     SaveData saveData;
+    Gson gson;
+    BadgeDrawable badgeDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        final View view = activityMainBinding.getRoot();
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        final View view = binding.getRoot();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();
-//        getall(token_login);
-        getall(saveData.getToken());
+
 
     }
 
-    public void init() {
+    private void init() {
+
         gson = new GsonBuilder().create();
         saveData = new SaveData(this);
-        activityMainBinding.recycleviewFoodCategories.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        activityMainBinding.recycleviewBanner.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        activityMainBinding.recycleviewDicountedProducts.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        activityMainBinding.recycleviewFreeDeliveryProducts.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        activityMainBinding.tvSeeAll.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        });
-        activityMainBinding.ivMenuicon.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        });
-        activityMainBinding.searchviewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(navListener);
+        //Which fragment to show first
+        binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
+        getTotalQuantity();
 
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchCategory(newText);
+        Boolean basket = getIntent().getBooleanExtra("goToBasket", false);
+        if (basket) {
+            binding.bottomNavigation.setSelectedItemId(R.id.nav_basket);
+        }
+        Boolean shop = getIntent().getBooleanExtra("goToShop", false);
+        if (shop) {
+            binding.bottomNavigation.setSelectedItemId(R.id.nav_shop);
+        }
+
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            item -> {
+                Fragment selectedFragment = null;
+
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case R.id.nav_discover:
+                        selectedFragment = new DiscoverFragment();
+                        break;
+                    case R.id.nav_basket:
+                        selectedFragment = new BasketFragment();
+                        break;
+                    case R.id.nav_shop:
+                        selectedFragment = new ShopFragment();
+                        break;
+                    case R.id.nav_profile:
+                        selectedFragment = new ProfileFragment();
+                        break;
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
                 return true;
-            }
-        });
 
+            };
+
+
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
-
-    public void getall(String token) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<Categories> call = apiClient.getCategories();
-        Call<Banner> call1 = apiClient.getBanners();
-        Call<AllProducts> call2 = apiClient.getFreeDeliveryProducts();
-        Call<DiscountedProducts> call3 = apiClient.getDiscountedProducts();
-        call.enqueue(new Callback<Categories>() {
-            @Override
-            public void onResponse(Call<Categories> call, Response<Categories> response) {
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-                    if (!response.body().getError()) {
-                        categoriesDataList.addAll(response.body().getData());
-                        adapterCategories = new AdapterCategories(MainActivity.this, categoriesDataList);
-                        activityMainBinding.recycleviewFoodCategories.setAdapter(adapterCategories);
-                    } else {
-                        Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Categories> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        call1.enqueue(new Callback<Banner>() {
-            @Override
-            public void onResponse(Call<Banner> call, Response<Banner> response) {
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-                    if (!response.body().getError()) {
-                        bannerData.addAll(response.body().getData());
-                        adapterBanner = new AdapterBanner(MainActivity.this,bannerData);
-                        activityMainBinding.recycleviewBanner.setAdapter(adapterBanner);
-
-                    } else {
-                        Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Banner> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        call2.enqueue(new Callback<AllProducts>() {
-            @Override
-            public void onResponse(Call<AllProducts> call, Response<AllProducts> response) {
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-                    if (!response.body().getError()) {
-                        allProductsData.addAll(response.body().getData());
-                        adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(MainActivity.this, allProductsData);
-                        activityMainBinding.recycleviewFreeDeliveryProducts.setAdapter(adapterFreeDeliveryProducts);
-                    } else {
-                        Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AllProducts> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        call3.enqueue(new Callback<DiscountedProducts>() {
-            @Override
-            public void onResponse(Call<DiscountedProducts> call, Response<DiscountedProducts> response) {
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-                    if (!response.body().getError()) {
-                        modelDiscountedProductsData.addAll(response.body().getData());
-                        adapterDiscountedProducts = new AdapterDiscountedProducts(MainActivity.this, modelDiscountedProductsData);
-                        activityMainBinding.recycleviewDicountedProducts.setAdapter(adapterDiscountedProducts);
-                    } else {
-                        Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DiscountedProducts> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 
     @Override
     public void freeDeliveryClicked(AllProductsData data) {
         Intent intent = new Intent(MainActivity.this, FreeDeliveryActivity.class);
+        intent.putExtra("cat_id",data.getId());
         intent.putExtra("cat_name", data.getName());
         intent.putExtra("cat_price", data.getPrice());
         intent.putExtra("cat_image",data.getImage());
@@ -217,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
     @Override
     public void dicountedProductsClicked(DiscountedProductsData data) {
         Intent intent = new Intent(MainActivity.this, DiscountedProductsActivity.class);
-        intent.putExtra("cat_id", data.getId());
+        intent.putExtra("cat_id",data.getId());
         intent.putExtra("cat_name", data.getName());
         intent.putExtra("cat_price", data.getPrice());
         intent.putExtra("cat_image",data.getImage());
@@ -225,30 +134,58 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
-    @Override
     public void categoryClicked(CategoriesData data) {
         Intent intent = new Intent(MainActivity.this, ProductsActivity.class);
         intent.putExtra("cat_id", data.getId());
         intent.putExtra("cat_name", data.getName());
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
     }
 
-    private void searchCategory(String s) {
-
-        categoriesData.addAll(categoriesDataList);
-        for (int i = 0; i < categoriesData.size(); i++) {
-            if (!categoriesData.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
-                categoriesData.remove(i);
-                i--;
-            }
+    public void getTotalQuantity() {
+        int totalquantity = 0;
+        list = ItemsDB.getInstance(MainActivity.this).orderItemDao().getAllItems();
+        badgeDrawable = binding.bottomNavigation.getOrCreateBadge(R.id.nav_basket);
+        badgeDrawable.setBackgroundColor(Color.RED);
+        badgeDrawable.setBadgeTextColor(Color.WHITE);
+        badgeDrawable.setMaxCharacterCount(2);
+        for (int i = 0; i < list.size(); i++) {
+            totalquantity = totalquantity + list.get(i).getQuantity();
         }
-        if (!categoriesData.isEmpty()) {
-            adapterBanner = new AdapterBanner(MainActivity.this,bannerData);
-            activityMainBinding.recycleviewBanner.setAdapter(adapterBanner);
-
-
+        if (totalquantity == 0) {
+            badgeDrawable.setVisible(false);
+        } else {
+            badgeDrawable.setVisible(true);
         }
+        badgeDrawable.setNumber(totalquantity);
+
+    }
+
+//    private void searchCategory(String s) {
+//        List<AllProductsData> productsData = new ArrayList<>();
+//
+//
+//        productsData.addAll(fragmentProfileBinding.allProductsData);
+//        for (int i = 0; i < productsData.size(); i++) {
+//            if (!productsData.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
+//                productsData.remove(i);
+//                i--;
+//            }
+//        }
+//        if (!productsData.isEmpty()) {
+//            activityMain2Binding.recycleviewAllProducts.setVisibility(View.GONE);
+//
+//
+//        }
+//
+//    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getTotalQuantity();
     }
 
     @Override
@@ -270,5 +207,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
             }
         }, 2000);
     }
+
 
 }

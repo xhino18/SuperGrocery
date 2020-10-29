@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.supergrocery.Adapters.AdapterBasketItems;
 import com.example.supergrocery.Interfaces.AddOrRemoveBasketItem;
-import com.example.supergrocery.MainActivity2;
+import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.Payment.PaymentActivity;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
@@ -87,7 +87,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
     }
 
     private void getTotalQuantity() {
-        ((MainActivity2) requireActivity()).getTotalQuantity();
+        ((MainActivity) requireActivity()).getTotalQuantity();
 
     }
 

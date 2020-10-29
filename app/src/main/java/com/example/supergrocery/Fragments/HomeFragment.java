@@ -27,7 +27,7 @@ import com.example.supergrocery.ModelsGet.Categories;
 import com.example.supergrocery.ModelsGet.CategoriesData;
 import com.example.supergrocery.ModelsGet.DiscountedProducts;
 import com.example.supergrocery.ModelsGet.DiscountedProductsData;
-import com.example.supergrocery.MainActivity2;
+import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.Other.MainSearchActivity;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.R;
@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
         binding.recycleviewDicountedProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.recycleviewFreeDeliveryProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.tvSeeAll.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), MainActivity2.class);
+            Intent intent = new Intent(getContext(), MainActivity.class);
             intent.putExtra("goToShop",true);
             startActivity(intent);
             getActivity().overridePendingTransition(R.anim.see_all_anim, R.anim.slide_out_left);

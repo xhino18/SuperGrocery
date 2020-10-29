@@ -17,7 +17,8 @@ import com.example.supergrocery.ModelsGet.ShopProducts;
 import com.example.supergrocery.ModelsGet.ShopProductsData;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
 import com.example.supergrocery.Interfaces.ProductClickedInterface;
-import com.example.supergrocery.MainActivity2;
+import com.example.supergrocery.MainActivity;
+import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.ItemsDB;
 import com.example.supergrocery.ROOM.OrderItem;
@@ -32,11 +33,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.supergrocery.MainActivity.token_login;
-
 public class ProductsActivity extends AppCompatActivity implements AddItemInBasket, ProductClickedInterface {
     ActivityProductsBinding binding;
-
+    SaveData saveData;
     Gson gson;
     List<ShopProductsData> modelShopProductsDataList = new ArrayList<>();
     List<OrderItem> orderItemsModels = new ArrayList<>();
@@ -60,13 +59,14 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
 
         binding.recycleviewShopProducts.setLayoutManager(new GridLayoutManager(ProductsActivity.this, 2));
         gson = new GsonBuilder().create();
+        saveData=new SaveData(this);
         binding.ivBackimage.setOnClickListener(v -> {
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         binding.cardviewBasketItems.setOnClickListener(v -> {
-            Intent intent=new Intent(ProductsActivity.this, MainActivity2.class);
+            Intent intent=new Intent(ProductsActivity.this, MainActivity.class);
             intent.putExtra("goToBasket",true);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -76,7 +76,7 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         catId = getIntent().getIntExtra("cat_id", -1);
         binding.tvProductCategory.setText(getIntent().getStringExtra("cat_name"));
         System.out.println("Id contoller " + catId);
-        getall(token_login, catId);
+        getall(saveData.getToken(), catId);
         getTotalQuantity();
 
         binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

@@ -4,344 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     tools:context=".MainActivity">
 
-    <ScrollView
+
+      <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:id="@+id/linear_main_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/standart_linear_marginBottom"
-                android:background="@color/white"
-                android:elevation="@dimen/cardview_default_elevation"
-                android:orientation="vertical">
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:id="@+id/relative"
-                    android:layout_height="@dimen/relative_height">
-
-                    <ImageView
-                        android:id="@+id/iv_menuicon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/standart_left_margin"
-                        android:layout_marginLeft="@dimen/standart_left_margin"
-                        android:src="@drawable/ic_menu">
-
-                    </ImageView>
-
-                    <ImageView
-                        android:id="@+id/iv_location_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/iv_menuicon_left_margin"
-                        android:layout_marginLeft="@dimen/iv_menuicon_left_margin"
-                        android:layout_toEndOf="@id/iv_menuicon"
-                        android:layout_toRightOf="@+id/iv_menuicon"
-                        android:src="@drawable/ic_grocery">
-
-                    </ImageView>
-
-                    <TextView
-                        android:id="@+id/tv_address_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/tv_address_location_right_margin"
-                        android:layout_marginRight="@dimen/tv_address_location_right_margin"
-                        android:layout_toEndOf="@id/iv_location_icon"
-                        android:layout_toRightOf="@+id/iv_location_icon"
-                        android:fontFamily="@font/rock_salt"
-                        android:rotation="2"
-                        android:rotationX="17"
-                        android:rotationY="-11"
-                        android:text="@string/menu_title"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/menu_title_size"
-                        android:textStyle="bold">
-
-                    </TextView>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/relative_marginBottom">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/searchview_cardview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="@dimen/searchview_leftmargin"
-                        android:layout_marginLeft="@dimen/searchview_leftmargin"
-                        android:layout_marginEnd="@dimen/searchview_rightmargin"
-                        android:layout_marginRight="@dimen/searchview_rightmargin"
-                        app:cardCornerRadius="@dimen/searchview_main_radius">
-
-                        <SearchView
-                            android:id="@+id/searchview_main"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/search_view_background"
-                            android:focusable="false"
-                            android:iconifiedByDefault="false"
-                            android:queryBackground="@android:color/transparent"
-                            android:queryHint="Search Product or Store">
-
-                        </SearchView>
-                    </androidx.cardview.widget.CardView>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:id="@+id/relative2"
-                    android:layout_height="@dimen/relative2_height">
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleview_banner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/standart_left_margin"
-                        android:layout_marginLeft="@dimen/standart_left_margin"
-                        android:layout_marginTop="@dimen/standart_topBottom_margin"
-                        android:layout_marginEnd="@dimen/standart_right_margin"
-                        android:layout_marginRight="@dimen/standart_right_margin"
-                        android:layout_marginBottom="@dimen/standart_topBottom_margin"
-                        android:orientation="horizontal"
-                        tools:listitem="@layout/discount_products_model">
-
-                    </androidx.recyclerview.widget.RecyclerView>
-
-
-<!--                    <androidx.viewpager.widget.ViewPager-->
-<!--                        android:id="@+id/viewPager"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="@dimen/relative2_height">-->
-
-<!--                    </androidx.viewpager.widget.ViewPager>-->
-
-<!--                    <com.rd.PageIndicatorView-->
-<!--                        android:id="@+id/pageIndicatorView"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_alignParentBottom="true"-->
-<!--                        android:layout_centerHorizontal="true"-->
-<!--                        app:piv_animationType="slide"-->
-<!--                        app:piv_dynamicCount="true"-->
-<!--                        app:piv_interactiveAnimation="true"-->
-<!--                        app:piv_selectedColor="@color/selected_page_indicator"-->
-<!--                        app:piv_unselectedColor="@color/unselected_page_indicator"-->
-<!--                        app:piv_viewPager="@id/viewPager">-->
-
-<!--                    </com.rd.PageIndicatorView>-->
-
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/standart_left_margin"
-                    android:layout_marginLeft="@dimen/standart_left_margin"
-                    android:layout_marginTop="@dimen/standart_topBottom_margin"
-                    android:layout_marginEnd="@dimen/standart_right_margin"
-                    android:layout_marginRight="@dimen/standart_right_margin"
-                    android:layout_marginBottom="@dimen/standart_topBottom_margin">
-
-                    <TextView
-                        android:id="@+id/tv_categories"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:fontFamily="sans-serif-light"
-                        android:text="@string/categories"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_categories_textSize"
-                        android:textStyle="bold">
-
-                    </TextView>
-
-                    <TextView
-                        android:id="@+id/tv_see_all"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingTop="@dimen/tv_seeAll_paddingTop"
-                        android:text="@string/see_all"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold">
-
-                    </TextView>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleview_food_categories"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/recycleview_food_categories_height"
-                        android:layout_marginStart="@dimen/standart_left_margin"
-                        android:layout_marginLeft="@dimen/standart_left_margin"
-                        android:layout_marginEnd="@dimen/standart_right_margin"
-                        android:layout_marginRight="@dimen/standart_right_margin"
-                        android:orientation="horizontal"
-                        tools:listitem="@layout/food_categories_model">
-
-                    </androidx.recyclerview.widget.RecyclerView>
-                </RelativeLayout>
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/standart_topBottom_margin"
-                android:background="@color/white"
-                android:elevation="@dimen/cardview_default_elevation"
-                android:orientation="vertical">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/standart_left_margin"
-                    android:layout_marginLeft="@dimen/standart_left_margin"
-                    android:layout_marginTop="@dimen/standart_topBottom_margin"
-                    android:layout_marginEnd="@dimen/standart_right_margin"
-                    android:layout_marginRight="@dimen/standart_right_margin"
-                    android:layout_marginBottom="@dimen/standart_topBottom_margin"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_freeDelivery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:text="@string/free_delivery"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_freeDelivery_textSize"
-                        android:textStyle="bold">
-
-                    </TextView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/tv_seeAll_paddingTop"
-                        android:text="@string/free_delivery_paragraph"
-                        android:textColor="@color/black"
-                        android:textStyle="bold">
-
-                    </TextView>
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycleview_free_delivery_products"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/standart_left_margin"
-                    android:layout_marginLeft="@dimen/standart_left_margin"
-                    android:layout_marginEnd="@dimen/standart_right_margin"
-                    android:layout_marginRight="@dimen/standart_right_margin"
-                    android:layout_marginBottom="@dimen/standart_topBottom_margin"
-                    android:orientation="horizontal"
-                    tools:listitem="@layout/free_delivery_products_model">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/standart_topBottom_margin"
-                android:background="@color/white"
-                android:elevation="@dimen/cardview_default_elevation"
-                android:orientation="vertical">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/standart_left_margin"
-                    android:layout_marginLeft="@dimen/standart_left_margin"
-                    android:layout_marginTop="@dimen/standart_topBottom_margin"
-                    android:layout_marginEnd="@dimen/standart_right_margin"
-                    android:layout_marginRight="@dimen/standart_right_margin"
-                    android:layout_marginBottom="@dimen/standart_topBottom_margin"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_dicountedProducts"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:text="@string/tv_dicountedProducts"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_freeDelivery_textSize"
-                        android:textStyle="bold">
-
-                    </TextView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/tv_seeAll_paddingTop"
-                        android:text="@string/dont_miss_this_chance"
-                        android:textColor="@color/black"
-                        android:textStyle="bold">
-
-                    </TextView>
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycleview_dicounted_products"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/standart_left_margin"
-                    android:layout_marginLeft="@dimen/standart_left_margin"
-                    android:layout_marginEnd="@dimen/standart_right_margin"
-                    android:layout_marginRight="@dimen/standart_right_margin"
-                    android:layout_marginBottom="@dimen/standart_topBottom_margin"
-                    android:orientation="horizontal"
-                    tools:listitem="@layout/free_delivery_products_model">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-</ScrollView></RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_below="@+id/relative_main2"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp">
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:id="@+id/recycleview_all_products"-->
+        <!--            android:visibility="invisible">-->
+
+        <!--        </androidx.recyclerview.widget.RecyclerView>-->
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:id="@+id/bottom_navigation"
+        android:paddingTop="5dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffffff"
+        android:elevation="10dp"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_menu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+</RelativeLayout>

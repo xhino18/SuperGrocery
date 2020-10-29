@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.MainActivity2;
+import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.Other.SaveData;
 
 import com.example.supergrocery.ModelsPost.ModelSendCode;
@@ -161,7 +161,7 @@ public class LoginCodeActivity extends AppCompatActivity {
 
 
     public void gotomenu() {
-        Intent intent = new Intent(this, MainActivity2.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         Toast.makeText(LoginCodeActivity.this, "Wellcome back " + saveData.get_name() + " !", Toast.LENGTH_SHORT).show();
