@@ -17,6 +17,7 @@ import com.example.supergrocery.Interfaces.AddOrRemoveBasketItem;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
 import com.example.supergrocery.ROOM.OrderItem;
+import com.example.supergrocery.databinding.BasketItemModelBinding;
 
 import java.util.List;
 
@@ -34,30 +35,20 @@ public class AdapterBasketItems extends RecyclerView.Adapter<AdapterBasketItems.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.basket_item_model, parent, false);
-        return new ViewHolder(itemView);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        BasketItemModelBinding binding=BasketItemModelBinding.inflate(inflater,parent,false);
+        return new AdapterBasketItems.ViewHolder(binding);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.tv_basket_item_name.setText(orderItemsModels.get(position).getName());
-        holder.tv_basket_item_price.setText(Integer.toString(orderItemsModels.get(position).getPrice())+" ALL");
-        holder.tv_basket_item_quantity.setText(Integer.toString(orderItemsModels.get(position).getQuantity()));
-        Glide.with(basketFragment).load(Links.categories_images+orderItemsModels.get(position).getUrlImage()).into(holder.iv_basket_item);
-        holder.iv_add_quantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((AddOrRemoveBasketItem)basketFragment).addClicked(orderItemsModels.get(position),position);
-            }
-        });
-        holder.iv_remove_quantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((AddOrRemoveBasketItem)basketFragment).removeClicked(orderItemsModels.get(position),position);
-            }
-        });
+        holder.binding.tvBasketItemName.setText(orderItemsModels.get(position).getName());
+        holder.binding.tvBasketItemPrice.setText(orderItemsModels.get(position).getPrice()+" ALL");
+        holder.binding.tvBasketItemQuantity.setText(Integer.toString(orderItemsModels.get(position).getQuantity()));
+        Glide.with(basketFragment).load(Links.categories_images+orderItemsModels.get(position).getUrlImage()).into(holder.binding.ivBasketItem);
+        holder.binding.ivAddQuantity.setOnClickListener(v -> ((AddOrRemoveBasketItem)basketFragment).addClicked(orderItemsModels.get(position),position));
+        holder.binding.ivRemoveQuantity.setOnClickListener(v -> ((AddOrRemoveBasketItem)basketFragment).removeClicked(orderItemsModels.get(position),position));
 
     }
 
@@ -67,20 +58,12 @@ public class AdapterBasketItems extends RecyclerView.Adapter<AdapterBasketItems.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView iv_basket_item,iv_add_quantity,iv_remove_quantity;
-        TextView tv_basket_item_name,tv_basket_item_price,tv_basket_item_quantity;
-        Button button_confirm;
+        BasketItemModelBinding binding;
 
+        public ViewHolder(BasketItemModelBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            iv_basket_item=itemView.findViewById(R.id.iv_basket_item);
-            iv_add_quantity=itemView.findViewById(R.id.iv_add_quantity);
-            iv_remove_quantity=itemView.findViewById(R.id.iv_remove_quantity);
-            tv_basket_item_name=itemView.findViewById(R.id.tv_basket_item_name);
-            tv_basket_item_price=itemView.findViewById(R.id.tv_basket_item_price);
-            tv_basket_item_quantity=itemView.findViewById(R.id.tv_basket_item_quantity);
-            button_confirm=itemView.findViewById(R.id.button_confirm);
         }
     }
 }

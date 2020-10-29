@@ -46,46 +46,30 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
             }
         }
 
-        // Spinner Drop down elements
         List<String> cities = new ArrayList<String>();
         cities.add("Tirana");
         cities.add("Durrës");
         cities.add("Elbasan");
-        cities.add("Education");
+        cities.add("Sarande");
         cities.add("Vlorë");
         cities.add("Fier");
-        cities.add("Tirana1");
-        cities.add("Durrës1");
-        cities.add("Elbasan1");
-        cities.add("Education1");
-        cities.add("Vlorë1");
-        cities.add("Fier1");
-        cities.add("Tirana2");
-        cities.add("Durrës2");
-        cities.add("Elbasan2");
-        cities.add("Education2");
-        cities.add("Vlorë2");
-        cities.add("Fier2");
-        cities.add("Tirana3");
-        cities.add("Durrës3");
-        cities.add("Elbasan3");
-        cities.add("Education3");
-        cities.add("Vlorë3");
-        cities.add("Fier3");
-
+        cities.add("Kukes");
+        cities.add("Tepelene");
+        cities.add("Korce");
+        cities.add("Lezhe");
+        cities.add("Shkoder");
+        cities.add("Gjirokaster");
+        cities.add("Lushnje");
 
         List<String> country = new ArrayList<String>();
         country.add("Albania");
 
-        // Creating adapter for spinner
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cities);
         ArrayAdapter<String> countryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, country);
 
-        // Drop down layout style - list view with radio button
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // attaching data adapter to spinner
         binding.spinnerCity.setAdapter(cityAdapter);
         binding.spinnerCountry.setAdapter(countryAdapter);
         binding.buttonCancel.setOnClickListener(view -> {

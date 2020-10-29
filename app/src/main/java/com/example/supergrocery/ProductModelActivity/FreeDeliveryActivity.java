@@ -162,11 +162,10 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
         );
     }
 
-    @Override
+      @Override
     public void dicountedProductsClicked(DiscountedProductsData data) {
 
     }
-
     @Override
     public void categoryClicked(CategoriesData data) {
 

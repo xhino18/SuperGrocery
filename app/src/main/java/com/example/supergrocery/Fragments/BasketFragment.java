@@ -40,11 +40,17 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         fragmentBasketBinding = FragmentBasketBinding.inflate(inflater, container, false);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(fragmentBasketBinding.recycleviewBasketItems);
         View view = fragmentBasketBinding.getRoot();
 
+
+        init();
+
+        return view;
+    }
+
+    private void init() {
 
         fragmentBasketBinding.recycleviewBasketItems.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         fragmentBasketBinding.buttonCheckout.setOnClickListener(v -> {
@@ -74,8 +80,6 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         getTotalQuantity();
         showBasketItems();
         updateTotal();
-
-        return view;
     }
 
     private void deleteAll() {

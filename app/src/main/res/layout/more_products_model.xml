@@ -5,11 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/cardview_more_products_width"
+        android:layout_height="@dimen/cardview_more_products_height"
         android:id="@+id/cardview_more_products"
         app:cardCornerRadius="@dimen/standart_image_cardview_radius"
-        android:layout_margin="5dp">
+        android:layout_margin="@dimen/cardview_more_products_margin">
 
         <ImageView
             android:layout_width="match_parent"

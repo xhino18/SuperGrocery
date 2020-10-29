@@ -67,7 +67,7 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/relative_mainSearch_height"
                     android:layout_marginBottom="@dimen/relative_marginBottom">
 
                     <androidx.cardview.widget.CardView
@@ -92,7 +92,7 @@
                             android:layout_gravity="center"
                             android:background="@color/search_view_background"
                             android:text="@string/tv_search_bar"
-                            android:textSize="18sp"
+                            android:textSize="@dimen/tv_search_bar"
                             android:textAllCaps="false">
 
                         </TextView>
@@ -119,8 +119,6 @@
                         tools:listitem="@layout/discount_products_model">
 
                     </androidx.recyclerview.widget.RecyclerView>
-
-
                     <!--                    <androidx.viewpager.widget.ViewPager-->
                     <!--                        android:id="@+id/viewPager"-->
                     <!--                        android:layout_width="match_parent"-->
@@ -142,7 +140,6 @@
                     <!--                        app:piv_viewPager="@id/viewPager">-->
 
                     <!--                    </com.rd.PageIndicatorView>-->
-
 
                 </RelativeLayout>
 

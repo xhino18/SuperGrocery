@@ -36,15 +36,14 @@ public class LoginActivity extends AppCompatActivity {
         final View view= binding.getRoot();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
-        gson=new GsonBuilder().create();
-        saveData=new SaveData(this);
-        init();
 
+        init();
 
     }
 
     private void init() {
-
+        gson=new GsonBuilder().create();
+        saveData=new SaveData(this);
        binding.buttonRegister.setOnClickListener(v -> {
            Intent intent= new Intent(LoginActivity.this,RegisterActivity.class);
            startActivity(intent);
@@ -88,10 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                          }
                      }
         );
-
-
-
-
     }
     @Override
     public void onBackPressed() {

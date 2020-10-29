@@ -15,6 +15,8 @@ import com.example.supergrocery.ModelsGet.CategoriesData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.DiscountProductsModelBinding;
+import com.example.supergrocery.databinding.FragmentCategoriesModelBinding;
 
 import java.util.List;
 
@@ -30,15 +32,16 @@ public class AdapterFragmentCategories extends RecyclerView.Adapter<AdapterFragm
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_categories_model, parent, false);
-        return new AdapterFragmentCategories.ViewHolder(viewholder);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        FragmentCategoriesModelBinding binding=FragmentCategoriesModelBinding.inflate(inflater,parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.tv_fragment_categories_product.setText(categoriesDataList.get(position).getName());
-        Glide.with(context).load(Links.categories_images+categoriesDataList.get(position).getImage()).into(holder.iv_fragment_categories);
-        holder.iv_fragment_categories.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesDataList.get(position)));
+        holder.binding.tvFragmentCategoriesProduct.setText(categoriesDataList.get(position).getName());
+        Glide.with(context).load(Links.categories_images+categoriesDataList.get(position).getImage()).into(holder.binding.ivFragmentCategories);
+        holder.binding.ivFragmentCategories.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesDataList.get(position)));
 
     }
 
@@ -47,13 +50,13 @@ public class AdapterFragmentCategories extends RecyclerView.Adapter<AdapterFragm
         return categoriesDataList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_fragment_categories_product;
-        ImageView iv_fragment_categories;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            iv_fragment_categories=itemView.findViewById(R.id.iv_fragment_categories);
-            tv_fragment_categories_product=itemView.findViewById(R.id.tv_fragment_categories_product);
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        FragmentCategoriesModelBinding binding;
+
+        public ViewHolder(FragmentCategoriesModelBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
+
         }
     }
 }

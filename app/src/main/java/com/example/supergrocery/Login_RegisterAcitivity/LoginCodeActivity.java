@@ -32,7 +32,7 @@ public class LoginCodeActivity extends AppCompatActivity {
     private int userId;
     SaveData saveData;
     Boolean is_login;
-    String user_name, user_email, user_nuis, user_phone, token, register_type,register_type_register;
+    String user_name, user_email, user_nuis, user_phone, token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,17 +85,6 @@ public class LoginCodeActivity extends AppCompatActivity {
             }
 
         });
-
-//        if (activityLoginCodeBinding.code!= null) {
-//            activityLoginCodeBinding.code.setOnPinEnteredListener(str -> {
-//                if (str.toString().equals("111111")) {
-//                    Toast.makeText(LoginCodeActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(LoginCodeActivity.this, "FAIL", Toast.LENGTH_SHORT).show();
-//                    activityLoginCodeBinding.code.setText(null);
-//                }
-//            });
-//        }
 
     }
 

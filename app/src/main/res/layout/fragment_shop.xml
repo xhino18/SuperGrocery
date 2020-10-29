@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ShopFragment">
 
 
@@ -48,47 +48,55 @@
 
             </TextView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/delete_icon_marginRight"
-                android:layout_marginRight="@dimen/delete_icon_marginRight"
-                app:cardCornerRadius="20dp">
+                android:layout_marginStart="@dimen/shop_searchBar_marginLeft"
+                android:layout_marginLeft="@dimen/shop_searchBar_marginLeft">
 
-                <SearchView
-                    android:id="@+id/searchview_main_2"
+                <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey"
-                    android:focusable="false"
-                    android:focusedByDefault="false"
-                    android:iconifiedByDefault="true"
-                    android:queryBackground="@android:color/transparent"
-                    android:queryHint="Search Category">
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/delete_icon_marginRight"
+                    android:layout_marginRight="@dimen/delete_icon_marginRight"
+                    app:cardCornerRadius="@dimen/cardview_product_search_radius">
 
-                </SearchView>
-            </androidx.cardview.widget.CardView>
+                    <SearchView
+                        android:id="@+id/searchview_main_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/grey"
+                        android:focusable="false"
+                        android:focusedByDefault="false"
+                        android:iconifiedByDefault="true"
+                        android:queryBackground="@android:color/transparent"
+                        android:queryHint="Search Category">
+
+                    </SearchView>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
         </RelativeLayout>
 
 
         <TextView
+            android:id="@+id/tv_fragment_categories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/tv_categories_shop_textSize"
-            android:layout_marginTop="@dimen/standart_topBottom_margin"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/black"
-            android:id="@+id/tv_fragment_categories"
             android:layout_below="@+id/relative"
-            android:layout_marginBottom="@dimen/standart_topBottom_margin"
-            android:layout_marginLeft="@dimen/standart_left_margin"
             android:layout_marginStart="@dimen/standart_left_margin"
+            android:layout_marginLeft="@dimen/standart_left_margin"
+            android:layout_marginTop="@dimen/standart_topBottom_margin"
+            android:layout_marginBottom="@dimen/standart_topBottom_margin"
+            android:elevation="@dimen/cardview_default_elevation"
+            android:fontFamily="sans-serif-light"
             android:text="@string/tv_categories"
-            android:elevation="@dimen/cardview_default_elevation">
+            android:textColor="@color/black"
+            android:textSize="@dimen/tv_categories_shop_textSize"
+            android:textStyle="bold">
 
         </TextView>
 

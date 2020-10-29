@@ -24,7 +24,7 @@ public class RegisterActivity extends AppCompatActivity{
 
     ActivityRegisterBinding binding;
     int acc_type;
-    String name, email, nuis, phone;
+    String name,email,nuis,phone;
     Gson gson;
 
     @Override
@@ -87,7 +87,6 @@ public class RegisterActivity extends AppCompatActivity{
             }
         });
 
-
     }
     public void registercall(){
         API apiClient = ClientAPI.createApiNoToken();
@@ -129,6 +128,4 @@ public class RegisterActivity extends AppCompatActivity{
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
     }
-
-
 }

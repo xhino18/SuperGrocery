@@ -11,13 +11,13 @@
         android:id="@+id/cardview_basket_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        app:cardCornerRadius="37.5dp">
+        android:layout_margin="@dimen/standart_basket_image_margin"
+        app:cardCornerRadius="@dimen/cardview_basket_product_radius">
 
         <ImageView
             android:id="@+id/iv_basket_item"
-            android:layout_width="75dp"
-            android:layout_height="75dp">
+            android:layout_width="@dimen/cardview_basket_product_widthHeight"
+            android:layout_height="@dimen/cardview_basket_product_widthHeight">
 
         </ImageView>
     </androidx.cardview.widget.CardView>
@@ -25,8 +25,8 @@
     <TextView
         android:id="@+id/tv_empty"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="@dimen/standart_basket_tv_height"
+        android:layout_marginTop="@dimen/standart_basket_tv_margin"
         android:layout_toEndOf="@id/cardview_basket_items"
         android:layout_toRightOf="@id/cardview_basket_items">
 
@@ -35,10 +35,10 @@
     <TextView
         android:id="@+id/tv_basket_item_name"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="@dimen/standart_basket_tv_height"
         android:layout_below="@id/tv_empty"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginStart="@dimen/standart_basket_tv_marginLeft"
+        android:layout_marginLeft="@dimen/standart_basket_tv_marginLeft"
         android:layout_toStartOf="@id/iv_remove_quantity"
         android:layout_toLeftOf="@id/iv_remove_quantity"
         android:layout_toEndOf="@id/cardview_basket_items"
@@ -51,10 +51,10 @@
     <TextView
         android:id="@+id/tv_basket_item_price"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="@dimen/standart_basket_tv_height"
         android:layout_below="@id/tv_basket_item_name"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginStart="@dimen/standart_basket_tv_marginLeft"
+        android:layout_marginLeft="@dimen/standart_basket_tv_marginLeft"
         android:layout_toEndOf="@id/cardview_basket_items"
         android:layout_toRightOf="@id/cardview_basket_items">
 
@@ -67,8 +67,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
+        android:layout_marginEnd="@dimen/iv_add_quantity_marginRight"
+        android:layout_marginRight="@dimen/iv_add_quantity_marginRight"
         android:src="@drawable/ic_add">
 
     </ImageView>

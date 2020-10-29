@@ -15,6 +15,8 @@ import com.example.supergrocery.ModelsGet.CategoriesData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.MainSearchModelBinding;
+import com.example.supergrocery.databinding.MoreProductsModelBinding;
 
 import java.util.List;
 
@@ -30,19 +32,19 @@ public class AdapterSearchedProduct extends RecyclerView.Adapter<AdapterSearched
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_search_model, parent, false);
-        return new AdapterSearchedProduct.ViewHolder(viewholder);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        MainSearchModelBinding binding=MainSearchModelBinding.inflate(inflater,parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tv_searched_name.setText(categoriesData.get(position).getName());
-        Glide.with(context).load(Links.categories_images+categoriesData.get(position).getImage()).into(holder.iv_searched_item);
-        holder.iv_searched_item.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
-        holder.tv_searched_name.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
-        holder.tv_searched_description.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
-        holder.tv_empty.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
-
+        holder.binding.tvSearchedName.setText(categoriesData.get(position).getName());
+        Glide.with(context).load(Links.categories_images+categoriesData.get(position).getImage()).into(holder.binding.ivSearchedItem);
+        holder.binding.ivSearchedItem.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
+        holder.binding.tvSearchedName.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
+        holder.binding.tvSearchedDescription.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
+        holder.binding.tvEmpty.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
 
     }
 
@@ -51,16 +53,12 @@ public class AdapterSearchedProduct extends RecyclerView.Adapter<AdapterSearched
         return categoriesData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView iv_searched_item;
-        TextView tv_searched_name,tv_searched_description,tv_empty;
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        MainSearchModelBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            iv_searched_item=itemView.findViewById(R.id.iv_searched_item);
-            tv_searched_name=itemView.findViewById(R.id.tv_searched_name);
-            tv_searched_description=itemView.findViewById(R.id.tv_searched_description);
-            tv_empty=itemView.findViewById(R.id.tv_empty);
+        public ViewHolder(MainSearchModelBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
 
         }
     }

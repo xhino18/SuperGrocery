@@ -24,13 +24,12 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         binding=FragmentProfileBinding.inflate(inflater,container,false);
         View view=binding.getRoot();
 
         final EditProfileDialog alertDialog = new EditProfileDialog();
         saveData=new SaveData(getActivity());
-        binding.buttonEditProfile.setOnClickListener(v -> alertDialog.showDialog(getActivity(),"Title"));
+        binding.buttonEditProfile.setOnClickListener(v -> alertDialog.showDialog(getActivity()));
         binding.tvProfileName.setText(saveData.get_name());
         binding.tvProfileEmail.setText(saveData.get_email());
         binding.tvProfilePhone.setText(saveData.get_phone_number());
@@ -41,8 +40,6 @@ public class ProfileFragment extends Fragment {
                     .setMessage(R.string.confirmation_logout)
                     .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> logout())
                     .setNegativeButton(android.R.string.no, null).show();
-
-
 
         });
 

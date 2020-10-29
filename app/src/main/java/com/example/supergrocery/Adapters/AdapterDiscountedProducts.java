@@ -14,6 +14,8 @@ import com.example.supergrocery.ModelsGet.DiscountedProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.DiscountProductsModelBinding;
+import com.example.supergrocery.databinding.FoodCategoriesModelBinding;
 
 import java.util.List;
 
@@ -29,15 +31,15 @@ public class AdapterDiscountedProducts extends RecyclerView.Adapter<AdapterDisco
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.discount_products_model, parent, false);
-        return new AdapterDiscountedProducts.ViewHolder(viewholder);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        DiscountProductsModelBinding binding=DiscountProductsModelBinding.inflate(inflater,parent,false);
+        return new AdapterDiscountedProducts.ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load(Links.categories_images + discountedProductsData.get(position).getImage()).into(holder.imageview_discount_product);
-        holder.imageview_discount_product.setOnClickListener(v -> {
-            ((ItemClickInterface)context).dicountedProductsClicked(discountedProductsData.get(position));
+        Glide.with(context).load(Links.categories_images + discountedProductsData.get(position).getImage()).into(holder.binding.imageviewDiscountProduct);
+        holder.binding.imageviewDiscountProduct.setOnClickListener(v -> { ((ItemClickInterface)context).dicountedProductsClicked(discountedProductsData.get(position));
         });
 
     }
@@ -47,12 +49,12 @@ public class AdapterDiscountedProducts extends RecyclerView.Adapter<AdapterDisco
         return discountedProductsData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageview_discount_product;
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        DiscountProductsModelBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageview_discount_product = itemView.findViewById(R.id.imageview_discount_product);
+        public ViewHolder(DiscountProductsModelBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
 
         }
     }

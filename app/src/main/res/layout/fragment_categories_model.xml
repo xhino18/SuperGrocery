@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_margin="5dp"
+        android:layout_margin="@dimen/cardview_fragment_basket_margin"
         android:layout_width="match_parent"
         app:cardElevation="@dimen/cardview_default_elevation"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/iv_fragment_categories"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="@dimen/image_fragment_basket_height"
                 android:scaleType="fitXY">
 
             </ImageView>
@@ -32,7 +32,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="afsaf"
                 android:textAlignment="center"
-                android:textSize="20sp"
+                android:textSize="@dimen/tv_fragment_categories_product_textSize"
                 android:textStyle="bold">
 
             </TextView>

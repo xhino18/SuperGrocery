@@ -13,10 +13,12 @@ import com.bumptech.glide.Glide;
 import com.example.supergrocery.ModelsGet.BannerData;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.BannerModelBinding;
 
 import java.util.List;
 
 public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder> {
+
     Context context;
     List<BannerData> bannerData;
 
@@ -28,13 +30,14 @@ public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.banner_model, parent, false);
-        return new AdapterBanner.ViewHolder(viewholder);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        BannerModelBinding binding=BannerModelBinding.inflate(inflater,parent,false);
+        return new AdapterBanner.ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load(Links.categories_images+bannerData.get(position).getImage()).into(holder.imageview_discount_product);
+        Glide.with(context).load(Links.categories_images+bannerData.get(position).getImage()).into(holder.binding.imageviewDiscountProduct);
 
     }
 
@@ -44,11 +47,13 @@ public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageview_discount_product;
+        BannerModelBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageview_discount_product=itemView.findViewById(R.id.imageview_discount_product);
+
+        public ViewHolder(BannerModelBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
+
 
         }
     }

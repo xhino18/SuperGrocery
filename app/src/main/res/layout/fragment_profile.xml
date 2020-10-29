@@ -65,10 +65,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginLeft="@dimen/linear_profile_marginLeftRIght"
+            android:layout_marginTop="@dimen/linear_profile_marginTop"
             android:id="@+id/linear_profile"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="@dimen/linear_profile_marginLeftRIght"
             android:orientation="vertical">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -78,14 +78,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="40dp"
-                app:cardCornerRadius="60dp"
+                android:layout_marginBottom="@dimen/image_profile_marginBottom"
+                app:cardCornerRadius="@dimen/image_profile_radius"
                 app:cardElevation="@dimen/cardview_default_elevation">
 
                 <ImageView
                     android:id="@+id/iv_profile_photo"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="@dimen/image_profile_widthHeight"
+                    android:layout_height="@dimen/image_profile_widthHeight"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_profile">
 
@@ -117,8 +117,8 @@
                     android:id="@+id/tv_profile_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                    android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical">
 
@@ -128,7 +128,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standart_registration_dimension"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/standart_payment_linear_input_marginTop"
                 android:background="@color/white"
                 android:elevation="@dimen/cardview_default_elevation"
                 android:orientation="horizontal"
@@ -149,8 +149,8 @@
                     android:id="@+id/tv_profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                    android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical">
 
@@ -161,7 +161,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standart_registration_dimension"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/standart_payment_linear_input_marginTop"
                 android:background="@color/white"
                 android:elevation="@dimen/cardview_default_elevation"
                 android:orientation="horizontal"
@@ -182,8 +182,8 @@
                     android:id="@+id/tv_profile_nuis"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                    android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical">
 
@@ -194,7 +194,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standart_registration_dimension"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/standart_payment_linear_input_marginTop"
                 android:background="@color/white"
                 android:elevation="@dimen/cardview_default_elevation"
                 android:orientation="horizontal"
@@ -215,8 +215,8 @@
                     android:id="@+id/tv_profile_phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="@dimen/standart_payment_input_marginleft"
+                    android:layout_marginLeft="@dimen/standart_payment_input_marginleft"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical">
 
@@ -227,7 +227,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/button_editProfile_marginTop"
                 app:cardCornerRadius="@dimen/standart_button_radius"
                 app:cardElevation="@dimen/cardview_default_elevation">
 

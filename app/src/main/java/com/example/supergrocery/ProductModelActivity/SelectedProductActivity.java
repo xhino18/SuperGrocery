@@ -14,10 +14,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.Adapters.AdapterGetProductByID;
 import com.example.supergrocery.Adapters.AdapterMoreShopProducts;
 import com.example.supergrocery.ModelsGet.GetProductByID;
-import com.example.supergrocery.ModelsGet.GetProductByIDData;
 import com.example.supergrocery.ModelsGet.ShopProducts;
 import com.example.supergrocery.ModelsGet.ShopProductsData;
 import com.example.supergrocery.Interfaces.ProductClickedInterface;
@@ -140,7 +138,6 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
         finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
-
 
     @Override
     public void productClicked(ShopProductsData data) {

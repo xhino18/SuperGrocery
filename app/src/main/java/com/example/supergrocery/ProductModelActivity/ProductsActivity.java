@@ -50,9 +50,7 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
-
         init();
-
     }
 
     private void init() {

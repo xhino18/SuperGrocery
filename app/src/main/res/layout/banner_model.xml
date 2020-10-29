@@ -6,7 +6,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="@dimen/banner_height"
         app:cardElevation="@dimen/cardview_default_elevation"
         android:id="@+id/cardview_discount_products"
         app:cardCornerRadius="@dimen/standart_image_cardview_radius"

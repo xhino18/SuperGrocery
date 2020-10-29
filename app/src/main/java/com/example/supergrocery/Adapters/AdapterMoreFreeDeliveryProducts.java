@@ -14,6 +14,7 @@ import com.example.supergrocery.ModelsGet.AllProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.MoreProductsModelBinding;
 
 import java.util.List;
 
@@ -29,15 +30,15 @@ public class AdapterMoreFreeDeliveryProducts extends RecyclerView.Adapter<Adapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.more_products_model, parent, false);
-        return new AdapterMoreFreeDeliveryProducts.ViewHolder(viewholder);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        MoreProductsModelBinding binding=MoreProductsModelBinding.inflate(inflater,parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load(Links.categories_images+allProductsData.get(position).getImage()).into(holder.imageview_more_products);
-        holder.imageview_more_products.setOnClickListener(v -> {
-            ((ItemClickInterface)context).freeDeliveryClicked(allProductsData.get(position));
+        Glide.with(context).load(Links.categories_images+allProductsData.get(position).getImage()).into(holder.binding.imageviewMoreProducts);
+        holder.binding.cardviewMoreProducts.setOnClickListener(v -> { ((ItemClickInterface)context).freeDeliveryClicked(allProductsData.get(position));
         });
 
     }
@@ -48,12 +49,12 @@ public class AdapterMoreFreeDeliveryProducts extends RecyclerView.Adapter<Adapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView imageview_more_products;
+        MoreProductsModelBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder(MoreProductsModelBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
 
-            imageview_more_products=itemView.findViewById(R.id.imageview_more_products);
         }
     }
 }

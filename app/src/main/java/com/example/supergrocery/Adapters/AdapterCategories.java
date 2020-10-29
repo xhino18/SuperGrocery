@@ -15,6 +15,7 @@ import com.example.supergrocery.ModelsGet.CategoriesData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.FoodCategoriesModelBinding;
 
 import java.util.List;
 
@@ -31,15 +32,16 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.food_categories_model, parent, false);
-        return new AdapterCategories.ViewHolder(viewholder);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        FoodCategoriesModelBinding binding=FoodCategoriesModelBinding.inflate(inflater,parent,false);
+        return new AdapterCategories.ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.tv_category_product_name.setText(categoriesDataList.get(position).getName());
-        Glide.with(context).load(Links.categories_images+categoriesDataList.get(position).getImage()).into(holder.iv_category_product);
-        holder.iv_category_product.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesDataList.get(position)));
+        holder.binding.tvCategoryProductName.setText(categoriesDataList.get(position).getName());
+        Glide.with(context).load(Links.categories_images+categoriesDataList.get(position).getImage()).into(holder.binding.ivCategoryProduct);
+        holder.binding.ivCategoryProduct.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesDataList.get(position)));
 
     }
 
@@ -49,12 +51,11 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView iv_category_product;
-        TextView tv_category_product_name;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            iv_category_product=itemView.findViewById(R.id.iv_category_product);
-            tv_category_product_name=itemView.findViewById(R.id.tv_category_product_name);
+        FoodCategoriesModelBinding binding;
+
+        public ViewHolder(FoodCategoriesModelBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
 
         }
     }

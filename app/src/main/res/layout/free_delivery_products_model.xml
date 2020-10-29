@@ -9,7 +9,7 @@
         android:layout_height="100dp"
         android:id="@+id/cardview_free_delivery_products"
         app:cardCornerRadius="@dimen/standart_image_cardview_radius"
-        android:layout_margin="5dp">
+        android:layout_margin="@dimen/cardview_free_delivery_products_margin">
 
         <ImageView
             android:layout_width="match_parent"

@@ -14,6 +14,7 @@ import com.example.supergrocery.ModelsGet.ShopProductsData;
 import com.example.supergrocery.Interfaces.ProductClickedInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.MoreProductsModelBinding;
 
 import java.util.List;
 
@@ -29,15 +30,15 @@ public class AdapterMoreShopProducts extends RecyclerView.Adapter<AdapterMoreSho
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.more_products_model, parent, false);
-        return new ViewHolder(viewholder);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        MoreProductsModelBinding binding=MoreProductsModelBinding.inflate(inflater,parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Glide.with(context).load(Links.categories_images+modelShopProductsData.get(position).getImage()).into(holder.imageview_more_products);
-        holder.imageview_more_products.setOnClickListener(view -> {
-            ((ProductClickedInterface)context).productClicked(modelShopProductsData.get(position));
+        Glide.with(context).load(Links.categories_images+modelShopProductsData.get(position).getImage()).into(holder.binding.imageviewMoreProducts);
+        holder.binding.cardviewMoreProducts.setOnClickListener(view -> { ((ProductClickedInterface)context).productClicked(modelShopProductsData.get(position));
         });
     }
 
@@ -46,14 +47,12 @@ public class AdapterMoreShopProducts extends RecyclerView.Adapter<AdapterMoreSho
         return modelShopProductsData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageview_more_products;
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        MoreProductsModelBinding binding;
 
-
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageview_more_products=itemView.findViewById(R.id.imageview_more_products);
+        public ViewHolder(MoreProductsModelBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
 
         }
     }

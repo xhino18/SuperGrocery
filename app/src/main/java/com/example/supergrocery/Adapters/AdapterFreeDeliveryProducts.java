@@ -14,6 +14,8 @@ import com.example.supergrocery.ModelsGet.AllProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.FragmentCategoriesModelBinding;
+import com.example.supergrocery.databinding.FreeDeliveryProductsModelBinding;
 
 import java.util.List;
 
@@ -29,16 +31,15 @@ public class AdapterFreeDeliveryProducts extends RecyclerView.Adapter<AdapterFre
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.free_delivery_products_model, parent, false);
-        return new AdapterFreeDeliveryProducts.ViewHolder(viewholder);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        FreeDeliveryProductsModelBinding binding=FreeDeliveryProductsModelBinding.inflate(inflater,parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load(Links.categories_images+allProductsData.get(position).getImage()).into(holder.imageview_free_delivery_product);
-        holder.imageview_free_delivery_product.setOnClickListener(v -> {
-
-            ((ItemClickInterface)context).freeDeliveryClicked(allProductsData.get(position));
+        Glide.with(context).load(Links.categories_images+allProductsData.get(position).getImage()).into(holder.binding.imageviewFreeDeliveryProduct);
+        holder.binding.cardviewFreeDeliveryProducts.setOnClickListener(v -> { ((ItemClickInterface)context).freeDeliveryClicked(allProductsData.get(position));
         });
 
     }
@@ -49,12 +50,12 @@ public class AdapterFreeDeliveryProducts extends RecyclerView.Adapter<AdapterFre
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView imageview_free_delivery_product;
+        FreeDeliveryProductsModelBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder(FreeDeliveryProductsModelBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
 
-            imageview_free_delivery_product=itemView.findViewById(R.id.imageview_free_delivery_product);
         }
     }
 }

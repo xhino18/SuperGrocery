@@ -71,6 +71,14 @@
                 </TextView>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/product_searchBar_marginLeft"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_toEndOf="@id/iv_backimage"
+            android:layout_toRightOf="@id/iv_backimage"
+            android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,6 +102,7 @@
 
             </SearchView>
         </androidx.cardview.widget.CardView>
+        </RelativeLayout>
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="@dimen/standart_topBottom_margin"
@@ -101,10 +110,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/recycleview_shop_products"
-        android:layout_marginLeft="@dimen/standart_left_margin"
-        android:layout_marginStart="@dimen/standart_left_margin"
-        android:layout_marginEnd="@dimen/standart_right_margin"
-        android:layout_marginRight="@dimen/standart_right_margin">
+        android:layout_marginLeft="@dimen/standart_product_activity_margin_LeftRight"
+        android:layout_marginStart="@dimen/standart_product_activity_margin_LeftRight"
+        tools:listitem="@layout/shop_products_model"
+        android:layout_marginEnd="@dimen/standart_product_activity_margin_LeftRight"
+        android:layout_marginRight="@dimen/standart_product_activity_margin_LeftRight">
 
     </androidx.recyclerview.widget.RecyclerView>
 

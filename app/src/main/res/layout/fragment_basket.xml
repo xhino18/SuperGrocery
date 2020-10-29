@@ -64,7 +64,7 @@
             app:lottie_rawRes="@raw/basketempty"
             android:visibility="visible"
             app:lottie_loop="true"
-            android:paddingBottom="50dp"
+            android:paddingBottom="@dimen/basketLottie_paddingBottom"
             android:id="@+id/basketanim"
             app:lottie_autoPlay="true">
 
@@ -73,7 +73,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="@dimen/recycleview_basket_marginBottom"
             android:layout_height="match_parent"
             android:id="@+id/recycleview_basket_items"
             android:elevation="@dimen/cardview_default_elevation"
@@ -137,7 +137,7 @@
             android:background="@color/colorPrimary"
             android:text="@string/button_checkout"
             android:textColor="@color/white"
-            android:textSize="20sp">
+            android:textSize="@dimen/standart_payment_button_textSize">
 
         </Button>
 </androidx.cardview.widget.CardView>

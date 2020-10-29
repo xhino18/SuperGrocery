@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_margin="5dp"
+        android:layout_margin="@dimen/cardview_shop_products_margin"
         android:layout_width="match_parent"
         app:cardElevation="@dimen/cardview_default_elevation"
         android:layout_height="wrap_content"
@@ -22,15 +22,15 @@
             <ImageView
                 android:id="@+id/iv_products_model"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="@dimen/image_shop_products_height"
                 android:scaleType="fitXY">
 
             </ImageView>
                 <androidx.cardview.widget.CardView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:cardCornerRadius="15dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="@dimen/cardview_shop_products_add_widthHeight"
+                    android:layout_height="@dimen/cardview_shop_products_add_widthHeight"
+                    app:cardCornerRadius="@dimen/cardview_shop_products_add_radius"
+                    android:layout_margin="@dimen/cardview_shop_products_add_margin"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true">

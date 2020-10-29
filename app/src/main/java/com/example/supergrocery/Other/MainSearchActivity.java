@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class MainSearchActivity extends AppCompatActivity implements ItemClickIn
         super.onCreate(savedInstanceState);
         binding=ActivityMainSearchBinding.inflate(getLayoutInflater());
         final View view=binding.getRoot();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         gson=new GsonBuilder().create();

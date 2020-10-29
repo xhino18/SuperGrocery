@@ -23,12 +23,11 @@ import retrofit2.Response;
 public class EditProfileDialog {
     Gson gson;
     Dialog dialog;
-    Context context;
     EditText tv_profile_name,tv_profile_email,tv_profile_nuis,tv_profile_phone;
     SaveData saveData;
     String name,email,nuis;
 
-    public void showDialog(Activity activity, String msg) {
+    public void showDialog(Activity activity) {
 
 
         dialog = new Dialog(activity);
@@ -58,7 +57,6 @@ public class EditProfileDialog {
             editProfileInfo(saveData.getToken());
            dialog.dismiss();
             Toast.makeText(dialog.getContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
-
 
         });
 

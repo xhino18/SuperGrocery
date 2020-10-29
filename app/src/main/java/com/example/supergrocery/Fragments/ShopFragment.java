@@ -43,6 +43,12 @@ public class ShopFragment extends Fragment {
         binding =FragmentShopBinding.inflate(inflater,container,false);
         View view= binding.getRoot();
         binding.recycleviewFragmentCategories.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        init();
+        return view;
+    }
+
+    private void init() {
         gson = new GsonBuilder().create();
         saveData=new SaveData(getContext());
         binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -58,8 +64,7 @@ public class ShopFragment extends Fragment {
             }
         });
 
-    getCategories(saveData.getToken());
-        return view;
+        getCategories(saveData.getToken());
     }
 
     public void getCategories(String token) {

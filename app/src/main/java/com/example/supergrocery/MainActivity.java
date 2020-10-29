@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
 
         init();
 
-
     }
 
     private void init() {
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         gson = new GsonBuilder().create();
         saveData = new SaveData(this);
         binding.bottomNavigation.setOnNavigationItemSelectedListener(navListener);
-        //Which fragment to show first
         binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
         getTotalQuantity();
 
@@ -104,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
                 return true;
 
             };
-
 
     public void finish() {
         super.finish();
@@ -162,26 +159,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
 
     }
 
-//    private void searchCategory(String s) {
-//        List<AllProductsData> productsData = new ArrayList<>();
-//
-//
-//        productsData.addAll(fragmentProfileBinding.allProductsData);
-//        for (int i = 0; i < productsData.size(); i++) {
-//            if (!productsData.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
-//                productsData.remove(i);
-//                i--;
-//            }
-//        }
-//        if (!productsData.isEmpty()) {
-//            activityMain2Binding.recycleviewAllProducts.setVisibility(View.GONE);
-//
-//
-//        }
-//
-//    }
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -207,6 +184,5 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
             }
         }, 2000);
     }
-
 
 }

@@ -14,6 +14,8 @@ import com.example.supergrocery.ModelsGet.DiscountedProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.R;
+import com.example.supergrocery.databinding.FreeDeliveryProductsModelBinding;
+import com.example.supergrocery.databinding.MoreProductsModelBinding;
 
 import java.util.List;
 
@@ -29,15 +31,15 @@ public class AdapterMoreDiscountedProducts extends RecyclerView.Adapter<AdapterM
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewholder = LayoutInflater.from(parent.getContext()).inflate(R.layout.more_products_model, parent, false);
-        return new AdapterMoreDiscountedProducts.ViewHolder(viewholder);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        MoreProductsModelBinding binding=MoreProductsModelBinding.inflate(inflater,parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load(Links.categories_images + discountedProductsData.get(position).getImage()).into(holder.imageview_more_products);
-        holder.imageview_more_products.setOnClickListener(v -> {
-
+        Glide.with(context).load(Links.categories_images + discountedProductsData.get(position).getImage()).into(holder.binding.imageviewMoreProducts);
+        holder.binding.cardviewMoreProducts.setOnClickListener(v -> {
             ((ItemClickInterface)context).dicountedProductsClicked(discountedProductsData.get(position));
         });
 
@@ -48,12 +50,12 @@ public class AdapterMoreDiscountedProducts extends RecyclerView.Adapter<AdapterM
         return discountedProductsData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageview_more_products;
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        MoreProductsModelBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageview_more_products = itemView.findViewById(R.id.imageview_more_products);
+        public ViewHolder(MoreProductsModelBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
 
         }
     }
