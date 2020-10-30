@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/standart_header_height"
-        android:layout_marginTop="@dimen/standart_header_marginTop"
         android:id="@+id/relative_main2"
-        android:elevation="@dimen/cardview_default_elevation">
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/standart_header_marginTop"
+        android:layout_height="@dimen/standart_header_height"
+        android:elevation="@dimen/cardview_default_elevation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/iv_backimage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/standart_left_margin"
             android:layout_marginStart="@dimen/standart_left_margin"
-            android:id="@+id/iv_backimage"
+            android:layout_marginLeft="@dimen/standart_left_margin"
             android:src="@drawable/ic_backicon">
 
         </ImageView>
+
         <TextView
+            android:id="@+id/tv_product_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/tv_header_discounted_products"
-            android:textStyle="bold"
-            android:textSize="@dimen/tv_categories_textSize"
             android:textColor="@color/black"
-            android:id="@+id/tv_product_category">
+            android:textSize="@dimen/tv_categories_textSize"
+            android:textStyle="bold">
 
         </TextView>
 
@@ -39,18 +43,23 @@
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_discount_products"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standart_product_height"
-        android:layout_margin="@dimen/cardview_product_margin"
-        app:cardElevation="@dimen/cardview_default_elevation"
-        android:id="@+id/cardview_discount_products"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/cardview_product_margin"
+        android:layout_marginRight="@dimen/cardview_product_margin"
+        android:layout_marginBottom="@dimen/cardview_product_margin"
         app:cardCornerRadius="@dimen/standart_image_cardview_radius"
-        android:layout_centerHorizontal="true">
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relative_main2">
 
         <ImageView
+            android:id="@+id/imageview_discount_product"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/imageview_discount_product"
             android:scaleType="fitXY">
 
         </ImageView>
@@ -59,47 +68,59 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/cardview_product_margin"
+        android:id="@+id/linear_tv_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview_discount_products">
 
         <TextView
             android:layout_width="@dimen/product_tv_width"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_gravity="end"
             android:text="@string/tv_banner_item_static_name"
             android:textAlignment="textEnd"
-            android:layout_gravity="end">
+            android:textStyle="bold">
 
         </TextView>
+
         <TextView
-            android:layout_marginLeft="@dimen/standart_topBottom_margin"
-            android:layout_marginStart="@dimen/standart_topBottom_margin"
+            android:id="@+id/banner_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/banner_item_name">
+            android:layout_marginStart="@dimen/standart_topBottom_margin"
+            android:layout_marginLeft="@dimen/standart_topBottom_margin">
 
         </TextView>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standart_topBottom_margin"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/standart_topBottom_margin">
+        android:id="@+id/linear_tv_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_tv_name">
 
         <TextView
             android:layout_width="@dimen/product_tv_width"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_gravity="end"
             android:text="@string/tv_banner_item_static_price"
             android:textAlignment="textEnd"
-            android:layout_gravity="end">
+            android:textStyle="bold">
 
         </TextView>
+
         <TextView
-            android:layout_marginLeft="@dimen/standart_topBottom_margin"
-            android:layout_marginStart="@dimen/standart_topBottom_margin"
+            android:id="@+id/banner_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/banner_item_price">
+            android:layout_marginStart="@dimen/standart_topBottom_margin"
+            android:layout_marginLeft="@dimen/standart_topBottom_margin">
 
         </TextView>
     </LinearLayout>
@@ -108,52 +129,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:weightSum="2"
+        android:id="@+id/linear_buttons"
         android:layout_marginLeft="@dimen/standart_left_margin"
         android:layout_marginStart="@dimen/standart_left_margin"
         android:layout_marginRight="@dimen/standart_left_margin"
         android:layout_marginEnd="@dimen/standart_left_margin"
         android:layout_marginTop="@dimen/standart_topBottom_margin"
-        android:weightSum="2">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_tv_price">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_add_to_cart"
-            android:layout_width="wrap_content"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:strokeColor="@color/colorAccent"
             android:layout_weight="1"
-            app:cornerRadius="@dimen/standart_payment_button_radius"
             android:text="@string/button_add_to_card"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:cornerRadius="@dimen/standart_payment_button_radius"
+            app:strokeColor="@color/colorAccent">
 
         </com.google.android.material.button.MaterialButton>
+
         <com.google.android.material.button.MaterialButton
-            android:layout_marginLeft="@dimen/standart_topBottom_margin"
-            android:layout_marginStart="@dimen/standart_topBottom_margin"
+            android:id="@+id/button_buy_now"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button_buy_now"
+            android:layout_marginStart="@dimen/standart_topBottom_margin"
+            android:layout_marginLeft="@dimen/standart_topBottom_margin"
             android:layout_weight="1"
-            app:cornerRadius="@dimen/standart_payment_button_radius"
-            android:text="@string/button_buy_now">
+            android:text="@string/button_buy_now"
+            app:cornerRadius="@dimen/standart_payment_button_radius">
 
         </com.google.android.material.button.MaterialButton>
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/standart_topBottom_margin"
         android:text="@string/tv_more_discounted_products"
         android:textColor="@color/black"
+        android:textSize="@dimen/tv_categories_textSize"
         android:textStyle="bold"
-        android:layout_marginTop="@dimen/standart_topBottom_margin"
-        android:layout_marginLeft="@dimen/standart_left_margin"
-        android:layout_marginStart="@dimen/standart_left_margin"
-        android:textSize="@dimen/tv_categories_textSize">
+        android:id="@+id/tv_more_products"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_buttons">
 
     </TextView>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleview_more_discounted_products"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/standart_left_margin"
@@ -161,8 +194,12 @@
         android:layout_marginRight="@dimen/standart_right_margin"
         android:layout_marginEnd="@dimen/standart_right_margin"
         android:layout_marginTop="@dimen/standart_topBottom_margin"
-        android:id="@+id/recycleview_more_discounted_products"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_more_products">
+
     </androidx.recyclerview.widget.RecyclerView>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

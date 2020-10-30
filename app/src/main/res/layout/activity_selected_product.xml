@@ -41,7 +41,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/standart_product_height"
-        android:layout_margin="@dimen/cardview_product_margin"
+        android:layout_marginLeft="@dimen/cardview_product_margin"
+        android:layout_marginRight="@dimen/cardview_product_margin"
+        android:layout_marginBottom="@dimen/cardview_product_margin"
         app:cardElevation="@dimen/cardview_default_elevation"
         android:id="@+id/cardview_discount_products"
         app:cardCornerRadius="@dimen/standart_image_cardview_radius"
@@ -193,6 +195,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standart_topBottom_margin"
         android:layout_marginLeft="@dimen/standart_left_margin"
         android:layout_marginStart="@dimen/standart_left_margin"
         android:layout_marginRight="@dimen/standart_right_margin"
