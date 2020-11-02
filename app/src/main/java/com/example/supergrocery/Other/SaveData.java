@@ -3,6 +3,9 @@ package com.example.supergrocery.Other;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import androidx.lifecycle.ViewModel;
+
+import javax.inject.Inject;
 
 public class SaveData {
     Context context;
@@ -11,7 +14,7 @@ public class SaveData {
 
     public SaveData(Context context) {
         this.context = context;
-        this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        this.preferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
         this.editor = this.preferences.edit();
         this.editor.commit();
     }

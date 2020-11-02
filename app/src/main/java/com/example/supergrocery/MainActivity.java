@@ -31,11 +31,12 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dagger.hilt.android.AndroidEntryPoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements ItemClickInterface {
 
     ActivityMainBinding binding;
