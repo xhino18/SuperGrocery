@@ -37,17 +37,14 @@ public class MainModule {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(tokenInterceptor);
-        builder.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Interceptor.Chain chain) throws IOException {
-                Request original = chain.request();
+        builder.addInterceptor(chain -> {
+            Request original = chain.request();
 
-                Request request = original.newBuilder()
-                        .addHeader("Accept", "application/json")
-                        .method(original.method(), original.body())
-                        .build();
-                return chain.proceed(request);
-            }
+            Request request = original.newBuilder()
+                    .addHeader("Accept", "application/json")
+                    .method(original.method(), original.body())
+                    .build();
+            return chain.proceed(request);
         });
         builder.connectTimeout(30, TimeUnit.SECONDS);
         builder.writeTimeout(30, TimeUnit.SECONDS);

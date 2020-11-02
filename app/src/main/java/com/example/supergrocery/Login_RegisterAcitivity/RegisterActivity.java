@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
-import com.example.supergrocery.ModelsPost.UserRegister;
+import com.example.supergrocery.Models.ModelMainToken;
+import com.example.supergrocery.Models.UserRegisterData;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityRegisterBinding;
 import com.google.gson.Gson;
@@ -32,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         binding =ActivityRegisterBinding.inflate(getLayoutInflater());
         View view= binding.getRoot();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();
@@ -90,10 +89,10 @@ public class RegisterActivity extends AppCompatActivity{
     }
     public void registercall(){
         API apiClient = ClientAPI.createApiNoToken();
-        retrofit2.Call<UserRegister> call = apiClient.register(name,email,phone,acc_type,nuis,API.PLATFORM_ID,API.FIREBASE_TOKEN);
-        call.enqueue(new Callback<UserRegister>() {
+        retrofit2.Call<ModelMainToken<UserRegisterData>> call = apiClient.register(name,email,phone,acc_type,nuis,API.PLATFORM_ID,API.FIREBASE_TOKEN);
+        call.enqueue(new Callback<ModelMainToken<UserRegisterData>>() {
             @Override
-            public void onResponse(retrofit2.Call<UserRegister> call, Response<UserRegister> response) {
+            public void onResponse(retrofit2.Call<ModelMainToken<UserRegisterData>> call, Response<ModelMainToken<UserRegisterData>> response) {
 
                  System.out.println("respoonseeee "+ gson.toJson(response.body()));
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")){
@@ -116,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity{
             }
 
             @Override
-            public void onFailure(retrofit2.Call<UserRegister> call, Throwable t) {
+            public void onFailure(retrofit2.Call<ModelMainToken<UserRegisterData>> call, Throwable t) {
                 Log.e("test", t.toString());
 
             }

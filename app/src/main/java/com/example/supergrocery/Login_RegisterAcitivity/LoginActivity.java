@@ -1,19 +1,17 @@
 package com.example.supergrocery.Login_RegisterAcitivity;
 
-import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Other.SaveData;
-import com.example.supergrocery.ModelsPost.ModelSendCode;
+import com.example.supergrocery.Models.ModelSendCode;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityLoginBinding;
 import com.google.gson.Gson;
@@ -35,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding =ActivityLoginBinding.inflate(getLayoutInflater());
         final View view= binding.getRoot();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();

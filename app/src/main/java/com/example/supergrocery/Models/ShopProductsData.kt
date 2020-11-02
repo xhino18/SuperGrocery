@@ -1,4 +1,4 @@
-package com.example.supergrocery.ModelsGet
+package com.example.supergrocery.Models
 
 data class ShopProductsData (val id: Int,
                              val name: String,

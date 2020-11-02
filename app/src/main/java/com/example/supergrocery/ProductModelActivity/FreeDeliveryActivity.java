@@ -7,18 +7,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterMoreFreeDeliveryProducts;
-import com.example.supergrocery.ModelsGet.AllProducts;
-import com.example.supergrocery.ModelsGet.AllProductsData;
-import com.example.supergrocery.ModelsGet.CategoriesData;
-import com.example.supergrocery.ModelsGet.DiscountedProductsData;
+import com.example.supergrocery.Models.AllProductsData;
+import com.example.supergrocery.Models.CategoriesData;
+import com.example.supergrocery.Models.DiscountedProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
+import com.example.supergrocery.Models.ModelMain;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.Payment.PaymentActivity;
@@ -51,7 +50,6 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
         super.onCreate(savedInstanceState);
         binding =ActivityFreeDeliveryBinding.inflate(getLayoutInflater());
         final View view= binding.getRoot();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();
@@ -106,10 +104,10 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
     }
     public void getall(String token) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<AllProducts> call = apiClient.getFreeDeliveryProducts();
-        call.enqueue(new Callback<AllProducts>() {
+        Call<ModelMain<List<AllProductsData>>> call = apiClient.getFreeDeliveryProducts();
+        call.enqueue(new Callback<ModelMain<List<AllProductsData>>>() {
             @Override
-            public void onResponse(Call<AllProducts> call, Response<AllProducts> response) {
+            public void onResponse(Call<ModelMain<List<AllProductsData>>> call, Response<ModelMain<List<AllProductsData>>> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         allProductsData.addAll(response.body().getData());
@@ -124,7 +122,7 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
             }
 
             @Override
-            public void onFailure(Call<AllProducts> call, Throwable t) {
+            public void onFailure(Call<ModelMain<List<AllProductsData>>> call, Throwable t) {
                 Toast.makeText(FreeDeliveryActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

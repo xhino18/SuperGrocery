@@ -1,13 +1,16 @@
 package com.example.supergrocery.API;
 
-import com.example.supergrocery.ModelsGet.AllProducts;
-import com.example.supergrocery.ModelsGet.Banner;
-import com.example.supergrocery.ModelsGet.Categories;
-import com.example.supergrocery.ModelsGet.DiscountedProducts;
-import com.example.supergrocery.ModelsGet.GetProductByID;
-import com.example.supergrocery.ModelsGet.ShopProducts;
-import com.example.supergrocery.ModelsPost.ModelSendCode;
-import com.example.supergrocery.ModelsPost.UserRegister;
+import com.example.supergrocery.Models.AllProductsData;
+import com.example.supergrocery.Models.BannerData;
+import com.example.supergrocery.Models.CategoriesData;
+import com.example.supergrocery.Models.DiscountedProductsData;
+import com.example.supergrocery.Models.ModelMain;
+import com.example.supergrocery.Models.ModelMainToken;
+import com.example.supergrocery.Models.ShopProductsData;
+import com.example.supergrocery.Models.ModelSendCode;
+import com.example.supergrocery.Models.UserRegisterData;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -24,42 +27,37 @@ public interface API {
 
 
         @GET("categories")
-        Call<Categories> getCategories();
-
-        @GET("all_products")
-        Call<AllProducts> getAllProducts();
+        Call<ModelMain<List<CategoriesData>>> getCategories();
 
         @GET("banners")
-        Call<Banner> getBanners();
+        Call<ModelMain<List<BannerData>>> getBanners();
 
         @GET("packages")
-        Call<DiscountedProducts> getDiscountedProducts();
+        Call<ModelMain<List<DiscountedProductsData>>> getDiscountedProducts();
 
         @GET("products_by_category/13")
-        Call<AllProducts> getFreeDeliveryProducts();
+        Call<ModelMain<List<AllProductsData>>> getFreeDeliveryProducts();
 
 
         @GET("products_by_category/{id}")
-        Call<ShopProducts> getProducts(@Path("id") int id);
+        Call<ModelMain<List<ShopProductsData>>> getProducts(@Path("id") int id);
 
-        @GET("product_info/{id}")
-        Call<GetProductByID> getProductByID(@Path("id") int id);
 
         @FormUrlEncoded
         @POST("register")
-        Call<UserRegister> register(@Field("name") String name,
-                                    @Field("email") String email,
-                                    @Field("phone_number") String phoneNumber,
-                                    @Field("account_type") int accountType,
-                                    @Field("nuis") String nuis,
-                                    @Field("platform") short platform,
-                                    @Field("firebase_token") String firebaseToken);
+        Call<ModelMainToken<UserRegisterData>> register(@Field("name") String name,
+                                                        @Field("email") String email,
+                                                        @Field("phone_number") String phoneNumber,
+                                                        @Field("account_type") int accountType,
+                                                        @Field("nuis") String nuis,
+                                                        @Field("platform") short platform,
+                                                        @Field("firebase_token") String firebaseToken);
 
         @POST("edit_profile")
         @FormUrlEncoded
-        Call<UserRegister> editProfile(@Field("name") String name,
-                                       @Field("email") String email,
-                                       @Field("nuis") String nuis);
+        Call<ModelMainToken<UserRegisterData>> editProfile(@Field("name") String name,
+                                                           @Field("email") String email,
+                                                           @Field("nuis") String nuis);
 
 
         @FormUrlEncoded
@@ -69,8 +67,8 @@ public interface API {
 
         @FormUrlEncoded
         @POST("verify_code")
-        Call<UserRegister> verifyCode(@Field("code") String code,
-                              @Field("user_id") int userId);
+        Call<ModelMainToken<UserRegisterData>> verifyCode(@Field("code") String code,
+                                                          @Field("user_id") int userId);
 
 
 

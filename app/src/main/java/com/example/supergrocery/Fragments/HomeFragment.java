@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
@@ -18,17 +18,16 @@ import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterBanner;
 import com.example.supergrocery.Adapters.AdapterCategories;
 import com.example.supergrocery.Adapters.AdapterDiscountedProducts;
+import com.example.supergrocery.Adapters.AdapterFragmentCategories;
 import com.example.supergrocery.Adapters.AdapterFreeDeliveryProducts;
-import com.example.supergrocery.ModelsGet.AllProducts;
-import com.example.supergrocery.ModelsGet.AllProductsData;
-import com.example.supergrocery.ModelsGet.Banner;
-import com.example.supergrocery.ModelsGet.BannerData;
-import com.example.supergrocery.ModelsGet.Categories;
-import com.example.supergrocery.ModelsGet.CategoriesData;
-import com.example.supergrocery.ModelsGet.DiscountedProducts;
-import com.example.supergrocery.ModelsGet.DiscountedProductsData;
+import com.example.supergrocery.Models.AllProductsData;
+import com.example.supergrocery.Models.BannerData;
+import com.example.supergrocery.Models.CategoriesData;
+import com.example.supergrocery.Models.DiscountedProductsData;
 import com.example.supergrocery.MainActivity;
+import com.example.supergrocery.Models.ModelMain;
 import com.example.supergrocery.Other.MainSearchActivity;
+import com.example.supergrocery.Other.MainViewModel;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.FragmentHomeBinding;
@@ -38,11 +37,14 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
+@AndroidEntryPoint
 public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
     Gson gson;
@@ -50,22 +52,77 @@ public class HomeFragment extends Fragment {
     List<CategoriesData> categoriesData = new ArrayList<>();
     List<BannerData> bannerData = new ArrayList<>();
     List<DiscountedProductsData> modelDiscountedProductsData = new ArrayList<>();
-    List<AllProductsData> allProductsData = new ArrayList<>();
+    List<AllProductsData> freeDeliveryProducts = new ArrayList<>();
     AdapterCategories adapterCategories;
     AdapterBanner adapterBanner;
     AdapterDiscountedProducts adapterDiscountedProducts;
     AdapterFreeDeliveryProducts adapterFreeDeliveryProducts;
     SaveData saveData;
 
+    @Inject
+    API api;
+    private MainViewModel mainViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
         binding=FragmentHomeBinding.inflate(inflater,container,false);
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         final View view =binding.getRoot();
 
         init();
+        mainViewModel.categoriesLiveData.observe(getViewLifecycleOwner(), categories -> {
+            if (!categories.getError()) {
+                categoriesData.addAll(categories.getData());
+                adapterCategories = new AdapterCategories(getActivity(), categoriesData);
+                binding.recycleviewFoodCategories.setAdapter(adapterCategories);
+            } else {
+                Toast.makeText(getActivity(), categories.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mainViewModel.categoriesErrorLiveData.observe(getViewLifecycleOwner(), message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
+
+        mainViewModel.bannerLiveData.observe(getViewLifecycleOwner(), banner -> {
+            if (!banner.getError()) {
+                bannerData.addAll(banner.getData());
+                adapterBanner = new AdapterBanner(getActivity(), bannerData);
+                binding.recycleviewBanner.setAdapter(adapterBanner);
+            } else {
+                Toast.makeText(getActivity(), banner.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mainViewModel.bannerErrorLiveData.observe(getViewLifecycleOwner(), message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
+
+        mainViewModel.discountedProductsLiveData.observe(getViewLifecycleOwner(), discountedProducts -> {
+            if (!discountedProducts.getError()) {
+                modelDiscountedProductsData.addAll(discountedProducts.getData());
+                adapterDiscountedProducts = new AdapterDiscountedProducts(getActivity(), modelDiscountedProductsData);
+                binding.recycleviewDicountedProducts.setAdapter(adapterDiscountedProducts);
+            } else {
+                Toast.makeText(getActivity(), discountedProducts.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mainViewModel.discountedProductsErrorLiveData.observe(getViewLifecycleOwner(), message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
+
+        mainViewModel.freeDeliveryLiveData.observe(getViewLifecycleOwner(), freeDeliveryLiveData -> {
+            if (!freeDeliveryLiveData.getError()) {
+                freeDeliveryProducts.addAll(freeDeliveryLiveData.getData());
+                adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(getActivity(), freeDeliveryProducts);
+                binding.recycleviewFreeDeliveryProducts.setAdapter(adapterFreeDeliveryProducts);
+            } else {
+                Toast.makeText(getActivity(), freeDeliveryLiveData.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mainViewModel.freeDeliveryErrorLiveData.observe(getViewLifecycleOwner(), message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
 
 
         return view;
@@ -90,101 +147,11 @@ public class HomeFragment extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         });
-        getall(saveData.getToken());
+        mainViewModel.getCategories(saveData.getToken());
+        mainViewModel.getBanners(saveData.getToken());
+        mainViewModel.getDiscountedProducts(saveData.getToken());
+        mainViewModel.getFreeDeliveryProducts(saveData.getToken());
 
-    }
-    public void getall(String token) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<Categories> call = apiClient.getCategories();
-        Call<Banner> call1 = apiClient.getBanners();
-        Call<AllProducts> call2 = apiClient.getFreeDeliveryProducts();
-        Call<DiscountedProducts> call3 = apiClient.getDiscountedProducts();
-        call.enqueue(new Callback<Categories>() {
-            @Override
-            public void onResponse(Call<Categories> call, Response<Categories> response) {
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-                    if (!response.body().getError()) {
-                        categoriesDataList.addAll(response.body().getData());
-                        adapterCategories = new AdapterCategories(getContext(), categoriesDataList);
-                        binding.recycleviewFoodCategories.setAdapter(adapterCategories);
-                    } else {
-                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(),"Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Categories> call, Throwable t) {
-                Toast.makeText(getContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        call1.enqueue(new Callback<Banner>() {
-            @Override
-            public void onResponse(Call<Banner> call, Response<Banner> response) {
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-                    if (!response.body().getError()) {
-                        bannerData.addAll(response.body().getData());
-                        adapterBanner = new AdapterBanner(getContext(),bannerData);
-                        binding.recycleviewBanner.setAdapter(adapterBanner);
-
-                    } else {
-                        Toast.makeText(getContext(),response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(),"Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Banner> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        call2.enqueue(new Callback<AllProducts>() {
-            @Override
-            public void onResponse(Call<AllProducts> call, Response<AllProducts> response) {
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-                    if (!response.body().getError()) {
-                        allProductsData.addAll(response.body().getData());
-                        adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(getContext(), allProductsData);
-                        binding.recycleviewFreeDeliveryProducts.setAdapter(adapterFreeDeliveryProducts);
-                    } else {
-                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AllProducts> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        call3.enqueue(new Callback<DiscountedProducts>() {
-            @Override
-            public void onResponse(Call<DiscountedProducts> call, Response<DiscountedProducts> response) {
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-                    if (!response.body().getError()) {
-                        modelDiscountedProductsData.addAll(response.body().getData());
-                        adapterDiscountedProducts = new AdapterDiscountedProducts(getContext(), modelDiscountedProductsData);
-                        binding.recycleviewDicountedProducts.setAdapter(adapterDiscountedProducts);
-                    } else {
-                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DiscountedProducts> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void searchCategory(String s) {

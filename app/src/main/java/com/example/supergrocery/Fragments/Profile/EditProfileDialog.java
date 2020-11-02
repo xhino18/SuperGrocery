@@ -2,7 +2,6 @@ package com.example.supergrocery.Fragments.Profile;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
@@ -11,8 +10,9 @@ import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
+import com.example.supergrocery.Models.ModelMainToken;
+import com.example.supergrocery.Models.UserRegisterData;
 import com.example.supergrocery.Other.SaveData;
-import com.example.supergrocery.ModelsPost.UserRegister;
 import com.example.supergrocery.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -65,10 +65,10 @@ public class EditProfileDialog {
     }
     public void editProfileInfo(String token){
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        retrofit2.Call<UserRegister> call = apiClient.editProfile(name,email,nuis);
-        call.enqueue(new Callback<UserRegister>() {
+        retrofit2.Call<ModelMainToken<UserRegisterData>> call = apiClient.editProfile(name,email,nuis);
+        call.enqueue(new Callback<ModelMainToken<UserRegisterData>>() {
             @Override
-            public void onResponse(retrofit2.Call<UserRegister> call, Response<UserRegister> response) {
+            public void onResponse(retrofit2.Call<ModelMainToken<UserRegisterData>> call, Response<ModelMainToken<UserRegisterData>> response) {
                 System.out.println("respoonseeee "+ gson.toJson(response.body()));
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")){
                     if (!response.body().getError()){
@@ -88,7 +88,7 @@ public class EditProfileDialog {
             }
 
             @Override
-            public void onFailure(retrofit2.Call<UserRegister> call, Throwable t) {
+            public void onFailure(retrofit2.Call<ModelMainToken<UserRegisterData>> call, Throwable t) {
                 Log.e("test", t.toString());
 
             }

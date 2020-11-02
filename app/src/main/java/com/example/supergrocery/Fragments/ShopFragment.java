@@ -3,7 +3,6 @@ package com.example.supergrocery.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -14,10 +13,8 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
-import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterFragmentCategories;
-import com.example.supergrocery.ModelsGet.Categories;
-import com.example.supergrocery.ModelsGet.CategoriesData;
+import com.example.supergrocery.Models.CategoriesData;
 import com.example.supergrocery.Other.MainViewModel;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.databinding.FragmentShopBinding;
@@ -28,9 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import javax.inject.Inject;
 
@@ -58,7 +52,7 @@ public class ShopFragment extends Fragment {
 
         init();
 
-        viewModel.categoriesLiveData.observe(getViewLifecycleOwner(), categories -> {
+        viewModel.fragmentCategoriesLiveData.observe(getViewLifecycleOwner(), categories -> {
             if (!categories.getError()) {
                 categoriesData.addAll(categories.getData());
                 adapterFragmentCategories = new AdapterFragmentCategories(getActivity(), categoriesData);
@@ -68,7 +62,7 @@ public class ShopFragment extends Fragment {
             }
         });
 
-        viewModel.categoriesErrorLiveData.observe(getViewLifecycleOwner(), message ->
+        viewModel.fragmentCategoriesErrorLiveData.observe(getViewLifecycleOwner(), message ->
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
 
         return view;
@@ -90,7 +84,7 @@ public class ShopFragment extends Fragment {
             }
         });
 
-        viewModel.getCategories();
+        viewModel.getFragmentCategories();
     }
 
     private void searchCategory(String s) {

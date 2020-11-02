@@ -5,16 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.MainActivity;
+import com.example.supergrocery.Models.ModelMainToken;
+import com.example.supergrocery.Models.UserRegisterData;
 import com.example.supergrocery.Other.SaveData;
 
-import com.example.supergrocery.ModelsPost.ModelSendCode;
-import com.example.supergrocery.ModelsPost.UserRegister;
+import com.example.supergrocery.Models.ModelSendCode;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityLoginCodeBinding;
 import com.google.gson.Gson;
@@ -39,7 +39,6 @@ public class LoginCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginCodeBinding.inflate(getLayoutInflater());
         final View view = binding.getRoot();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();
@@ -119,10 +118,10 @@ public class LoginCodeActivity extends AppCompatActivity {
     private void verifyPhoneNumberWithCode(String code, int userId) {
 
         API apiClient = ClientAPI.createApiNoToken();
-        Call<UserRegister> call = apiClient.verifyCode(code, userId);
-        call.enqueue(new Callback<UserRegister>() {
+        Call<ModelMainToken<UserRegisterData>> call = apiClient.verifyCode(code, userId);
+        call.enqueue(new Callback<ModelMainToken<UserRegisterData>>() {
             @Override
-            public void onResponse(Call<UserRegister> call, Response<UserRegister> response) {
+            public void onResponse(Call<ModelMainToken<UserRegisterData>> call, Response<ModelMainToken<UserRegisterData>> response) {
 
                 if (!gson.toJson(response.body()).equalsIgnoreCase("")) {
                     if (!response.body().getError()) {
@@ -141,7 +140,7 @@ public class LoginCodeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserRegister> call, Throwable t) {
+            public void onFailure(Call<ModelMainToken<UserRegisterData>> call, Throwable t) {
 
 
             }

@@ -7,18 +7,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterMoreDiscountedProducts;
-import com.example.supergrocery.ModelsGet.AllProductsData;
-import com.example.supergrocery.ModelsGet.CategoriesData;
-import com.example.supergrocery.ModelsGet.DiscountedProducts;
-import com.example.supergrocery.ModelsGet.DiscountedProductsData;
+import com.example.supergrocery.Models.AllProductsData;
+import com.example.supergrocery.Models.CategoriesData;
+import com.example.supergrocery.Models.DiscountedProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
+import com.example.supergrocery.Models.ModelMain;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.Payment.PaymentActivity;
@@ -50,7 +49,6 @@ public class DiscountedProductsActivity extends AppCompatActivity implements Ite
         super.onCreate(savedInstanceState);
         binding =ActivityDiscountedProductsBinding.inflate(getLayoutInflater());
         final View view= binding.getRoot();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();
@@ -105,10 +103,10 @@ public class DiscountedProductsActivity extends AppCompatActivity implements Ite
 
     public void getall(String token) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<DiscountedProducts> call = apiClient.getDiscountedProducts();
-        call.enqueue(new Callback<DiscountedProducts>() {
+        Call<ModelMain<List<DiscountedProductsData>>> call = apiClient.getDiscountedProducts();
+        call.enqueue(new Callback<ModelMain<List<DiscountedProductsData>>>() {
             @Override
-            public void onResponse(Call<DiscountedProducts> call, Response<DiscountedProducts> response) {
+            public void onResponse(Call<ModelMain<List<DiscountedProductsData>>> call, Response<ModelMain<List<DiscountedProductsData>>> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         discountedProductsData.addAll(response.body().getData());
@@ -123,7 +121,7 @@ public class DiscountedProductsActivity extends AppCompatActivity implements Ite
             }
 
             @Override
-            public void onFailure(Call<DiscountedProducts> call, Throwable t) {
+            public void onFailure(Call<ModelMain<List<DiscountedProductsData>>> call, Throwable t) {
                 Toast.makeText(DiscountedProductsActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -8,16 +8,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterMoreShopProducts;
-import com.example.supergrocery.ModelsGet.GetProductByID;
-import com.example.supergrocery.ModelsGet.ShopProducts;
-import com.example.supergrocery.ModelsGet.ShopProductsData;
+import com.example.supergrocery.Models.ModelMain;
+import com.example.supergrocery.Models.ShopProductsData;
 import com.example.supergrocery.Interfaces.ProductClickedInterface;
 import com.example.supergrocery.Other.Links;
 import com.example.supergrocery.Other.SaveData;
@@ -50,11 +48,10 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
         super.onCreate(savedInstanceState);
         binding=ActivitySelectedProductBinding.inflate(getLayoutInflater());
         final View view=binding.getRoot();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();
-        getall(saveData.getToken(),cat_id,prod_id);
+        getall(saveData.getToken(),cat_id);
 
     }
 
@@ -106,13 +103,12 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
         });
 
     }
-    public void getall(String token,int cat_id,int prod_id) {
+    public void getall(String token,int cat_id) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ShopProducts> call = apiClient.getProducts(cat_id);
-        Call<GetProductByID> call1= apiClient.getProductByID(prod_id);
-        call.enqueue(new Callback<ShopProducts>() {
+        Call<ModelMain<List<ShopProductsData>>> call = apiClient.getProducts(cat_id);
+        call.enqueue(new Callback<ModelMain<List<ShopProductsData>>>() {
             @Override
-            public void onResponse(Call<ShopProducts> call, Response<ShopProducts> response) {
+            public void onResponse(Call<ModelMain<List<ShopProductsData>>> call, Response<ModelMain<List<ShopProductsData>>> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         shopProductsData.addAll(response.body().getData());
@@ -126,7 +122,7 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
                 }
             }
             @Override
-            public void onFailure(Call<ShopProducts> call, Throwable t) {
+            public void onFailure(Call<ModelMain<List<ShopProductsData>>> call, Throwable t) {
                 Toast.makeText(SelectedProductActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -1,4 +1,4 @@
-package com.example.supergrocery.ModelsGet
+package com.example.supergrocery.Models
 
 data class CategoriesData (val id: Int,
                            val name: String,

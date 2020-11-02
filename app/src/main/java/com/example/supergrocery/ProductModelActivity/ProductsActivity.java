@@ -6,15 +6,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterShopProducts;
-import com.example.supergrocery.ModelsGet.ShopProducts;
-import com.example.supergrocery.ModelsGet.ShopProductsData;
+import com.example.supergrocery.Models.ModelMain;
+import com.example.supergrocery.Models.ShopProductsData;
 import com.example.supergrocery.Interfaces.AddItemInBasket;
 import com.example.supergrocery.Interfaces.ProductClickedInterface;
 import com.example.supergrocery.MainActivity;
@@ -47,7 +46,6 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         super.onCreate(savedInstanceState);
         binding =ActivityProductsBinding.inflate(getLayoutInflater());
         final View view= binding.getRoot();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();
@@ -94,10 +92,10 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
 
     public void getall(String token, int catId) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ShopProducts> call = apiClient.getProducts(catId);
-        call.enqueue(new Callback<ShopProducts>() {
+        Call<ModelMain<List<ShopProductsData>>> call = apiClient.getProducts(catId);
+        call.enqueue(new Callback<ModelMain<List<ShopProductsData>>>() {
             @Override
-            public void onResponse(Call<ShopProducts> call, Response<ShopProducts> response) {
+            public void onResponse(Call<ModelMain<List<ShopProductsData>>> call, Response<ModelMain<List<ShopProductsData>>> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         modelShopProductsDataList.addAll(response.body().getData());
@@ -112,7 +110,7 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
             }
 
             @Override
-            public void onFailure(Call<ShopProducts> call, Throwable t) {
+            public void onFailure(Call<ModelMain<List<ShopProductsData>>> call, Throwable t) {
                 Toast.makeText(ProductsActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

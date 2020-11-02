@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.supergrocery.Fragments.BasketFragment;
@@ -16,9 +16,9 @@ import com.example.supergrocery.Fragments.DiscoverFragment;
 import com.example.supergrocery.Fragments.HomeFragment;
 import com.example.supergrocery.Fragments.Profile.ProfileFragment;
 import com.example.supergrocery.Fragments.ShopFragment;
-import com.example.supergrocery.ModelsGet.AllProductsData;
-import com.example.supergrocery.ModelsGet.CategoriesData;
-import com.example.supergrocery.ModelsGet.DiscountedProductsData;
+import com.example.supergrocery.Models.AllProductsData;
+import com.example.supergrocery.Models.CategoriesData;
+import com.example.supergrocery.Models.DiscountedProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
 import com.example.supergrocery.ProductModelActivity.DiscountedProductsActivity;
 import com.example.supergrocery.ProductModelActivity.FreeDeliveryActivity;
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         final View view = binding.getRoot();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
 
         init();
@@ -177,13 +176,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
 
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
     }
 
 }

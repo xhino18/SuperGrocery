@@ -14,11 +14,11 @@ import android.widget.Toast;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterSearchedProduct;
-import com.example.supergrocery.ModelsGet.AllProductsData;
-import com.example.supergrocery.ModelsGet.Categories;
-import com.example.supergrocery.ModelsGet.CategoriesData;
-import com.example.supergrocery.ModelsGet.DiscountedProductsData;
+import com.example.supergrocery.Models.AllProductsData;
+import com.example.supergrocery.Models.CategoriesData;
+import com.example.supergrocery.Models.DiscountedProductsData;
 import com.example.supergrocery.Interfaces.ItemClickInterface;
+import com.example.supergrocery.Models.ModelMain;
 import com.example.supergrocery.ProductModelActivity.ProductsActivity;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.ActivityMainSearchBinding;
@@ -74,10 +74,10 @@ public class MainSearchActivity extends AppCompatActivity implements ItemClickIn
     }
     public void getall(String token) {
         API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<Categories> call = apiClient.getCategories();
-        call.enqueue(new Callback<Categories>() {
+        Call<ModelMain<List<CategoriesData>>> call = apiClient.getCategories();
+        call.enqueue(new Callback<ModelMain<List<CategoriesData>>>() {
             @Override
-            public void onResponse(Call<Categories> call, Response<Categories> response) {
+            public void onResponse(Call<ModelMain<List<CategoriesData>>> call, Response<ModelMain<List<CategoriesData>>> response) {
                 if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
                     if (!response.body().getError()) {
                         categoriesDataList.addAll(response.body().getData());
@@ -90,7 +90,7 @@ public class MainSearchActivity extends AppCompatActivity implements ItemClickIn
             }
 
             @Override
-            public void onFailure(Call<Categories> call, Throwable t) {
+            public void onFailure(Call<ModelMain<List<CategoriesData>>> call, Throwable t) {
                 Toast.makeText(MainSearchActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

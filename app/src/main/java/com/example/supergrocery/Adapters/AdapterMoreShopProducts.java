@@ -2,18 +2,15 @@ package com.example.supergrocery.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.supergrocery.ModelsGet.ShopProductsData;
+import com.example.supergrocery.Models.ShopProductsData;
 import com.example.supergrocery.Interfaces.ProductClickedInterface;
 import com.example.supergrocery.Other.Links;
-import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.MoreProductsModelBinding;
 
 import java.util.List;

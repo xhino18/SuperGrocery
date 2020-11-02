@@ -1,4 +1,4 @@
-package com.example.supergrocery.ModelsGet
+package com.example.supergrocery.Models
 
 data class FreeDeliveryProductsData (val name: String,
                                      val image: String,

@@ -1,4 +1,4 @@
-package com.example.supergrocery.ModelsPost
+package com.example.supergrocery.Models
 
 data class UserRegisterData (
         val id: Int,
