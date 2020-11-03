@@ -1,4 +1,4 @@
-package com.example.supergrocery;
+package com.example.supergrocery.API;
 
 import android.app.Application;
 import android.content.Context;

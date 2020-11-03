@@ -55,7 +55,7 @@ public class EditProfileDialog {
         Button button_edit_profile_confirm = (Button) dialog.findViewById(R.id.button_edit_profile_confirm);
         button_edit_profile_confirm.setOnClickListener(v -> {
             editProfileInfo(saveData.getToken());
-           dialog.dismiss();
+            dialog.dismiss();
             Toast.makeText(dialog.getContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
 
         });

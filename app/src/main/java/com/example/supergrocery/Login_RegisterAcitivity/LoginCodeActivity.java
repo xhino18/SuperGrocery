@@ -20,10 +20,14 @@ import com.example.supergrocery.databinding.ActivityLoginCodeBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@AndroidEntryPoint
 public class LoginCodeActivity extends AppCompatActivity {
     ActivityLoginCodeBinding binding;
 
@@ -33,6 +37,8 @@ public class LoginCodeActivity extends AppCompatActivity {
     SaveData saveData;
     Boolean is_login;
     String user_name, user_email, user_nuis, user_phone, token;
+    @Inject
+    API api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +94,7 @@ public class LoginCodeActivity extends AppCompatActivity {
     }
 
     private void startPhoneNumberVerification(String user_phone) {
-
-        API apiClient = ClientAPI.createApiNoToken();
-        Call<ModelSendCode> call = apiClient.sendCode(user_phone);
+        Call<ModelSendCode> call = api.sendCode(user_phone);
         call.enqueue(new Callback<ModelSendCode>() {
             @Override
             public void onResponse(Call<ModelSendCode> call, Response<ModelSendCode> response) {
@@ -116,9 +120,7 @@ public class LoginCodeActivity extends AppCompatActivity {
     }
 
     private void verifyPhoneNumberWithCode(String code, int userId) {
-
-        API apiClient = ClientAPI.createApiNoToken();
-        Call<ModelMainToken<UserRegisterData>> call = apiClient.verifyCode(code, userId);
+        Call<ModelMainToken<UserRegisterData>> call = api.verifyCode(code, userId);
         call.enqueue(new Callback<ModelMainToken<UserRegisterData>>() {
             @Override
             public void onResponse(Call<ModelMainToken<UserRegisterData>> call, Response<ModelMainToken<UserRegisterData>> response) {

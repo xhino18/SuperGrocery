@@ -57,8 +57,7 @@ public class MainViewModel extends ViewModel {
             }
         });
     }
-    public void getCategories(String token) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
+    public void getCategories() {
         Call<ModelMain<List<CategoriesData>>> call = api.getCategories();
         call.enqueue(new Callback<ModelMain<List<CategoriesData>>>() {
             @Override
@@ -72,8 +71,7 @@ public class MainViewModel extends ViewModel {
             }
         });
     }
-    public void getBanners(String token) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
+    public void getBanners() {
         Call<ModelMain<List<BannerData>>> call = api.getBanners();
         call.enqueue(new Callback<ModelMain<List<BannerData>>>() {
             @Override
@@ -87,8 +85,7 @@ public class MainViewModel extends ViewModel {
             }
         });
     }
-    public void getFreeDeliveryProducts(String token) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
+    public void getFreeDeliveryProducts() {
         Call<ModelMain<List<AllProductsData>>> call = api.getFreeDeliveryProducts();
         call.enqueue(new Callback<ModelMain<List<AllProductsData>>>() {
             @Override
@@ -102,8 +99,7 @@ public class MainViewModel extends ViewModel {
             }
         });
     }
-    public void getDiscountedProducts(String token) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
+    public void getDiscountedProducts() {
         Call<ModelMain<List<DiscountedProductsData>>> call = api.getDiscountedProducts();
         call.enqueue(new Callback<ModelMain<List<DiscountedProductsData>>>() {
             @Override

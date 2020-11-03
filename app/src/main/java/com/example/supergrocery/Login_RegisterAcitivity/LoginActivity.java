@@ -17,16 +17,22 @@ import com.example.supergrocery.databinding.ActivityLoginBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@AndroidEntryPoint
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
     SaveData saveData;
     Gson gson;
     boolean doubleBackToExitPressedOnce = false;
     String phone;
+    @Inject
+    API api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login_phoneNumber(String phoneNumber){
-
-        API ApiClinet =  ClientAPI.createApiNoToken();
-        Call<ModelSendCode> call = ApiClinet.sendCode(phoneNumber);
+        Call<ModelSendCode> call = api.sendCode(phoneNumber);
         call.enqueue(new Callback<ModelSendCode>() {
                          @Override
                          public void onResponse(Call<ModelSendCode> call, Response<ModelSendCode> response) {

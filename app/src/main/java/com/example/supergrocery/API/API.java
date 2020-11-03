@@ -16,11 +16,14 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 
 public interface API {
+
+        String NO_AUTHENTICATION_TRUE = "No-Authentication: true";
         String FIREBASE_TOKEN = "token"; // temporary placeholder
         short PLATFORM_ID = 2;
 
@@ -45,6 +48,7 @@ public interface API {
 
         @FormUrlEncoded
         @POST("register")
+        @Headers(NO_AUTHENTICATION_TRUE)
         Call<ModelMainToken<UserRegisterData>> register(@Field("name") String name,
                                                         @Field("email") String email,
                                                         @Field("phone_number") String phoneNumber,
@@ -53,8 +57,9 @@ public interface API {
                                                         @Field("platform") short platform,
                                                         @Field("firebase_token") String firebaseToken);
 
-        @POST("edit_profile")
         @FormUrlEncoded
+        @POST("edit_profile")
+        @Headers(NO_AUTHENTICATION_TRUE)
         Call<ModelMainToken<UserRegisterData>> editProfile(@Field("name") String name,
                                                            @Field("email") String email,
                                                            @Field("nuis") String nuis);
@@ -67,6 +72,7 @@ public interface API {
 
         @FormUrlEncoded
         @POST("verify_code")
+        @Headers(NO_AUTHENTICATION_TRUE)
         Call<ModelMainToken<UserRegisterData>> verifyCode(@Field("code") String code,
                                                           @Field("user_id") int userId);
 

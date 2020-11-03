@@ -30,10 +30,14 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@AndroidEntryPoint
 public class SelectedProductActivity extends AppCompatActivity implements ProductClickedInterface{
     ActivitySelectedProductBinding binding;
     SaveData saveData;
@@ -42,6 +46,8 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
     Gson gson;
     String name,image,description;
     int cat_id,prod_id,price;
+    @Inject
+    API api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,7 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
         setContentView(view);
 
         init();
-        getall(saveData.getToken(),cat_id);
+        getall(cat_id);
 
     }
 
@@ -103,9 +109,8 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
         });
 
     }
-    public void getall(String token,int cat_id) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ModelMain<List<ShopProductsData>>> call = apiClient.getProducts(cat_id);
+    public void getall(int cat_id) {
+        Call<ModelMain<List<ShopProductsData>>> call = api.getProducts(cat_id);
         call.enqueue(new Callback<ModelMain<List<ShopProductsData>>>() {
             @Override
             public void onResponse(Call<ModelMain<List<ShopProductsData>>> call, Response<ModelMain<List<ShopProductsData>>> response) {

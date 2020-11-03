@@ -28,10 +28,14 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@AndroidEntryPoint
 public class ProductsActivity extends AppCompatActivity implements AddItemInBasket, ProductClickedInterface {
     ActivityProductsBinding binding;
     SaveData saveData;
@@ -40,6 +44,8 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
     List<OrderItem> orderItemsModels = new ArrayList<>();
     AdapterShopProducts adapterShopProducts;
     int catId;
+    @Inject
+    API api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +78,7 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         catId = getIntent().getIntExtra("cat_id", -1);
         binding.tvProductCategory.setText(getIntent().getStringExtra("cat_name"));
         System.out.println("Id contoller " + catId);
-        getall(saveData.getToken(), catId);
+        getall(catId);
         getTotalQuantity();
 
         binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -90,9 +96,8 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
 
 }
 
-    public void getall(String token, int catId) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ModelMain<List<ShopProductsData>>> call = apiClient.getProducts(catId);
+    public void getall( int catId) {
+        Call<ModelMain<List<ShopProductsData>>> call = api.getProducts(catId);
         call.enqueue(new Callback<ModelMain<List<ShopProductsData>>>() {
             @Override
             public void onResponse(Call<ModelMain<List<ShopProductsData>>> call, Response<ModelMain<List<ShopProductsData>>> response) {

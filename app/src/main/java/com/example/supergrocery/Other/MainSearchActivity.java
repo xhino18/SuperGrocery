@@ -28,16 +28,21 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+@AndroidEntryPoint
 public class MainSearchActivity extends AppCompatActivity implements ItemClickInterface {
     ActivityMainSearchBinding binding;
     Gson gson;
     SaveData saveData;
     List<CategoriesData> categoriesDataList = new ArrayList<>();
     AdapterSearchedProduct adapterSearchedProduct;
+    @Inject
+    API api;
 
 
     @Override
@@ -50,7 +55,7 @@ public class MainSearchActivity extends AppCompatActivity implements ItemClickIn
 
         gson=new GsonBuilder().create();
         saveData=new SaveData(this);
-        getall(saveData.getToken());
+        getall();
         binding.recycleviewSearchedItems.setLayoutManager(new LinearLayoutManager(MainSearchActivity.this,RecyclerView.VERTICAL,false));
         binding.searchviewMain.onActionViewExpanded();
         binding.searchviewMain.requestFocus();
@@ -72,9 +77,8 @@ public class MainSearchActivity extends AppCompatActivity implements ItemClickIn
         });
 
     }
-    public void getall(String token) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ModelMain<List<CategoriesData>>> call = apiClient.getCategories();
+    public void getall() {
+        Call<ModelMain<List<CategoriesData>>> call = api.getCategories();
         call.enqueue(new Callback<ModelMain<List<CategoriesData>>>() {
             @Override
             public void onResponse(Call<ModelMain<List<CategoriesData>>> call, Response<ModelMain<List<CategoriesData>>> response) {

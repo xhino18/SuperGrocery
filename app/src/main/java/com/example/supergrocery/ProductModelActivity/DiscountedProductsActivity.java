@@ -31,10 +31,14 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@AndroidEntryPoint
 public class DiscountedProductsActivity extends AppCompatActivity implements ItemClickInterface{
     ActivityDiscountedProductsBinding binding;
     SaveData saveData;
@@ -43,6 +47,8 @@ public class DiscountedProductsActivity extends AppCompatActivity implements Ite
     Gson gson;
     int id,price;
     String name,image;
+    @Inject
+    API api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +58,7 @@ public class DiscountedProductsActivity extends AppCompatActivity implements Ite
         setContentView(view);
 
         init();
-        getall(saveData.getToken());
+        getall();
     }
 
     private void init() {
@@ -101,9 +107,8 @@ public class DiscountedProductsActivity extends AppCompatActivity implements Ite
 
     }
 
-    public void getall(String token) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ModelMain<List<DiscountedProductsData>>> call = apiClient.getDiscountedProducts();
+    public void getall() {
+        Call<ModelMain<List<DiscountedProductsData>>> call = api.getDiscountedProducts();
         call.enqueue(new Callback<ModelMain<List<DiscountedProductsData>>>() {
             @Override
             public void onResponse(Call<ModelMain<List<DiscountedProductsData>>> call, Response<ModelMain<List<DiscountedProductsData>>> response) {

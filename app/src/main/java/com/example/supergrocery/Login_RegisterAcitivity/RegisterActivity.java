@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
-import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Models.ModelMainToken;
 import com.example.supergrocery.Models.UserRegisterData;
 import com.example.supergrocery.R;
@@ -17,15 +16,21 @@ import com.example.supergrocery.databinding.ActivityRegisterBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@AndroidEntryPoint
 public class RegisterActivity extends AppCompatActivity{
 
     ActivityRegisterBinding binding;
     int acc_type;
     String name,email,nuis,phone;
     Gson gson;
+    @Inject
+    API api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,6 @@ public class RegisterActivity extends AppCompatActivity{
     }
 
     private void init() {
-
         gson= new GsonBuilder().create();
         binding.tvProfilePersonal.setOnClickListener(v -> {
             binding.linearNuis.setVisibility(View.INVISIBLE);
@@ -88,8 +92,7 @@ public class RegisterActivity extends AppCompatActivity{
 
     }
     public void registercall(){
-        API apiClient = ClientAPI.createApiNoToken();
-        retrofit2.Call<ModelMainToken<UserRegisterData>> call = apiClient.register(name,email,phone,acc_type,nuis,API.PLATFORM_ID,API.FIREBASE_TOKEN);
+        retrofit2.Call<ModelMainToken<UserRegisterData>> call = api.register(name,email,phone,acc_type,nuis,API.PLATFORM_ID,API.FIREBASE_TOKEN);
         call.enqueue(new Callback<ModelMainToken<UserRegisterData>>() {
             @Override
             public void onResponse(retrofit2.Call<ModelMainToken<UserRegisterData>> call, Response<ModelMainToken<UserRegisterData>> response) {

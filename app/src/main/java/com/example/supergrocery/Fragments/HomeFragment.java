@@ -147,10 +147,10 @@ public class HomeFragment extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         });
-        mainViewModel.getCategories(saveData.getToken());
-        mainViewModel.getBanners(saveData.getToken());
-        mainViewModel.getDiscountedProducts(saveData.getToken());
-        mainViewModel.getFreeDeliveryProducts(saveData.getToken());
+        mainViewModel.getCategories();
+        mainViewModel.getBanners();
+        mainViewModel.getDiscountedProducts();
+        mainViewModel.getFreeDeliveryProducts();
 
     }
 

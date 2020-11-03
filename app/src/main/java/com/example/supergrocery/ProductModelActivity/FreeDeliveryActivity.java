@@ -31,10 +31,14 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@AndroidEntryPoint
 public class FreeDeliveryActivity extends AppCompatActivity implements ItemClickInterface {
     ActivityFreeDeliveryBinding binding;
     SaveData saveData;
@@ -43,6 +47,8 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
     Gson gson;
     int id,price;
     String name,image;
+    @Inject
+    API api;
 
 
     @Override
@@ -53,7 +59,7 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
         setContentView(view);
 
         init();
-        getall(saveData.getToken());
+        getall();
 
     }
 
@@ -102,9 +108,8 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
         });
 
     }
-    public void getall(String token) {
-        API apiClient = ClientAPI.createAPI_With_Token(token);
-        Call<ModelMain<List<AllProductsData>>> call = apiClient.getFreeDeliveryProducts();
+    public void getall() {
+        Call<ModelMain<List<AllProductsData>>> call = api.getFreeDeliveryProducts();
         call.enqueue(new Callback<ModelMain<List<AllProductsData>>>() {
             @Override
             public void onResponse(Call<ModelMain<List<AllProductsData>>> call, Response<ModelMain<List<AllProductsData>>> response) {
