@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.supergrocery.API.API;
 import com.example.supergrocery.Adapters.AdapterFragmentCategories;
 import com.example.supergrocery.Models.CategoriesData;
-import com.example.supergrocery.Other.MainViewModel;
+import com.example.supergrocery.MainViewModel;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.databinding.FragmentShopBinding;
 import com.google.gson.Gson;
@@ -46,31 +46,19 @@ public class ShopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-        binding =FragmentShopBinding.inflate(inflater,container,false);
-        View view= binding.getRoot();
+        binding = FragmentShopBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
         binding.recycleviewFragmentCategories.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         init();
-
-        viewModel.fragmentCategoriesLiveData.observe(getViewLifecycleOwner(), categories -> {
-            if (!categories.getError()) {
-                categoriesData.addAll(categories.getData());
-                adapterFragmentCategories = new AdapterFragmentCategories(getActivity(), categoriesData);
-                binding.recycleviewFragmentCategories.setAdapter(adapterFragmentCategories);
-            } else {
-                Toast.makeText(getActivity(), categories.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        viewModel.fragmentCategoriesErrorLiveData.observe(getViewLifecycleOwner(), message ->
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
+        setUpCategoriesList();
 
         return view;
     }
 
     private void init() {
         gson = new GsonBuilder().create();
-        saveData=new SaveData(getContext());
+        saveData = new SaveData(getContext());
         binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -87,6 +75,21 @@ public class ShopFragment extends Fragment {
         viewModel.getFragmentCategories();
     }
 
+    private void setUpCategoriesList() {
+        viewModel.fragmentCategoriesLiveData.observe(getViewLifecycleOwner(), categories -> {
+            if (!categories.getError()) {
+                categoriesData.addAll(categories.getData());
+                adapterFragmentCategories = new AdapterFragmentCategories(getActivity(), categoriesData);
+                binding.recycleviewFragmentCategories.setAdapter(adapterFragmentCategories);
+            } else {
+                Toast.makeText(getActivity(), categories.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        viewModel.fragmentCategoriesErrorLiveData.observe(getViewLifecycleOwner(), message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
+    }
+
     private void searchCategory(String s) {
         List<CategoriesData> data = new ArrayList<>();
         data.addAll(categoriesData);
@@ -96,7 +99,7 @@ public class ShopFragment extends Fragment {
                 i--;
             }
         }
-        adapterFragmentCategories = new AdapterFragmentCategories(getContext(),data);
+        adapterFragmentCategories = new AdapterFragmentCategories(getContext(), data);
         binding.recycleviewFragmentCategories.setAdapter(adapterFragmentCategories);
     }
 }

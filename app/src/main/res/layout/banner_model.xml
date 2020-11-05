@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
+    <data>
+        <variable
+            name="Banner"
+            type="com.example.supergrocery.Models.BannerData" />
 
-    <androidx.cardview.widget.CardView
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/banner_height"
-        app:cardElevation="@dimen/cardview_default_elevation"
-        android:id="@+id/cardview_discount_products"
-        app:cardCornerRadius="@dimen/standart_image_cardview_radius"
-        android:layout_centerHorizontal="true">
+        android:layout_height="wrap_content">
 
-        <ImageView
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_discount_products"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/imageview_discount_product"
-            android:scaleType="fitXY">
+            android:layout_height="@dimen/banner_height"
+            android:layout_centerHorizontal="true"
+            app:cardCornerRadius="@dimen/standart_image_cardview_radius"
+            app:cardElevation="@dimen/cardview_default_elevation">
 
-        </ImageView>
-    </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/imageview_discount_product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY">
 
-</RelativeLayout>
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</layout>

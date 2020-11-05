@@ -14,20 +14,17 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.supergrocery.API.API;
-import com.example.supergrocery.API.ClientAPI;
 import com.example.supergrocery.Adapters.AdapterBanner;
 import com.example.supergrocery.Adapters.AdapterCategories;
 import com.example.supergrocery.Adapters.AdapterDiscountedProducts;
-import com.example.supergrocery.Adapters.AdapterFragmentCategories;
 import com.example.supergrocery.Adapters.AdapterFreeDeliveryProducts;
 import com.example.supergrocery.Models.AllProductsData;
 import com.example.supergrocery.Models.BannerData;
 import com.example.supergrocery.Models.CategoriesData;
 import com.example.supergrocery.Models.DiscountedProductsData;
 import com.example.supergrocery.MainActivity;
-import com.example.supergrocery.Models.ModelMain;
 import com.example.supergrocery.Other.MainSearchActivity;
-import com.example.supergrocery.Other.MainViewModel;
+import com.example.supergrocery.MainViewModel;
 import com.example.supergrocery.Other.SaveData;
 import com.example.supergrocery.R;
 import com.example.supergrocery.databinding.FragmentHomeBinding;
@@ -40,9 +37,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @AndroidEntryPoint
 public class HomeFragment extends Fragment {
@@ -72,64 +66,22 @@ public class HomeFragment extends Fragment {
         final View view =binding.getRoot();
 
         init();
-        mainViewModel.categoriesLiveData.observe(getViewLifecycleOwner(), categories -> {
-            if (!categories.getError()) {
-                categoriesData.addAll(categories.getData());
-                adapterCategories = new AdapterCategories(getActivity(), categoriesData);
-                binding.recycleviewFoodCategories.setAdapter(adapterCategories);
-            } else {
-                Toast.makeText(getActivity(), categories.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mainViewModel.categoriesErrorLiveData.observe(getViewLifecycleOwner(), message ->
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
-
-        mainViewModel.bannerLiveData.observe(getViewLifecycleOwner(), banner -> {
-            if (!banner.getError()) {
-                bannerData.addAll(banner.getData());
-                adapterBanner = new AdapterBanner(getActivity(), bannerData);
-                binding.recycleviewBanner.setAdapter(adapterBanner);
-            } else {
-                Toast.makeText(getActivity(), banner.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mainViewModel.bannerErrorLiveData.observe(getViewLifecycleOwner(), message ->
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
-
-        mainViewModel.discountedProductsLiveData.observe(getViewLifecycleOwner(), discountedProducts -> {
-            if (!discountedProducts.getError()) {
-                modelDiscountedProductsData.addAll(discountedProducts.getData());
-                adapterDiscountedProducts = new AdapterDiscountedProducts(getActivity(), modelDiscountedProductsData);
-                binding.recycleviewDicountedProducts.setAdapter(adapterDiscountedProducts);
-            } else {
-                Toast.makeText(getActivity(), discountedProducts.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mainViewModel.discountedProductsErrorLiveData.observe(getViewLifecycleOwner(), message ->
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
-
-        mainViewModel.freeDeliveryLiveData.observe(getViewLifecycleOwner(), freeDeliveryLiveData -> {
-            if (!freeDeliveryLiveData.getError()) {
-                freeDeliveryProducts.addAll(freeDeliveryLiveData.getData());
-                adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(getActivity(), freeDeliveryProducts);
-                binding.recycleviewFreeDeliveryProducts.setAdapter(adapterFreeDeliveryProducts);
-            } else {
-                Toast.makeText(getActivity(), freeDeliveryLiveData.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mainViewModel.freeDeliveryErrorLiveData.observe(getViewLifecycleOwner(), message ->
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
+        setUpCategoriesList();
+        setUpBannerList();
+        setUpDiscountedProducts();
+        setUpFreeDeliveryProductsList();
 
 
         return view;
     }
+
     public void init() {
         gson = new GsonBuilder().create();
         saveData = new SaveData(getContext());
+
+        adapterCategories = new AdapterCategories(getActivity());
+        binding.recycleviewFoodCategories.setAdapter(adapterCategories);
+
         binding.recycleviewFoodCategories.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.recycleviewBanner.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.recycleviewDicountedProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
@@ -142,9 +94,9 @@ public class HomeFragment extends Fragment {
         });
 
         binding.tvSearchBar.setOnClickListener(view -> {
-                Intent intent=new Intent(getContext(),MainSearchActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            Intent intent=new Intent(getContext(),MainSearchActivity.class);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         });
         mainViewModel.getCategories();
@@ -152,6 +104,63 @@ public class HomeFragment extends Fragment {
         mainViewModel.getDiscountedProducts();
         mainViewModel.getFreeDeliveryProducts();
 
+    }
+
+    private void setUpFreeDeliveryProductsList() {
+        mainViewModel.freeDeliveryLiveData.observe(getViewLifecycleOwner(), freeDeliveryLiveData -> {
+            if (!freeDeliveryLiveData.getError()) {
+                freeDeliveryProducts.addAll(freeDeliveryLiveData.getData());
+                adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(getActivity(), freeDeliveryProducts);
+                binding.recycleviewFreeDeliveryProducts.setAdapter(adapterFreeDeliveryProducts);
+            } else {
+                Toast.makeText(getActivity(), freeDeliveryLiveData.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mainViewModel.freeDeliveryErrorLiveData.observe(getViewLifecycleOwner(), message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
+    }
+
+    private void setUpDiscountedProducts() {
+        mainViewModel.discountedProductsLiveData.observe(getViewLifecycleOwner(), discountedProducts -> {
+            if (!discountedProducts.getError()) {
+                modelDiscountedProductsData.addAll(discountedProducts.getData());
+                adapterDiscountedProducts = new AdapterDiscountedProducts(getActivity(), modelDiscountedProductsData);
+                binding.recycleviewDicountedProducts.setAdapter(adapterDiscountedProducts);
+            } else {
+                Toast.makeText(getActivity(), discountedProducts.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mainViewModel.discountedProductsErrorLiveData.observe(getViewLifecycleOwner(), message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
+    }
+
+    private void setUpBannerList() {
+        mainViewModel.bannerLiveData.observe(getViewLifecycleOwner(), banner -> {
+            if (!banner.getError()) {
+                bannerData.addAll(banner.getData());
+                adapterBanner = new AdapterBanner(getActivity(), bannerData);
+                binding.recycleviewBanner.setAdapter(adapterBanner);
+            } else {
+                Toast.makeText(getActivity(), banner.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mainViewModel.bannerErrorLiveData.observe(getViewLifecycleOwner(), message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
+    }
+
+    private void setUpCategoriesList() {
+        mainViewModel.categoriesLiveData.observe(getViewLifecycleOwner(), categories -> {
+            if (!categories.getError()) {
+                adapterCategories.submitList(categoriesDataList);
+            } else {
+                Toast.makeText(getActivity(), categories.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        mainViewModel.categoriesErrorLiveData.observe(getViewLifecycleOwner(), message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show());
     }
 
     private void searchCategory(String s) {

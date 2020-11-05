@@ -67,12 +67,12 @@ public class LoginCodeActivity extends AppCompatActivity {
                 if (!user_phone.equalsIgnoreCase("")) {
                     startPhoneNumberVerification(user_phone);
                 }
-            } else{
-                    is_login = true;
-                    user_phone = bundle.getString("phone");
-                    if (!user_phone.equalsIgnoreCase("")) {
-                        startPhoneNumberVerification(user_phone);
-                    }
+            } else {
+                is_login = true;
+                user_phone = bundle.getString("phone");
+                if (!user_phone.equalsIgnoreCase("")) {
+                    startPhoneNumberVerification(user_phone);
+                }
             }
         }
         binding.buttonResendCode.setOnClickListener(v -> {

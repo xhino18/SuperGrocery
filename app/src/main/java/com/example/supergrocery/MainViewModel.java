@@ -1,4 +1,4 @@
-package com.example.supergrocery.Other;
+package com.example.supergrocery;
 
 import android.content.SharedPreferences;
 
