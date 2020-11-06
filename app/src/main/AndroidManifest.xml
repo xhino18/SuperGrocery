@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:name=".App"
         android:theme="@style/AppTheme">
-        <activity android:name=".Other.MainSearchActivity"/>
-        <activity android:name=".ProductModelActivity.SelectedProductActivity" />
-        <activity android:name=".ProductModelActivity.DiscountedProductsActivity" />
-        <activity android:name=".ProductModelActivity.FreeDeliveryActivity" />
-        <activity android:name=".Payment.PaymentActivity" />
-        <activity android:name=".Login_RegisterAcitivity.LoginCodeActivity" />
-        <activity android:name=".Login_RegisterAcitivity.RegisterActivity" />
-        <activity android:name=".ProductModelActivity.ProductsActivity" />
-        <activity android:name=".Login_RegisterAcitivity.LoginActivity" />
-        <activity android:name=".Intro.IntroActivity_1">
+        <activity android:name=".other.MainSearchActivity"/>
+        <activity android:name=".productmodelactivity.SelectedProductActivity" />
+        <activity android:name=".productmodelactivity.DiscountedProductsActivity" />
+        <activity android:name=".productmodelactivity.FreeDeliveryActivity" />
+        <activity android:name=".payment.PaymentActivity" />
+        <activity android:name=".loginregisteractivity.LoginCodeActivity" />
+        <activity android:name=".loginregisteractivity.RegisterActivity" />
+        <activity android:name=".productmodelactivity.ProductsActivity" />
+        <activity android:name=".loginregisteractivity.LoginActivity" />
+        <activity android:name=".intro.IntroActivity_1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

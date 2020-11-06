@@ -11,28 +11,27 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.supergrocery.Fragments.BasketFragment;
-import com.example.supergrocery.Fragments.DiscoverFragment;
-import com.example.supergrocery.Fragments.HomeFragment;
-import com.example.supergrocery.Fragments.Profile.ProfileFragment;
-import com.example.supergrocery.Fragments.ShopFragment;
-import com.example.supergrocery.Models.AllProductsData;
-import com.example.supergrocery.Models.CategoriesData;
-import com.example.supergrocery.Models.DiscountedProductsData;
-import com.example.supergrocery.Interfaces.ItemClickInterface;
-import com.example.supergrocery.ProductModelActivity.DiscountedProductsActivity;
-import com.example.supergrocery.ProductModelActivity.FreeDeliveryActivity;
-import com.example.supergrocery.ProductModelActivity.ProductsActivity;
-import com.example.supergrocery.Other.SaveData;
-import com.example.supergrocery.ROOM.ItemsDB;
-import com.example.supergrocery.ROOM.OrderItem;
+import com.example.supergrocery.fragments.BasketFragment;
+import com.example.supergrocery.fragments.DiscoverFragment;
+import com.example.supergrocery.fragments.HomeFragment;
+import com.example.supergrocery.fragments.profile.ProfileFragment;
+import com.example.supergrocery.fragments.ShopFragment;
+import com.example.supergrocery.models.AllProductsData;
+import com.example.supergrocery.models.CategoriesData;
+import com.example.supergrocery.models.DiscountedProductsData;
+import com.example.supergrocery.interfaces.ItemClickInterface;
+import com.example.supergrocery.productmodelactivity.DiscountedProductsActivity;
+import com.example.supergrocery.productmodelactivity.FreeDeliveryActivity;
+import com.example.supergrocery.productmodelactivity.ProductsActivity;
+import com.example.supergrocery.other.SaveData;
+import com.example.supergrocery.room.ItemsDB;
+import com.example.supergrocery.room.OrderItem;
 import com.example.supergrocery.databinding.ActivityMainBinding;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dagger.hilt.android.AndroidEntryPoint;
-import dagger.hilt.android.HiltAndroidApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
 
     public void getTotalQuantity() {
         int totalquantity = 0;
-        list = ItemsDB.getInstance(MainActivity.this).orderItemDao().getAllItems();
+//        list = ItemsDB.getInstance(MainActivity.this).orderItemDao().allItems;
         badgeDrawable = binding.bottomNavigation.getOrCreateBadge(R.id.nav_basket);
         badgeDrawable.setBackgroundColor(Color.RED);
         badgeDrawable.setBadgeTextColor(Color.WHITE);

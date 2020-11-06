@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="Basket"
+            type="com.example.supergrocery.room.OrderItem" />
+    </data>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -38,6 +44,7 @@
         android:layout_height="@dimen/standart_basket_tv_height"
         android:layout_below="@id/tv_empty"
         android:layout_marginStart="@dimen/standart_basket_tv_marginLeft"
+        android:text="@{Basket.name}"
         android:layout_marginLeft="@dimen/standart_basket_tv_marginLeft"
         android:layout_toStartOf="@id/iv_remove_quantity"
         android:layout_toLeftOf="@id/iv_remove_quantity"
@@ -52,6 +59,7 @@
         android:id="@+id/tv_basket_item_price"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standart_basket_tv_height"
+        android:text="@{Basket.price}"
         android:layout_below="@id/tv_basket_item_name"
         android:layout_marginStart="@dimen/standart_basket_tv_marginLeft"
         android:layout_marginLeft="@dimen/standart_basket_tv_marginLeft"
@@ -99,3 +107,4 @@
 
     </ImageView>
 </RelativeLayout>
+</layout>
