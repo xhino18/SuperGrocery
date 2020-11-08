@@ -18,7 +18,7 @@ import com.example.supergrocery.databinding.DiscountProductsModelBinding;
 
 import java.util.List;
 
-public class AdapterDiscountedProducts extends ListAdapter<DiscountedProductsData,AdapterDiscountedProducts.ViewHolder> {
+public class AdapterDiscountedProducts extends ListAdapter<DiscountedProductsData, AdapterDiscountedProducts.ViewHolder> {
     Context context;
 
     public AdapterDiscountedProducts(Context context) {
@@ -29,33 +29,34 @@ public class AdapterDiscountedProducts extends ListAdapter<DiscountedProductsDat
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        DiscountProductsModelBinding binding=DiscountProductsModelBinding.inflate(inflater,parent,false);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        DiscountProductsModelBinding binding = DiscountProductsModelBinding.inflate(inflater, parent, false);
         return new AdapterDiscountedProducts.ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DiscountedProductsData item=getItem(position);
+        DiscountedProductsData item = getItem(position);
         Glide.with(context).load(Links.categories_images + item.getImage()).into(holder.binding.imageviewDiscountProduct);
-        holder.binding.imageviewDiscountProduct.setOnClickListener(v -> { ((ItemClickInterface)context).dicountedProductsClicked(item);
-        });
+        holder.binding.imageviewDiscountProduct.setOnClickListener(v -> ((ItemClickInterface) context).dicountedProductsClicked(item));
         holder.bind(item);
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         DiscountProductsModelBinding binding;
 
         public ViewHolder(DiscountProductsModelBinding binding) {
             super(binding.getRoot());
-            this.binding=binding;
+            this.binding = binding;
         }
-        private void bind(DiscountedProductsData item){
+
+        private void bind(DiscountedProductsData item) {
             binding.setDiscountedProducts(item);
             binding.executePendingBindings();
         }
     }
+
     public static final DiffUtil.ItemCallback<DiscountedProductsData> DIFF_CALLBACK = new DiffUtil.ItemCallback<DiscountedProductsData>() {
         @Override
         public boolean areItemsTheSame(@NonNull DiscountedProductsData oldItem, @NonNull DiscountedProductsData newItem) {

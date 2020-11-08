@@ -3,6 +3,7 @@ package com.example.supergrocery.adapters;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -18,7 +19,7 @@ import com.example.supergrocery.databinding.FoodCategoriesModelBinding;
 
 import java.util.List;
 
-public class AdapterCategories extends ListAdapter<CategoriesData, AdapterCategories.CategoryViewHolder> {
+public class AdapterCategories extends ListAdapter<CategoriesData, AdapterCategories.ViewHolder> {
     Context context;
 
     public AdapterCategories(Context context) {
@@ -28,25 +29,24 @@ public class AdapterCategories extends ListAdapter<CategoriesData, AdapterCatego
 
     @NonNull
     @Override
-    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         FoodCategoriesModelBinding binding = FoodCategoriesModelBinding.inflate(inflater, parent, false);
-        return new CategoryViewHolder(binding);
+        return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CategoriesData item = getItem(position);
         Glide.with(context).load(Links.categories_images + item.getImage()).into(holder.binding.ivCategoryProduct);
-        Log.e("test",item.getImage());
-        holder.binding.ivCategoryProduct.setOnClickListener(v -> ((ItemClickInterface) context).categoryClicked(item));
+        holder.binding.ivCategoryProduct.setOnClickListener(view -> ((ItemClickInterface) context).categoryClicked(item));
         holder.bind(item);
     }
 
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         FoodCategoriesModelBinding binding;
 
-        public CategoryViewHolder(FoodCategoriesModelBinding binding) {
+        public ViewHolder(FoodCategoriesModelBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

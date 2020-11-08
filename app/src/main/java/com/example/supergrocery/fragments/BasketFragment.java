@@ -84,6 +84,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
             }
 
         });
+        mainViewModel.getBasketItems();
         getTotalQuantity();
         showBasketItems();
         updateTotal();

@@ -1,6 +1,7 @@
 package com.example.supergrocery.productmodelactivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.supergrocery.MainViewModel;
 import com.example.supergrocery.adapters.AdapterShopProducts;
 import com.example.supergrocery.api.API;
 import com.example.supergrocery.models.ModelMain;
@@ -45,19 +47,23 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
     int catId;
     @Inject
     API api;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainViewModel=new ViewModelProvider(this).get(MainViewModel.class);
         binding =ActivityProductsBinding.inflate(getLayoutInflater());
         final View view= binding.getRoot();
         setContentView(view);
 
         init();
+        getProducts();
     }
 
     private void init() {
-
+        adapterShopProducts = new AdapterShopProducts(ProductsActivity.this);
+        binding.recycleviewShopProducts.setAdapter(adapterShopProducts);
         binding.recycleviewShopProducts.setLayoutManager(new GridLayoutManager(ProductsActivity.this, 2));
         gson = new GsonBuilder().create();
         saveData=new SaveData(this);
@@ -78,20 +84,21 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         binding.tvProductCategory.setText(getIntent().getStringExtra("cat_name"));
         System.out.println("Id contoller " + catId);
         getall(catId);
+        mainViewModel.getShopProducts(catId);
         getTotalQuantity();
 
-        binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchCategory(newText);
-                return true;
-            }
-        });
+//        binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                searchCategory(newText);
+//                return true;
+//            }
+//        });
 
 }
 
@@ -118,6 +125,15 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
 //                Toast.makeText(ProductsActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 //            }
 //        });
+    }
+    private void getProducts(){
+        mainViewModel.getShopProductsLiveData().observe(this,listModelMain -> {
+            if(!listModelMain.getError()){
+                adapterShopProducts.submitList(listModelMain.getData());
+            }else{
+                Toast.makeText(this, listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void finish() {
@@ -190,17 +206,17 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
-    private void searchCategory(String s) {
-        List<ShopProductsData> data = new ArrayList<>();
-        data.addAll(modelShopProductsDataList);
-        for (int i = 0; i < data.size(); i++) {
-            if (!data.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
-                data.remove(i);
-                i--;
-            }
-        }
-        adapterShopProducts = new AdapterShopProducts(ProductsActivity.this);
-        binding.recycleviewShopProducts.setAdapter(adapterShopProducts);
-    }
+//    private void searchCategory(String s) {
+//        List<ShopProductsData> data = new ArrayList<>();
+//        data.addAll(modelShopProductsDataList);
+//        for (int i = 0; i < data.size(); i++) {
+//            if (!data.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
+//                data.remove(i);
+//                i--;
+//            }
+//        }
+//        adapterShopProducts = new AdapterShopProducts(ProductsActivity.this,data);
+//        binding.recycleviewShopProducts.setAdapter(adapterShopProducts);
+//    }
 
 }

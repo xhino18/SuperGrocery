@@ -61,18 +61,18 @@ public class ShopFragment extends Fragment {
     private void init() {
         gson = new GsonBuilder().create();
         saveData = new SaveData(getContext());
-        binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchCategory(newText);
-                return true;
-            }
-        });
+//        binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                searchCategory(newText);
+//                return true;
+//            }
+//        });
 
         viewModel.getCategories();
     }
@@ -80,23 +80,23 @@ public class ShopFragment extends Fragment {
     private void setUpCategoriesList() {
         viewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), listModelMain -> {
             if (!listModelMain.getError()) {
-                categoriesData.addAll(listModelMain.getData());
+                adapterFragmentCategories.submitList(listModelMain.getData());
             } else {
                 Toast.makeText(getActivity(), listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void searchCategory(String s) {
-        List<CategoriesData> data = new ArrayList<>();
-        data.addAll(categoriesData);
-        for (int i = 0; i < data.size(); i++) {
-            if (!data.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
-                data.remove(i);
-                i--;
-            }
-        }
-        adapterFragmentCategories = new AdapterFragmentCategories(getContext());
-        binding.recycleviewFragmentCategories.setAdapter(adapterFragmentCategories);
-    }
+//    private void searchCategory(String s) {
+//        List<CategoriesData> data = new ArrayList<>();
+//        data.addAll(categoriesData);
+//        for (int i = 0; i < data.size(); i++) {
+//            if (!data.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
+//                data.remove(i);
+//                i--;
+//            }
+//        }
+//        adapterFragmentCategories = new AdapterFragmentCategories(getContext(), data);
+//        binding.recycleviewFragmentCategories.setAdapter(adapterFragmentCategories);
+//    }
 }

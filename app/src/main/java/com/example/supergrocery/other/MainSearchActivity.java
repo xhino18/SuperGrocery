@@ -62,18 +62,18 @@ public class MainSearchActivity extends AppCompatActivity implements ItemClickIn
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
-        binding.searchviewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchCategory(newText);
-                return true;
-            }
-        });
+//        binding.searchviewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                searchCategory(newText);
+//                return true;
+//            }
+//        });
 
     }
     public void getall() {
@@ -99,18 +99,18 @@ public class MainSearchActivity extends AppCompatActivity implements ItemClickIn
         });*/
     }
 
-    private void searchCategory(String s) {
-        List<CategoriesData> categoriesData = new ArrayList<>();
-        categoriesData.addAll(categoriesDataList);
-        for (int i = 0; i < categoriesData.size(); i++) {
-            if (!categoriesData.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
-                categoriesData.remove(i);
-                i--;
-            }
-        }
-        adapterSearchedProduct=new AdapterSearchedProduct(MainSearchActivity.this);
-        binding.recycleviewSearchedItems.setAdapter(adapterSearchedProduct);
-    }
+//    private void searchCategory(String s) {
+//        List<CategoriesData> categoriesData = new ArrayList<>();
+//        categoriesData.addAll(categoriesDataList);
+//        for (int i = 0; i < categoriesData.size(); i++) {
+//            if (!categoriesData.get(i).getName().toUpperCase().contains(s.toUpperCase())) {
+//                categoriesData.remove(i);
+//                i--;
+//            }
+//        }
+//        adapterSearchedProduct=new AdapterSearchedProduct(MainSearchActivity.this,categoriesData);
+//        binding.recycleviewSearchedItems.setAdapter(adapterSearchedProduct);
+//    }
 
     @Override
     public void onBackPressed() {

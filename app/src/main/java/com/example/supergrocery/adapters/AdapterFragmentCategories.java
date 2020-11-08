@@ -18,7 +18,7 @@ import com.example.supergrocery.databinding.FragmentCategoriesModelBinding;
 
 import java.util.List;
 
-public class AdapterFragmentCategories extends ListAdapter<CategoriesData,AdapterFragmentCategories.ViewHolder> {
+public class AdapterFragmentCategories extends ListAdapter<CategoriesData, AdapterFragmentCategories.ViewHolder> {
     Context context;
 
     public AdapterFragmentCategories(Context context) {
@@ -29,33 +29,35 @@ public class AdapterFragmentCategories extends ListAdapter<CategoriesData,Adapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        FragmentCategoriesModelBinding binding=FragmentCategoriesModelBinding.inflate(inflater,parent,false);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        FragmentCategoriesModelBinding binding = FragmentCategoriesModelBinding.inflate(inflater, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        CategoriesData item=getItem(position);
-        Glide.with(context).load(Links.categories_images+item.getImage()).into(holder.binding.ivFragmentCategories);
-        holder.binding.ivFragmentCategories.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(item));
+        CategoriesData item = getItem(position);
+        Glide.with(context).load(Links.categories_images + item.getImage()).into(holder.binding.ivFragmentCategories);
+        holder.binding.ivFragmentCategories.setOnClickListener(v -> ((ItemClickInterface) context).categoryClicked(item));
         holder.bind(item);
 
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         FragmentCategoriesModelBinding binding;
 
         public ViewHolder(FragmentCategoriesModelBinding binding) {
             super(binding.getRoot());
-            this.binding=binding;
+            this.binding = binding;
         }
-        private void bind(CategoriesData item){
+
+        private void bind(CategoriesData item) {
             binding.setFragmentCategoriesModel(item);
             binding.executePendingBindings();
         }
     }
+
     public static final DiffUtil.ItemCallback<CategoriesData> DIFF_CALLBACK = new DiffUtil.ItemCallback<CategoriesData>() {
         @Override
         public boolean areItemsTheSame(@NonNull CategoriesData oldItem, @NonNull CategoriesData newItem) {

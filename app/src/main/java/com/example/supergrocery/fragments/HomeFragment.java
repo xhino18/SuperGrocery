@@ -43,11 +43,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
     Gson gson;
-    List<CategoriesData> categoriesDataList = new ArrayList<>();
-    List<CategoriesData> categoriesData = new ArrayList<>();
-    List<BannerData> bannerData = new ArrayList<>();
-    List<DiscountedProductsData> modelDiscountedProductsData = new ArrayList<>();
-    List<AllProductsData> freeDeliveryProducts = new ArrayList<>();
+
     AdapterCategories adapterCategories;
     AdapterBanner adapterBanner;
     AdapterDiscountedProducts adapterDiscountedProducts;
@@ -62,7 +58,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-
         binding=FragmentHomeBinding.inflate(inflater,container,false);
         final View view =binding.getRoot();
 
@@ -78,17 +73,22 @@ public class HomeFragment extends Fragment {
     public void init() {
         gson = new GsonBuilder().create();
         saveData = new SaveData(getContext());
+
+        binding.recycleviewFoodCategories.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         adapterCategories = new AdapterCategories(getContext());
         binding.recycleviewFoodCategories.setAdapter(adapterCategories);
+
         binding.recycleviewBanner.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         adapterBanner = new AdapterBanner(getContext());
         binding.recycleviewBanner.setAdapter(adapterBanner);
+
+        binding.recycleviewDicountedProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         adapterDiscountedProducts = new AdapterDiscountedProducts(getActivity());
         binding.recycleviewDicountedProducts.setAdapter(adapterDiscountedProducts);
-        binding.recycleviewDicountedProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+
+        binding.recycleviewFreeDeliveryProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(getActivity());
         binding.recycleviewFreeDeliveryProducts.setAdapter(adapterFreeDeliveryProducts);
-        binding.recycleviewFreeDeliveryProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.tvSeeAll.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), MainActivity.class);
             intent.putExtra("goToShop",true);
@@ -110,9 +110,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void setUpFreeDeliveryProductsList() {
-        mainViewModel.getFreeDeliveryLiveData().observe(getViewLifecycleOwner(), listModelMain ->  {
+        mainViewModel.getFreeDeliveryLiveData().observe(getViewLifecycleOwner(),listModelMain ->  {
             if (!listModelMain.getError()) {
-                freeDeliveryProducts.addAll(listModelMain.getData());
+                adapterFreeDeliveryProducts.submitList(listModelMain.getData());
             } else {
                 Toast.makeText(getActivity(), listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment {
     private void setUpDiscountedProducts() {
         mainViewModel.getDiscountedProductsLiveData().observe(getViewLifecycleOwner(),listModelMain ->  {
             if (!listModelMain.getError()) {
-                modelDiscountedProductsData.addAll(listModelMain.getData());
+                adapterDiscountedProducts.submitList(listModelMain.getData());
 
             } else {
                 Toast.makeText(getActivity(), listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
