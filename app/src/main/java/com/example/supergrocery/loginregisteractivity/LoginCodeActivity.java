@@ -1,6 +1,7 @@
 package com.example.supergrocery.loginregisteractivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,10 +39,12 @@ public class LoginCodeActivity extends AppCompatActivity {
     String user_name, user_email, user_nuis, user_phone, token;
     @Inject
     API api;
+    private ViewModel_Authentication viewModel_authentication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel_authentication=new ViewModelProvider(this).get(ViewModel_Authentication.class);
         binding = ActivityLoginCodeBinding.inflate(getLayoutInflater());
         final View view = binding.getRoot();
         setContentView(view);
@@ -64,20 +67,25 @@ public class LoginCodeActivity extends AppCompatActivity {
                 user_phone = bundle.getString("phone");
 
                 if (!user_phone.equalsIgnoreCase("")) {
-                    startPhoneNumberVerification(user_phone);
+                    viewModel_authentication.startPhoneNumberVerification(user_phone);
+                    getCode();
                 }
             } else {
                 is_login = true;
                 user_phone = bundle.getString("phone");
                 if (!user_phone.equalsIgnoreCase("")) {
-                    startPhoneNumberVerification(user_phone);
+                    viewModel_authentication.startPhoneNumberVerification(user_phone);
+                    getCode();
+
                 }
             }
         }
         binding.buttonResendCode.setOnClickListener(v -> {
             user_phone = bundle.getString("phone");
             if (!user_phone.equalsIgnoreCase("")) {
-                startPhoneNumberVerification(user_phone);
+                viewModel_authentication.startPhoneNumberVerification(user_phone);
+                getCode();
+
             }
 
         });
@@ -85,67 +93,35 @@ public class LoginCodeActivity extends AppCompatActivity {
             if (binding.buttonVerify.getText().toString().length() < 6) {
                 Toast.makeText(LoginCodeActivity.this, "Kodi i verifikimit i pasakte!", Toast.LENGTH_SHORT).show();
             } else {
-                verifyPhoneNumberWithCode(binding.code.getText().toString(), userId);
+                viewModel_authentication.verifyPhoneNumberWithCode(binding.code.getText().toString(), userId);
+                verifyPhone();
             }
 
         });
 
     }
 
-    private void startPhoneNumberVerification(String user_phone) {
-        /*Call<ModelSendCode> call = api.sendCode(user_phone);
-        call.enqueue(new Callback<ModelSendCode>() {
-            @Override
-            public void onResponse(Call<ModelSendCode> call, Response<ModelSendCode> response) {
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-                    if (!response.body().getError()) {
-                        userId = response.body().getUser_id();
-                        binding.buttonVerify.setEnabled(true);
-                        Toast.makeText(LoginCodeActivity.this, "Code sent sucessfully!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(LoginCodeActivity.this, "Unexpected error :(", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(LoginCodeActivity.this, "Unexpected error :(", Toast.LENGTH_SHORT).show();
-                }
+    private void getCode(){
+        viewModel_authentication.getSendCodeLiveData().observe(this,modelSendCode -> {
+            if (!modelSendCode.getError()){
+                userId = modelSendCode.getUser_id();
+                binding.buttonVerify.setEnabled(true);
+                Toast.makeText(LoginCodeActivity.this, "Code sent sucessfully!", Toast.LENGTH_SHORT).show();
             }
-
-            @Override
-            public void onFailure(Call<ModelSendCode> call, Throwable t) {
-
-            }
-        });*/
-
+        });
     }
 
-    private void verifyPhoneNumberWithCode(String code, int userId) {
-     /*   Call<ModelMainToken<UserRegisterData>> call = api.verifyCode(code, userId);
-        call.enqueue(new Callback<ModelMainToken<UserRegisterData>>() {
-            @Override
-            public void onResponse(Call<ModelMainToken<UserRegisterData>> call, Response<ModelMainToken<UserRegisterData>> response) {
-
-                if (!gson.toJson(response.body()).equalsIgnoreCase("")) {
-                    if (!response.body().getError()) {
-                        System.out.println("tokentoken" + token);
-                        saveData.saveUserToken(response.body().getToken());
-                        saveData.save_user_info(response.body().getData().getName(),
-                                response.body().getData().getEmail(),
-                                response.body().getData().getNuis(),
-                                response.body().getData().getPhone_number());
-                        gotomenu();
-                    } else {
-                        Toast.makeText(LoginCodeActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
-                }
+    private void verifyPhone(){
+        viewModel_authentication.getVerifyPhoneLiveData().observe(this,userRegisterDataModelMainToken -> {
+            if (!userRegisterDataModelMainToken.getError()){
+                saveData.saveUserToken(userRegisterDataModelMainToken.getToken());
+                saveData.save_user_info(userRegisterDataModelMainToken.getData().getName(),
+                        userRegisterDataModelMainToken.getData().getEmail(),
+                        userRegisterDataModelMainToken.getData().getNuis(),
+                        userRegisterDataModelMainToken.getData().getPhone_number());
+                gotomenu();
             }
-
-            @Override
-            public void onFailure(Call<ModelMainToken<UserRegisterData>> call, Throwable t) {
-
-
-            }
-        });*/
+        });
     }
 
 

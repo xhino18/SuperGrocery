@@ -1,6 +1,7 @@
 package com.example.supergrocery.loginregisteractivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.supergrocery.MainActivity;
 import com.example.supergrocery.api.API;
 import com.example.supergrocery.models.ModelMainToken;
 import com.example.supergrocery.models.UserRegisterData;
@@ -31,10 +33,12 @@ public class RegisterActivity extends AppCompatActivity{
     Gson gson;
     @Inject
     API api;
+    private ViewModel_Authentication viewModel_authentication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel_authentication=new ViewModelProvider(this).get(ViewModel_Authentication.class);
         binding =ActivityRegisterBinding.inflate(getLayoutInflater());
         View view= binding.getRoot();
         setContentView(view);
@@ -65,7 +69,8 @@ public class RegisterActivity extends AppCompatActivity{
                 if (!name.equals("") && !email.equals("") && !phone.equals("")) {
                     if (email.contains("@")) {
                         acc_type=2;
-                        registercall();
+                        viewModel_authentication.registerCall(name,email,phone,acc_type,nuis,API.PLATFORM_ID,API.FIREBASE_TOKEN);
+                        getInfo();
                     } else {
                         Toast.makeText(RegisterActivity.this, "Email not valid!", Toast.LENGTH_SHORT).show();
                     }
@@ -79,7 +84,8 @@ public class RegisterActivity extends AppCompatActivity{
                 if (!name.equals("") && !email.equals("") && !nuis.equals("")&& !phone.equals("")) {
                     if (email.contains("@")) {
                         acc_type=1;
-                        registercall();
+                        viewModel_authentication.registerCall(name,email,phone,acc_type,nuis,API.PLATFORM_ID,API.FIREBASE_TOKEN);
+                        getInfo();
                     } else {
                         Toast.makeText(RegisterActivity.this, "Email not valid!", Toast.LENGTH_SHORT).show();
                     }
@@ -91,39 +97,19 @@ public class RegisterActivity extends AppCompatActivity{
         });
 
     }
-    public void registercall(){
-      /*  retrofit2.Call<ModelMainToken<UserRegisterData>> call = api.register(name,email,phone,acc_type,nuis,API.PLATFORM_ID,API.FIREBASE_TOKEN);
-        call.enqueue(new Callback<ModelMainToken<UserRegisterData>>() {
-            @Override
-            public void onResponse(retrofit2.Call<ModelMainToken<UserRegisterData>> call, Response<ModelMainToken<UserRegisterData>> response) {
-
-                 System.out.println("respoonseeee "+ gson.toJson(response.body()));
-                if (!gson.toJson(response.body()).equalsIgnoreCase("null")){
-                    if (!response.body().getError()){
-                        Intent intent = new Intent(RegisterActivity.this,LoginCodeActivity.class);
-                        intent.putExtra("register_type","register");
-                        intent.putExtra("name",name);
-                        intent.putExtra("email",email);
-                        intent.putExtra("phone",phone);
-                        intent.putExtra("nuis",nuis);
-                        startActivity(intent);
-
-                    } else {
-                        Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(RegisterActivity.this, "oppssss", Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                }
+private void getInfo(){
+        viewModel_authentication.getRegisterLiveData().observe(this, userRegisterDataModelMainToken -> {
+            if (!userRegisterDataModelMainToken.getError()){
+                Intent intent = new Intent(RegisterActivity.this, LoginCodeActivity.class);
+                intent.putExtra("register_type","register");
+                intent.putExtra("name",name);
+                intent.putExtra("email",email);
+                intent.putExtra("phone",phone);
+                intent.putExtra("nuis",nuis);
+                startActivity(intent);
             }
-
-            @Override
-            public void onFailure(retrofit2.Call<ModelMainToken<UserRegisterData>> call, Throwable t) {
-                Log.e("test", t.toString());
-
-            }
-        });*/
-    }
+        });
+}
     @Override
     public void onBackPressed() {
         super.onBackPressed();

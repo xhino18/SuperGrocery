@@ -5,23 +5,25 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.models.CategoriesData;
 import com.example.supergrocery.interfaces.ItemClickInterface;
+import com.example.supergrocery.models.CategoriesData;
 import com.example.supergrocery.other.Links;
 import com.example.supergrocery.databinding.MainSearchModelBinding;
 
 import java.util.List;
 
-public class AdapterSearchedProduct extends RecyclerView.Adapter<AdapterSearchedProduct.ViewHolder> {
+public class AdapterSearchedProduct extends ListAdapter<CategoriesData,AdapterSearchedProduct.ViewHolder> {
     Context context;
-    List<CategoriesData> categoriesData;
 
-    public AdapterSearchedProduct(Context context, List<CategoriesData> categoriesData) {
+    public AdapterSearchedProduct(Context context) {
+        super(DIFF_CALLBACK);
         this.context = context;
-        this.categoriesData = categoriesData;
     }
 
     @NonNull
@@ -34,18 +36,14 @@ public class AdapterSearchedProduct extends RecyclerView.Adapter<AdapterSearched
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.binding.tvSearchedName.setText(categoriesData.get(position).getName());
-        Glide.with(context).load(Links.categories_images+categoriesData.get(position).getImage()).into(holder.binding.ivSearchedItem);
-        holder.binding.ivSearchedItem.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
-        holder.binding.tvSearchedName.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
-        holder.binding.tvSearchedDescription.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
-        holder.binding.tvEmpty.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesData.get(position)));
+        CategoriesData item= getItem(position);
+        Glide.with(context).load(Links.categories_images+item.getImage()).into(holder.binding.ivSearchedItem);
+        holder.binding.ivSearchedItem.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(item));
+        holder.binding.tvSearchedName.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(item));
+        holder.binding.tvSearchedDescription.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(item));
+        holder.binding.tvEmpty.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(item));
+        holder.bind(item);
 
-    }
-
-    @Override
-    public int getItemCount() {
-        return categoriesData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -56,5 +54,20 @@ public class AdapterSearchedProduct extends RecyclerView.Adapter<AdapterSearched
             this.binding=binding;
 
         }
+        private void bind(CategoriesData item){
+            binding.setMainSearchModel(item);
+            binding.executePendingBindings();
+        }
     }
+    public static final DiffUtil.ItemCallback<CategoriesData> DIFF_CALLBACK = new DiffUtil.ItemCallback<CategoriesData>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull CategoriesData oldItem, @NonNull CategoriesData newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull CategoriesData oldItem, @NonNull CategoriesData newItem) {
+            return areItemsTheSame(oldItem, newItem);
+        }
+    };
 }

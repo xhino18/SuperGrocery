@@ -108,7 +108,7 @@ public class MainSearchActivity extends AppCompatActivity implements ItemClickIn
                 i--;
             }
         }
-        adapterSearchedProduct=new AdapterSearchedProduct(MainSearchActivity.this,categoriesData);
+        adapterSearchedProduct=new AdapterSearchedProduct(MainSearchActivity.this);
         binding.recycleviewSearchedItems.setAdapter(adapterSearchedProduct);
     }
 

@@ -1,6 +1,7 @@
 package com.example.supergrocery.loginregisteractivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,9 +34,11 @@ public class LoginActivity extends AppCompatActivity {
     @Inject
     API api;
 
+    private ViewModel_Authentication viewModel_authentication;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel_authentication=new ViewModelProvider(this).get(ViewModel_Authentication.class);
         binding =ActivityLoginBinding.inflate(getLayoutInflater());
         final View view= binding.getRoot();
         setContentView(view);
@@ -54,40 +57,22 @@ public class LoginActivity extends AppCompatActivity {
        });
        binding.buttonLogin.setOnClickListener(v -> {
            phone= binding.etLoginPhone.getText().toString();
-           login_phoneNumber(phone);
-           
+           viewModel_authentication.login_phoneNumber(phone);
+           getInfo();
        });
     }
 
-    public void login_phoneNumber(String phoneNumber){
-       /* Call<ModelSendCode> call = api.sendCode(phoneNumber);
-        call.enqueue(new Callback<ModelSendCode>() {
-                         @Override
-                         public void onResponse(Call<ModelSendCode> call, Response<ModelSendCode> response) {
+    private void getInfo(){
+        viewModel_authentication.getLoginPhoneLiveData().observe(this, modelSendCode -> {
+            if(!modelSendCode.getError()){
+                Intent intent  = new Intent(LoginActivity.this, LoginCodeActivity.class);
+                intent.putExtra("register_type", "login");
+                intent.putExtra("phone",phone);
+                startActivity(intent);
+                finish();
+            }
 
-                             if (!gson.toJson(response.body()).equalsIgnoreCase("null")){
-                                 if (!response.body().getError()){
-                                     Intent intent  = new Intent(LoginActivity.this, LoginCodeActivity.class);
-                                     intent.putExtra("register_type", "login");
-                                     intent.putExtra("phone",phone);
-                                     startActivity(intent);
-                                     finish();
-                                 }
-                                 else{
-                                     Toast.makeText(LoginActivity.this, "Incorrect number!", Toast.LENGTH_SHORT).show();
-                                 }
-
-                             }else
-                                 Toast.makeText(LoginActivity.this, "Ndodhi një gabim1!", Toast.LENGTH_SHORT).show();
-                         }
-
-                         @Override
-                         public void onFailure(Call<ModelSendCode> call, Throwable t) {
-
-                             Toast.makeText(LoginActivity.this, "Ndodhi një gabim2!", Toast.LENGTH_SHORT).show();
-                         }
-                     }
-        );*/
+        });
     }
     @Override
     public void onBackPressed() {

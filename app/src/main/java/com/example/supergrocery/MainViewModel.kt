@@ -25,6 +25,7 @@ class MainViewModel @ViewModelInject constructor(
     val freeDeliveryLiveData = MutableLiveData<ModelMain<List<AllProductsData>>>()
     val discountedProductsLiveData = MutableLiveData<ModelMain<List<DiscountedProductsData>>>()
     val orderItemLiveData = MutableLiveData<List<OrderItem>>()
+    val shopProductsLiveData = MutableLiveData<ModelMain<List<ShopProductsData>>>()
 
     fun getCategories() {
         viewModelScope.launch {
@@ -54,5 +55,11 @@ class MainViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             orderItemLiveData.value = itemsDao.getAllItems()
         }
+    }
+    fun getShopProducts(id:Int){
+        viewModelScope.launch {
+            shopProductsLiveData.value=api.getProducts(id)
+        }
+
     }
 }

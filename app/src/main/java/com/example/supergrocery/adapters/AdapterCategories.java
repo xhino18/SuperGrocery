@@ -19,14 +19,11 @@ import com.example.supergrocery.databinding.FoodCategoriesModelBinding;
 import java.util.List;
 
 public class AdapterCategories extends ListAdapter<CategoriesData, AdapterCategories.CategoryViewHolder> {
-    List<CategoriesData> categoriesDataList;
     Context context;
 
-    public AdapterCategories(Context context,List<CategoriesData> categoriesDataList) {
+    public AdapterCategories(Context context) {
         super(DIFF_CALLBACK);
         this.context = context;
-        this.categoriesDataList=categoriesDataList;
-        Log.e("test","test");
     }
 
     @NonNull

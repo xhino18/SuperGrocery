@@ -1,6 +1,7 @@
 package com.example.supergrocery.productmodelactivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.supergrocery.MainViewModel;
 import com.example.supergrocery.adapters.AdapterMoreShopProducts;
 import com.example.supergrocery.api.API;
 import com.example.supergrocery.models.ModelMain;
@@ -47,22 +49,26 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
     int cat_id,prod_id,price;
     @Inject
     API api;
-
+private MainViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel=new ViewModelProvider(this).get(MainViewModel.class);
         binding=ActivitySelectedProductBinding.inflate(getLayoutInflater());
         final View view=binding.getRoot();
         setContentView(view);
 
         init();
-        getall(cat_id);
+        getShopProducts();
 
     }
 
     private void init() {
         gson=new GsonBuilder().create();
         saveData=new SaveData(this);
+
+        adapterMoreShopProducts = new AdapterMoreShopProducts(SelectedProductActivity.this);
+        binding.recycleviewMoreProducts.setAdapter(adapterMoreShopProducts);
         binding.recycleviewMoreProducts.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
         cat_id=getIntent().getIntExtra("cat_id",-1);
         prod_id=getIntent().getIntExtra("prod_id",-1);
@@ -106,6 +112,7 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
 //
 //            }
         });
+        viewModel.getShopProducts(cat_id);
 
     }
     public void getall(int cat_id) {
@@ -132,6 +139,14 @@ public class SelectedProductActivity extends AppCompatActivity implements Produc
 //        });
 
     }
+    private void getShopProducts(){
+        viewModel.getShopProductsLiveData().observe(this,listModelMain -> {
+            if (!listModelMain.getError()){
+                adapterMoreShopProducts.submitList(listModelMain.getData());
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

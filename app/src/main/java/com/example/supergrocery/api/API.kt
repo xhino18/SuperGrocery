@@ -29,8 +29,8 @@ interface API {
     @GET("products_by_category/{id}")
     suspend fun getProducts(@Path("id") id: Int): ModelMain<List<ShopProductsData>>
 
-    @FormUrlEncoded
     @POST("register")
+    @FormUrlEncoded
     @Headers(NO_AUTHENTICATION_TRUE)
     suspend fun register(@Field("name") name: String,
                  @Field("email") email: String,

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="MainSearchModel"
+            type="com.example.supergrocery.models.CategoriesData" />
+    </data>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -37,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standart_basket_tv_height"
         android:layout_below="@id/tv_searched_name"
+        android:text="@{MainSearchModel.name}"
         android:layout_marginStart="@dimen/standart_basket_tv_marginLeft"
         android:layout_marginLeft="@dimen/standart_basket_tv_marginLeft"
         android:layout_toEndOf="@id/cardview_searched_items"
@@ -59,3 +66,4 @@
     </TextView>
 
 </RelativeLayout>
+</layout>

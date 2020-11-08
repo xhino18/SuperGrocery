@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="DiscountedProducts"
+            type="com.example.supergrocery.models.DiscountedProductsData" />
+    </data>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -24,3 +30,4 @@
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
+</layout>

@@ -5,23 +5,25 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.models.AllProductsData;
 import com.example.supergrocery.interfaces.ItemClickInterface;
+import com.example.supergrocery.models.AllProductsData;
 import com.example.supergrocery.other.Links;
 import com.example.supergrocery.databinding.FreeDeliveryProductsModelBinding;
 
 import java.util.List;
 
-public class AdapterFreeDeliveryProducts extends RecyclerView.Adapter<AdapterFreeDeliveryProducts.ViewHolder> {
+public class AdapterFreeDeliveryProducts extends ListAdapter<AllProductsData,AdapterFreeDeliveryProducts.ViewHolder> {
     Context context;
-    List<AllProductsData> allProductsData;
 
-    public AdapterFreeDeliveryProducts(Context context, List<AllProductsData> allProductsData) {
+    public AdapterFreeDeliveryProducts(Context context) {
+        super(DIFF_CALLBACK);
         this.context = context;
-        this.allProductsData = allProductsData;
     }
 
     @NonNull
@@ -34,17 +36,14 @@ public class AdapterFreeDeliveryProducts extends RecyclerView.Adapter<AdapterFre
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load(Links.categories_images+allProductsData.get(position).getImage()).into(holder.binding.imageviewFreeDeliveryProduct);
-        holder.binding.cardviewFreeDeliveryProducts.setOnClickListener(v -> { ((ItemClickInterface)context).freeDeliveryClicked(allProductsData.get(position));
+        AllProductsData item=getItem(position);
+        Glide.with(context).load(Links.categories_images+item.getImage()).into(holder.binding.imageviewFreeDeliveryProduct);
+        holder.binding.cardviewFreeDeliveryProducts.setOnClickListener(v -> { ((ItemClickInterface)context).freeDeliveryClicked(item);
+        holder.bind(item);
         });
 
     }
-
-    @Override
-    public int getItemCount() {
-        return allProductsData.size();
-    }
-
+    
     public class ViewHolder extends RecyclerView.ViewHolder{
         FreeDeliveryProductsModelBinding binding;
 
@@ -53,5 +52,21 @@ public class AdapterFreeDeliveryProducts extends RecyclerView.Adapter<AdapterFre
             this.binding=binding;
 
         }
+
+        public void bind(AllProductsData item) {
+            binding.setFreeDeliveryProducts(item);
+            binding.executePendingBindings();
+        }
     }
+    public static final DiffUtil.ItemCallback<AllProductsData> DIFF_CALLBACK = new DiffUtil.ItemCallback<AllProductsData>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull AllProductsData oldItem, @NonNull AllProductsData newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull AllProductsData oldItem, @NonNull AllProductsData newItem) {
+            return areItemsTheSame(oldItem, newItem);
+        }
+    };
 }

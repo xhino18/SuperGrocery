@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,46 +18,62 @@ import com.example.supergrocery.databinding.ShopProductsModelBinding;
 
 import java.util.List;
 
-public class AdapterShopProducts extends RecyclerView.Adapter<AdapterShopProducts.ViewHolder> {
+public class AdapterShopProducts extends ListAdapter<ShopProductsData, AdapterShopProducts.ViewHolder> {
     Context context;
-    List<ShopProductsData> modelShopProductsData;
 
-    public AdapterShopProducts(Context context, List<ShopProductsData> modelShopProductsData) {
+    public AdapterShopProducts(Context context) {
+        super(DIFF_CALLBACK);
         this.context = context;
-        this.modelShopProductsData = modelShopProductsData;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        ShopProductsModelBinding binding=ShopProductsModelBinding.inflate(inflater,parent,false);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ShopProductsModelBinding binding = ShopProductsModelBinding.inflate(inflater, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.binding.tvProductName.setText(modelShopProductsData.get(position).getName());
-        holder.binding.tvProductPrice.setText(modelShopProductsData.get(position).getPrice()+" ALL");
-        Glide.with(context).load(Links.categories_images+modelShopProductsData.get(position).getImage()).into(holder.binding.ivProductsModel);
-        holder.binding.ivAddProduct.setOnClickListener(view -> ((AddItemInBasket)context).addtoBasket(modelShopProductsData.get(position)));
-        holder.binding.ivProductsModel.setOnClickListener(view -> { ((ProductClickedInterface)context).productClicked(modelShopProductsData.get(position));
+        ShopProductsData item = getItem(position);
+        holder.binding.tvProductPrice.setText(item.getPrice() + " ALL");
+        Glide.with(context).load(Links.categories_images + item.getImage()).into(holder.binding.ivProductsModel);
+        holder.binding.ivAddProduct.setOnClickListener(view -> ((AddItemInBasket) context).addtoBasket(item));
+        holder.binding.ivProductsModel.setOnClickListener(view -> {
+            ((ProductClickedInterface) context).productClicked(item);
         });
+        holder.bind(item);
 
     }
 
-    @Override
-    public int getItemCount() {
-        return modelShopProductsData.size();
-    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ShopProductsModelBinding binding;
 
         public ViewHolder(ShopProductsModelBinding binding) {
             super(binding.getRoot());
-            this.binding=binding;
+            this.binding = binding;
 
         }
+
+        private void bind(ShopProductsData item) {
+            binding.setShopProductsModel(item);
+            binding.executePendingBindings();
+
+        }
+
     }
+
+    public static final DiffUtil.ItemCallback<ShopProductsData> DIFF_CALLBACK = new DiffUtil.ItemCallback<ShopProductsData>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull ShopProductsData oldItem, @NonNull ShopProductsData newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull ShopProductsData oldItem, @NonNull ShopProductsData newItem) {
+            return areItemsTheSame(oldItem, newItem);
+        }
+    };
 }

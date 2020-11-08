@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,13 +78,16 @@ public class HomeFragment extends Fragment {
     public void init() {
         gson = new GsonBuilder().create();
         saveData = new SaveData(getContext());
-        adapterCategories = new AdapterCategories(getContext(),categoriesDataList);
+        adapterCategories = new AdapterCategories(getContext());
         binding.recycleviewFoodCategories.setAdapter(adapterCategories);
-
         binding.recycleviewBanner.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         adapterBanner = new AdapterBanner(getContext());
         binding.recycleviewBanner.setAdapter(adapterBanner);
+        adapterDiscountedProducts = new AdapterDiscountedProducts(getActivity());
+        binding.recycleviewDicountedProducts.setAdapter(adapterDiscountedProducts);
         binding.recycleviewDicountedProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(getActivity());
+        binding.recycleviewFreeDeliveryProducts.setAdapter(adapterFreeDeliveryProducts);
         binding.recycleviewFreeDeliveryProducts.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.tvSeeAll.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), MainActivity.class);
@@ -106,46 +110,42 @@ public class HomeFragment extends Fragment {
     }
 
     private void setUpFreeDeliveryProductsList() {
-        mainViewModel.getFreeDeliveryLiveData().observe(getViewLifecycleOwner(), freeDeliveryLiveData -> {
-            if (!freeDeliveryLiveData.getError()) {
-                freeDeliveryProducts.addAll(freeDeliveryLiveData.getData());
-                adapterFreeDeliveryProducts = new AdapterFreeDeliveryProducts(getActivity(), freeDeliveryProducts);
-                binding.recycleviewFreeDeliveryProducts.setAdapter(adapterFreeDeliveryProducts);
+        mainViewModel.getFreeDeliveryLiveData().observe(getViewLifecycleOwner(), listModelMain ->  {
+            if (!listModelMain.getError()) {
+                freeDeliveryProducts.addAll(listModelMain.getData());
             } else {
-                Toast.makeText(getActivity(), freeDeliveryLiveData.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void setUpDiscountedProducts() {
-        mainViewModel.getDiscountedProductsLiveData().observe(getViewLifecycleOwner(), discountedProducts -> {
-            if (!discountedProducts.getError()) {
-                modelDiscountedProductsData.addAll(discountedProducts.getData());
-                adapterDiscountedProducts = new AdapterDiscountedProducts(getActivity(), modelDiscountedProductsData);
-                binding.recycleviewDicountedProducts.setAdapter(adapterDiscountedProducts);
+        mainViewModel.getDiscountedProductsLiveData().observe(getViewLifecycleOwner(),listModelMain ->  {
+            if (!listModelMain.getError()) {
+                modelDiscountedProductsData.addAll(listModelMain.getData());
+
             } else {
-                Toast.makeText(getActivity(), discountedProducts.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void setUpBannerList() {
-        mainViewModel.getBannerLiveData().observe(getViewLifecycleOwner(), banner -> {
-            if (!banner.getError()) {
-                adapterBanner.submitList(bannerData);
+        mainViewModel.getBannerLiveData().observe(getViewLifecycleOwner(),listModelMain -> {
+            if (!listModelMain.getError()) {
+                adapterBanner.submitList(listModelMain.getData());
             } else {
-                Toast.makeText(getActivity(), banner.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void setUpCategoriesList() {
-        mainViewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), categories -> {
-            if (!categories.getError()) {
-                adapterCategories.submitList(categoriesDataList);
-
+        mainViewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(),listModelMain -> {
+            if (!listModelMain.getError()) {
+                adapterCategories.submitList(listModelMain.getData());
             } else {
-                Toast.makeText(getActivity(), categories.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

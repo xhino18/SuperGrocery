@@ -5,23 +5,25 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.supergrocery.models.CategoriesData;
 import com.example.supergrocery.interfaces.ItemClickInterface;
+import com.example.supergrocery.models.DiscountedProductsData;
 import com.example.supergrocery.other.Links;
 import com.example.supergrocery.databinding.FragmentCategoriesModelBinding;
 
 import java.util.List;
 
-public class AdapterFragmentCategories extends RecyclerView.Adapter<AdapterFragmentCategories.ViewHolder> {
+public class AdapterFragmentCategories extends ListAdapter<CategoriesData,AdapterFragmentCategories.ViewHolder> {
     Context context;
-    List<CategoriesData>categoriesDataList;
 
-    public AdapterFragmentCategories(Context context, List<CategoriesData> categoriesDataList) {
+    public AdapterFragmentCategories(Context context) {
+        super(DIFF_CALLBACK);
         this.context = context;
-        this.categoriesDataList = categoriesDataList;
     }
 
     @NonNull
@@ -34,16 +36,13 @@ public class AdapterFragmentCategories extends RecyclerView.Adapter<AdapterFragm
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.binding.tvFragmentCategoriesProduct.setText(categoriesDataList.get(position).getName());
-        Glide.with(context).load(Links.categories_images+categoriesDataList.get(position).getImage()).into(holder.binding.ivFragmentCategories);
-        holder.binding.ivFragmentCategories.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(categoriesDataList.get(position)));
+        CategoriesData item=getItem(position);
+        Glide.with(context).load(Links.categories_images+item.getImage()).into(holder.binding.ivFragmentCategories);
+        holder.binding.ivFragmentCategories.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(item));
+        holder.bind(item);
 
     }
 
-    @Override
-    public int getItemCount() {
-        return categoriesDataList.size();
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         FragmentCategoriesModelBinding binding;
@@ -51,7 +50,21 @@ public class AdapterFragmentCategories extends RecyclerView.Adapter<AdapterFragm
         public ViewHolder(FragmentCategoriesModelBinding binding) {
             super(binding.getRoot());
             this.binding=binding;
-
+        }
+        private void bind(CategoriesData item){
+            binding.setFragmentCategoriesModel(item);
+            binding.executePendingBindings();
         }
     }
+    public static final DiffUtil.ItemCallback<CategoriesData> DIFF_CALLBACK = new DiffUtil.ItemCallback<CategoriesData>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull CategoriesData oldItem, @NonNull CategoriesData newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull CategoriesData oldItem, @NonNull CategoriesData newItem) {
+            return areItemsTheSame(oldItem, newItem);
+        }
+    };
 }

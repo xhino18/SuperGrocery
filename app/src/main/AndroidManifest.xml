@@ -18,7 +18,7 @@
         <activity android:name=".productmodelactivity.FreeDeliveryActivity" />
         <activity android:name=".payment.PaymentActivity" />
         <activity android:name=".loginregisteractivity.LoginCodeActivity" />
-        <activity android:name=".loginregisteractivity.RegisterActivity" />
+        <activity android:name=".loginregisteractivity.RegisterActivity"/>
         <activity android:name=".productmodelactivity.ProductsActivity" />
         <activity android:name=".loginregisteractivity.LoginActivity" />
         <activity android:name=".intro.IntroActivity_1">
@@ -28,7 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" >
+
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -199,7 +199,7 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
                 i--;
             }
         }
-        adapterShopProducts = new AdapterShopProducts(ProductsActivity.this,data);
+        adapterShopProducts = new AdapterShopProducts(ProductsActivity.this);
         binding.recycleviewShopProducts.setAdapter(adapterShopProducts);
     }
 

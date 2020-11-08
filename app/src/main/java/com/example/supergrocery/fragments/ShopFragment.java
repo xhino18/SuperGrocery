@@ -48,6 +48,8 @@ public class ShopFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         binding = FragmentShopBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        adapterFragmentCategories = new AdapterFragmentCategories(getActivity());
+        binding.recycleviewFragmentCategories.setAdapter(adapterFragmentCategories);
         binding.recycleviewFragmentCategories.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         init();
@@ -76,13 +78,11 @@ public class ShopFragment extends Fragment {
     }
 
     private void setUpCategoriesList() {
-        viewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), categories -> {
-            if (!categories.getError()) {
-                categoriesData.addAll(categories.getData());
-                adapterFragmentCategories = new AdapterFragmentCategories(getActivity(), categoriesData);
-                binding.recycleviewFragmentCategories.setAdapter(adapterFragmentCategories);
+        viewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), listModelMain -> {
+            if (!listModelMain.getError()) {
+                categoriesData.addAll(listModelMain.getData());
             } else {
-                Toast.makeText(getActivity(), categories.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -96,7 +96,7 @@ public class ShopFragment extends Fragment {
                 i--;
             }
         }
-        adapterFragmentCategories = new AdapterFragmentCategories(getContext(), data);
+        adapterFragmentCategories = new AdapterFragmentCategories(getContext());
         binding.recycleviewFragmentCategories.setAdapter(adapterFragmentCategories);
     }
 }
