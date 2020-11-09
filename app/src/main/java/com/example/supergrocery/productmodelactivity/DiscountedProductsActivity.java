@@ -1,6 +1,7 @@
 package com.example.supergrocery.productmodelactivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.supergrocery.MainViewModel;
 import com.example.supergrocery.adapters.AdapterMoreDiscountedProducts;
 import com.example.supergrocery.api.API;
 import com.example.supergrocery.models.AllProductsData;
@@ -48,21 +50,25 @@ public class DiscountedProductsActivity extends AppCompatActivity implements Ite
     String name,image;
     @Inject
     API api;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainViewModel=new ViewModelProvider(this).get(MainViewModel.class);
         binding =ActivityDiscountedProductsBinding.inflate(getLayoutInflater());
         final View view= binding.getRoot();
         setContentView(view);
 
         init();
-        getall();
+        getDiscountedProducts();
     }
 
     private void init() {
         gson=new GsonBuilder().create();
         saveData=new SaveData(this);
+        adapterMoreDiscountedProducts = new AdapterMoreDiscountedProducts(DiscountedProductsActivity.this);
+        binding.recycleviewMoreDiscountedProducts.setAdapter(adapterMoreDiscountedProducts);
         binding.recycleviewMoreDiscountedProducts.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
         id=getIntent().getIntExtra("cat_id",-1);
         name=getIntent().getStringExtra("cat_name");
@@ -103,33 +109,18 @@ public class DiscountedProductsActivity extends AppCompatActivity implements Ite
 //
 //            }
         });
+        mainViewModel.getDiscountedProducts();
 
     }
 
-    public void getall() {
-//        Call<ModelMain<List<DiscountedProductsData>>> call = api.getDiscountedProducts();
-//        call.enqueue(new Callback<ModelMain<List<DiscountedProductsData>>>() {
-//            @Override
-//            public void onResponse(Call<ModelMain<List<DiscountedProductsData>>> call, Response<ModelMain<List<DiscountedProductsData>>> response) {
-//                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-//                    if (!response.body().getError()) {
-//                        discountedProductsData.addAll(response.body().getData());
-//                        adapterMoreDiscountedProducts = new AdapterMoreDiscountedProducts(DiscountedProductsActivity.this, discountedProductsData);
-//                        binding.recycleviewMoreDiscountedProducts.setAdapter(adapterMoreDiscountedProducts);
-//                    } else {
-//                        Toast.makeText(DiscountedProductsActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                } else {
-//                    Toast.makeText(DiscountedProductsActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ModelMain<List<DiscountedProductsData>>> call, Throwable t) {
-//                Toast.makeText(DiscountedProductsActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
+    private void getDiscountedProducts(){
+        mainViewModel.getDiscountedProductsLiveData().observe(this, listModelMain -> {
+            if (!listModelMain.getError()) {
+                adapterMoreDiscountedProducts.submitList(listModelMain.getData());
+            }else {
+                Toast.makeText(this, listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     @Override
     public void onBackPressed() {

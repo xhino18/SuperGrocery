@@ -106,6 +106,8 @@
 
 
                     <androidx.recyclerview.widget.RecyclerView
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
                         android:id="@+id/recycleview_banner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -250,6 +252,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:id="@+id/recycleview_free_delivery_products"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -310,6 +313,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:id="@+id/recycleview_dicounted_products"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

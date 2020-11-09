@@ -56,10 +56,36 @@ class MainViewModel @ViewModelInject constructor(
             orderItemLiveData.value = itemsDao.getAllItems()
         }
     }
+    fun deleteAll() {
+        viewModelScope.launch {
+            itemsDao.deleteAll();
+        }
+    }
+    fun deleteBasketItem(orderItem: OrderItem) {
+        viewModelScope.launch {
+            itemsDao.delete(orderItem);
+        }
+    }
+    fun updateBasket(orderItem: OrderItem) {
+        viewModelScope.launch {
+            itemsDao.update(orderItem);
+        }
+    }
+    fun insertInBasket(orderItem: OrderItem) {
+        viewModelScope.launch {
+            itemsDao.insert(orderItem);
+        }
+    }
+    fun getAll() {
+        viewModelScope.launch {
+            itemsDao.getAllItems()
+        }
+    }
     fun getShopProducts(id:Int){
         viewModelScope.launch {
             shopProductsLiveData.value=api.getProducts(id)
         }
 
     }
+
 }

@@ -89,10 +89,12 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/recycleview_searched_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/standart_left_margin"
+        android:orientation="vertical"
         android:layout_marginLeft="@dimen/standart_left_margin"
         android:layout_marginEnd="@dimen/standart_right_margin"
         android:layout_marginRight="@dimen/standart_right_margin"

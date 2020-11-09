@@ -143,6 +143,8 @@ private MainViewModel viewModel;
         viewModel.getShopProductsLiveData().observe(this,listModelMain -> {
             if (!listModelMain.getError()){
                 adapterMoreShopProducts.submitList(listModelMain.getData());
+            }else {
+                Toast.makeText(this, listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

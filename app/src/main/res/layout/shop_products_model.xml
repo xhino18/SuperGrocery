@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.example.supergrocery.other.Links"/>
         <variable
             name="ShopProductsModel"
             type="com.example.supergrocery.models.ShopProductsData" />
@@ -27,6 +28,7 @@
                 android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/iv_products_model"
+                app:image="@{Links.categories_images+ShopProductsModel.image}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/image_shop_products_height"
                 android:scaleType="fitXY">
@@ -56,6 +58,7 @@
                 android:id="@+id/tv_product_price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                price="@{ShopProductsModel.price}"
                 android:layout_margin="5dp"
                 android:textSize="17sp"
                 android:textStyle="bold">

@@ -50,7 +50,6 @@ public class ShopFragment extends Fragment {
         View view = binding.getRoot();
         adapterFragmentCategories = new AdapterFragmentCategories(getActivity());
         binding.recycleviewFragmentCategories.setAdapter(adapterFragmentCategories);
-        binding.recycleviewFragmentCategories.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         init();
         setUpCategoriesList();

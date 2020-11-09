@@ -48,23 +48,20 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         fragmentBasketBinding = FragmentBasketBinding.inflate(inflater, container, false);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(fragmentBasketBinding.recycleviewBasketItems);
-        mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
-            adapterBasketItems.submitList(orderItems);
-        });
-
+        adapterBasketItems=new AdapterBasketItems(BasketFragment.this);
+        fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
         init();
-
+        showBasketItems();
         return fragmentBasketBinding.getRoot();
     }
 
     private void init() {
 
-        fragmentBasketBinding.recycleviewBasketItems.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         fragmentBasketBinding.buttonCheckout.setOnClickListener(v -> {
             if (!orderItemsModels.isEmpty()) {
                 Intent intent = new Intent(getActivity(), PaymentActivity.class);
                 String total = fragmentBasketBinding.tvFinalTotal.getText().toString();
-                intent.putExtra("payment_type","checkout");
+                intent.putExtra("payment_type", "checkout");
                 intent.putExtra("getTotal", total);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -73,26 +70,24 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
             }
         });
         fragmentBasketBinding.ivDeleteAll.setOnClickListener(view1 -> {
-            if(!orderItemsModels.isEmpty()) {
+            if (!orderItemsModels.isEmpty()) {
                 new AlertDialog.Builder(requireContext())
                         .setTitle(R.string.delete_all)
                         .setMessage(R.string.confirmation_logout)
                         .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> deleteAll())
                         .setNegativeButton(android.R.string.no, null).show();
-            }else{
+            } else {
                 Toast.makeText(getContext(), "Basket is already empty!", Toast.LENGTH_SHORT).show();
             }
 
         });
         mainViewModel.getBasketItems();
         getTotalQuantity();
-        showBasketItems();
         updateTotal();
     }
 
     private void deleteAll() {
-//        ItemsDB.getInstance(getContext()).orderItemDao().deleteAll();
-        showBasketItems();
+        mainViewModel.deleteAll();
         updateTotal();
         getTotalQuantity();
 
@@ -105,14 +100,17 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
 
 
     public void showBasketItems() {
+            mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
+            orderItemsModels.addAll(orderItems);
+            adapterBasketItems.submitList(orderItemsModels);
+            adapterBasketItems.notifyDataSetChanged();
 
-//        orderItemsModels = ItemsDB.getInstance(getActivity()).orderItemDao().getAllItems();
-
-        if (orderItemsModels.isEmpty()) {
-            fragmentBasketBinding.basketanim.setVisibility(View.VISIBLE);
-        } else {
-            fragmentBasketBinding.basketanim.setVisibility(View.GONE);
-        }
+            if (orderItemsModels.isEmpty()) {
+                fragmentBasketBinding.basketanim.setVisibility(View.VISIBLE);
+            } else {
+                fragmentBasketBinding.basketanim.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -130,7 +128,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         if (orderItemsModels.get(position).getQuantity() == 1) {
             if (orderItemsModels.size() == 0) {
                 OrderItem orderItem = orderItemsModels.get(position);
-//                ItemsDB.getInstance(getActivity()).orderItemDao().delete(orderItem);
+                mainViewModel.deleteBasketItem(orderItem);
                 adapterBasketItems.notifyDataSetChanged();
                 fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
                 updateTotal();
@@ -142,7 +140,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
                 }
             } else {
                 OrderItem orderItem = orderItemsModels.get(position);
-//                ItemsDB.getInstance(getActivity()).orderItemDao().delete(orderItem);
+                mainViewModel.deleteBasketItem(orderItem);
                 orderItemsModels.remove(position);
                 adapterBasketItems.notifyDataSetChanged();
                 fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
@@ -168,7 +166,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         int basketPosition = orderItemExistsOnBasket(orderItem);
         orderItemsModels.get(basketPosition).setQuantity(orderItemsModels.get(basketPosition).getQuantity() + value);
         orderItem.setQuantity(orderItemsModels.get(basketPosition).getQuantity());
-//        ItemsDB.getInstance(getActivity()).orderItemDao().update(orderItem);
+        mainViewModel.updateBasket(orderItem);
         adapterBasketItems = new AdapterBasketItems(BasketFragment.this);
         fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
 
@@ -190,6 +188,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         }
         fragmentBasketBinding.tvFinalTotal.setText(total + " ALL");
     }
+
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -202,7 +201,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
             OrderItem orderItem = orderItemsModels.get(viewHolder.getAdapterPosition());
             orderItemsModels.remove(viewHolder.getAdapterPosition());
             Toast.makeText(getActivity(), "Items removed!", Toast.LENGTH_SHORT).show();
-//            ItemsDB.getInstance(getActivity()).orderItemDao().delete(orderItem);
+            mainViewModel.deleteBasketItem(orderItem);
             adapterBasketItems.notifyDataSetChanged();
             fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
             updateTotal();

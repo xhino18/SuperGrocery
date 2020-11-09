@@ -55,7 +55,6 @@ public class MainSearchActivity extends AppCompatActivity implements ItemClickIn
         gson=new GsonBuilder().create();
         saveData=new SaveData(this);
         getall();
-        binding.recycleviewSearchedItems.setLayoutManager(new LinearLayoutManager(MainSearchActivity.this,RecyclerView.VERTICAL,false));
         binding.searchviewMain.onActionViewExpanded();
         binding.searchviewMain.requestFocus();
         binding.ivBack.setOnClickListener(view1 -> {

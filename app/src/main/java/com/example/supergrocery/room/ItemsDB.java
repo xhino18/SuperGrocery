@@ -16,4 +16,5 @@ import androidx.room.RoomDatabase;
 public abstract class ItemsDB extends RoomDatabase {
         private static final String DB_NAME = "SuperGrocery_DB";
         public abstract ItemsDao orderItemDao();
+
 }

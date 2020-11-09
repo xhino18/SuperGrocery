@@ -1,6 +1,7 @@
 package com.example.supergrocery.productmodelactivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.supergrocery.MainViewModel;
 import com.example.supergrocery.adapters.AdapterMoreFreeDeliveryProducts;
 import com.example.supergrocery.api.API;
 import com.example.supergrocery.models.AllProductsData;
@@ -48,23 +50,26 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
     String name,image;
     @Inject
     API api;
-
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainViewModel=new ViewModelProvider(this).get(MainViewModel.class);
         binding =ActivityFreeDeliveryBinding.inflate(getLayoutInflater());
         final View view= binding.getRoot();
         setContentView(view);
 
         init();
-        getall();
+        getFreeDeliveryProducts();
 
     }
 
     private void init() {
         gson=new GsonBuilder().create();
         saveData=new SaveData(this);
+        adapterMoreFreeDeliveryProducts = new AdapterMoreFreeDeliveryProducts(FreeDeliveryActivity.this);
+        binding.recycleviewMoreFreeProducts.setAdapter(adapterMoreFreeDeliveryProducts);
         binding.recycleviewMoreFreeProducts.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
         id=getIntent().getIntExtra("cat_id",-1);
         name=getIntent().getStringExtra("cat_name");
@@ -105,32 +110,17 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
 //
 //            }
         });
+        mainViewModel.getFreeDeliveryProducts();
 
     }
-    public void getall() {
-//        Call<ModelMain<List<AllProductsData>>> call = api.getFreeDeliveryProducts();
-//        call.enqueue(new Callback<ModelMain<List<AllProductsData>>>() {
-//            @Override
-//            public void onResponse(Call<ModelMain<List<AllProductsData>>> call, Response<ModelMain<List<AllProductsData>>> response) {
-//                if (!gson.toJson(response.body()).equalsIgnoreCase("null")) {
-//                    if (!response.body().getError()) {
-//                        allProductsData.addAll(response.body().getData());
-//                        adapterMoreFreeDeliveryProducts = new AdapterMoreFreeDeliveryProducts(FreeDeliveryActivity.this, allProductsData);
-//                        binding.recycleviewMoreFreeProducts.setAdapter(adapterMoreFreeDeliveryProducts);
-//                    } else {
-//                        Toast.makeText(FreeDeliveryActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                } else {
-//                    Toast.makeText(FreeDeliveryActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ModelMain<List<AllProductsData>>> call, Throwable t) {
-//                Toast.makeText(FreeDeliveryActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
+    private void getFreeDeliveryProducts(){
+        mainViewModel.getFreeDeliveryLiveData().observe(this, listModelMain -> {
+            if (!listModelMain.getError()) {
+                adapterMoreFreeDeliveryProducts.submitList(listModelMain.getData());
+            }else {
+                Toast.makeText(this, listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

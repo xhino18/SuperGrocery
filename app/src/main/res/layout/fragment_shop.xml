@@ -107,6 +107,7 @@
             android:layout_below="@+id/tv_fragment_categories">
 
             <androidx.recyclerview.widget.RecyclerView
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 android:id="@+id/recycleview_fragment_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,6 +115,7 @@
                 android:layout_marginLeft="@dimen/fragment_shop_leftRight_margin"
                 android:layout_marginEnd="@dimen/fragment_shop_leftRight_margin"
                 android:layout_marginRight="@dimen/fragment_shop_leftRight_margin"
+                app:spanCount="2"
                 tools:listitem="@layout/fragment_categories_model">
 
             </androidx.recyclerview.widget.RecyclerView>

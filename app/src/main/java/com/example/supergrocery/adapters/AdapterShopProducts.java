@@ -37,8 +37,6 @@ public class AdapterShopProducts extends ListAdapter<ShopProductsData, AdapterSh
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         ShopProductsData item = getItem(position);
-        holder.binding.tvProductPrice.setText(item.getPrice() + " ALL");
-        Glide.with(context).load(Links.categories_images + item.getImage()).into(holder.binding.ivProductsModel);
         holder.binding.ivAddProduct.setOnClickListener(view -> ((AddItemInBasket) context).addtoBasket(item));
         holder.binding.ivProductsModel.setOnClickListener(view -> {
             ((ProductClickedInterface) context).productClicked(item);
