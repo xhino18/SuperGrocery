@@ -51,7 +51,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         adapterBasketItems=new AdapterBasketItems(BasketFragment.this);
         fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
         init();
-        showBasketItems();
+
         return fragmentBasketBinding.getRoot();
     }
 
@@ -83,6 +83,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         });
         mainViewModel.getBasketItems();
         getTotalQuantity();
+        showBasketItems();
         updateTotal();
     }
 

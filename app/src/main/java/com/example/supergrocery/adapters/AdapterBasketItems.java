@@ -37,12 +37,10 @@ public class AdapterBasketItems extends ListAdapter<OrderItem, AdapterBasketItem
     @Override
     public void onBindViewHolder(@NonNull BasketViewHolder holder, final int position) {
         OrderItem item=getItem(position);
-        holder.bind(item);
-
         holder.binding.tvBasketItemQuantity.setText(Integer.toString(item.getQuantity()));
-        Glide.with(basketFragment).load(Links.categories_images+item.getUrlImage()).into(holder.binding.ivBasketItem);
         holder.binding.ivAddQuantity.setOnClickListener(v -> ((AddOrRemoveBasketItem)basketFragment).addClicked(item,position));
         holder.binding.ivRemoveQuantity.setOnClickListener(v -> ((AddOrRemoveBasketItem)basketFragment).removeClicked(item,position));
+        holder.bind(item);
 
     }
 

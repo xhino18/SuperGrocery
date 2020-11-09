@@ -16,9 +16,6 @@ interface ItemsDao {
     @Query("SELECT * FROM OrderItems ORDER BY id")
     suspend fun getAllItems(): List<OrderItem>
 
-    @Query("SELECT * FROM OrderItems ORDER BY id")
-    suspend fun getAll()
-
     @Delete
     suspend fun delete(itemModel: OrderItem)
 }

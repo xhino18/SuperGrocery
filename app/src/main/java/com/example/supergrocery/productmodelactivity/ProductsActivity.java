@@ -42,8 +42,10 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
     ActivityProductsBinding binding;
     SaveData saveData;
     Gson gson;
-    List<ShopProductsData> modelShopProductsDataList = new ArrayList<>();
-    List<OrderItem> orderItemsModels = new ArrayList<>();
+    boolean found = false;
+    OrderItem orderItemsModel;
+//    List<ShopProductsData> modelShopProductsDataList = new ArrayList<>();
+//    List<OrderItem> orderItemsModels = new ArrayList<>();
     AdapterShopProducts adapterShopProducts;
     int catId;
     @Inject
@@ -53,9 +55,9 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainViewModel=new ViewModelProvider(this).get(MainViewModel.class);
-        binding =ActivityProductsBinding.inflate(getLayoutInflater());
-        final View view= binding.getRoot();
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        binding = ActivityProductsBinding.inflate(getLayoutInflater());
+        final View view = binding.getRoot();
         setContentView(view);
 
         init();
@@ -68,15 +70,15 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         binding.recycleviewShopProducts.setAdapter(adapterShopProducts);
         binding.recycleviewShopProducts.setLayoutManager(new GridLayoutManager(ProductsActivity.this, 2));
         gson = new GsonBuilder().create();
-        saveData=new SaveData(this);
+        saveData = new SaveData(this);
         binding.ivBackimage.setOnClickListener(v -> {
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         binding.cardviewBasketItems.setOnClickListener(v -> {
-            Intent intent=new Intent(ProductsActivity.this, MainActivity.class);
-            intent.putExtra("goToBasket",true);
+            Intent intent = new Intent(ProductsActivity.this, MainActivity.class);
+            intent.putExtra("goToBasket", true);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
@@ -102,17 +104,19 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
 //        });
         mainViewModel.getBasketItems();
 
-}
-    private void getProducts(){
-        mainViewModel.getShopProductsLiveData().observe(this,listModelMain -> {
-            if(!listModelMain.getError()){
+    }
+
+    private void getProducts() {
+        mainViewModel.getShopProductsLiveData().observe(this, listModelMain -> {
+            if (!listModelMain.getError()) {
                 adapterShopProducts.submitList(listModelMain.getData());
-            }else{
+            } else {
                 Toast.makeText(this, listModelMain.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private void getAll(){
+
+    private void getAll() {
         mainViewModel.getOrderItemLiveData().observe(this, orderItems -> {
 
         });
@@ -137,27 +141,27 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
 
     @Override
     public void addtoBasket(ShopProductsData data) {
-        OrderItem orderItemsModel = parseProductToOrderItems(data);
-        boolean found = false;
-//
-//        for (OrderItem basketOrderItem : ItemsDB.getInstance(this).orderItemDao().getAllItem) {
-//            if (basketOrderItem.getId()==(orderItemsModel.getId())) {
-//                found = true;
-//                basketOrderItem.incrementQuantity();
-//                mainViewModel.updateBasket(basketOrderItem);
-//                getTotalQuantity();
-//                Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
-//                break;
-//
-//            }
-//        }
-//        if (!found) {
-//            mainViewModel.insertInBasket(orderItemsModel);
-//            getTotalQuantity();
-//            Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
-//
-//        }
 
+        mainViewModel.getOrderItemLiveData().observe(this, orderItems -> {
+             orderItemsModel= parseProductToOrderItems(data);
+            for (OrderItem basketOrderItem : orderItems) {
+                if (basketOrderItem.getId() == (orderItemsModel.getId())) {
+                    found = true;
+                    basketOrderItem.incrementQuantity();
+                    mainViewModel.updateBasket(basketOrderItem);
+                    getTotalQuantity();
+                    Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
+                    break;
+
+                }
+            }
+            if (!found) {
+                mainViewModel.insertInBasket(orderItemsModel);
+                getTotalQuantity();
+                Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private void getTotalQuantity() {

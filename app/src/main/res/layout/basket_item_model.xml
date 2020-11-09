@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.example.supergrocery.other.Links"/>
         <variable
             name="Basket"
             type="com.example.supergrocery.room.OrderItem" />
@@ -23,6 +24,7 @@
         <ImageView
             android:id="@+id/iv_basket_item"
             android:layout_width="@dimen/cardview_basket_product_widthHeight"
+            app:image="@{Links.categories_images+Basket.urlImage}"
             android:layout_height="@dimen/cardview_basket_product_widthHeight">
 
         </ImageView>
@@ -59,7 +61,7 @@
         android:id="@+id/tv_basket_item_price"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standart_basket_tv_height"
-        android:text="@{Basket.price}"
+        price="@{Basket.price}"
         android:layout_below="@id/tv_basket_item_name"
         android:layout_marginStart="@dimen/standart_basket_tv_marginLeft"
         android:layout_marginLeft="@dimen/standart_basket_tv_marginLeft"
