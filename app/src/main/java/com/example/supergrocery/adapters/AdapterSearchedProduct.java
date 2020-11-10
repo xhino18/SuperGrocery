@@ -37,7 +37,6 @@ public class AdapterSearchedProduct extends ListAdapter<CategoriesData,AdapterSe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CategoriesData item= getItem(position);
-        Glide.with(context).load(Links.categories_images+item.getImage()).into(holder.binding.ivSearchedItem);
         holder.binding.ivSearchedItem.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(item));
         holder.binding.tvSearchedName.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(item));
         holder.binding.tvSearchedDescription.setOnClickListener(v -> ((ItemClickInterface)context).categoryClicked(item));
@@ -55,7 +54,7 @@ public class AdapterSearchedProduct extends ListAdapter<CategoriesData,AdapterSe
 
         }
         private void bind(CategoriesData item){
-            binding.setMainSearchModel(item);
+            binding.setSearchedProductModel(item);
             binding.executePendingBindings();
         }
     }

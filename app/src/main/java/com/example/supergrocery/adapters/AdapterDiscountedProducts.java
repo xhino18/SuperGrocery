@@ -37,7 +37,6 @@ public class AdapterDiscountedProducts extends ListAdapter<DiscountedProductsDat
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DiscountedProductsData item = getItem(position);
-        Glide.with(context).load(Links.categories_images + item.getImage()).into(holder.binding.imageviewDiscountProduct);
         holder.binding.imageviewDiscountProduct.setOnClickListener(v -> ((ItemClickInterface) context).dicountedProductsClicked(item));
         holder.bind(item);
 

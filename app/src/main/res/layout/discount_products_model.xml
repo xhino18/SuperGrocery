@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.example.supergrocery.other.Links"/>
         <variable
             name="DiscountedProducts"
             type="com.example.supergrocery.models.DiscountedProductsData" />
@@ -23,6 +24,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            image="@{Links.categories_images+DiscountedProducts.image}"
             android:id="@+id/imageview_discount_product"
             android:scaleType="fitXY">
 

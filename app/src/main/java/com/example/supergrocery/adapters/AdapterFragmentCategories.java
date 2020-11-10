@@ -35,14 +35,11 @@ public class AdapterFragmentCategories extends ListAdapter<CategoriesData, Adapt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CategoriesData item = getItem(position);
-        Glide.with(context).load(Links.categories_images + item.getImage()).into(holder.binding.ivFragmentCategories);
         holder.binding.ivFragmentCategories.setOnClickListener(v -> ((ItemClickInterface) context).categoryClicked(item));
         holder.bind(item);
-
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         FragmentCategoriesModelBinding binding;

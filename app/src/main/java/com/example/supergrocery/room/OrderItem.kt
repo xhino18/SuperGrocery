@@ -6,8 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "OrderItems")
 data class OrderItem(
-        @PrimaryKey(autoGenerate = true)
-        val unique_id: Long,
+        @PrimaryKey
         @ColumnInfo(name = "id")
         val id: Int,
         @ColumnInfo(name = "name")

@@ -89,6 +89,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
 
     private void deleteAll() {
         mainViewModel.deleteAll();
+        adapterBasketItems.notifyDataSetChanged();
         updateTotal();
         getTotalQuantity();
 
@@ -102,11 +103,9 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
 
     public void showBasketItems() {
             mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
-            orderItemsModels.addAll(orderItems);
-            adapterBasketItems.submitList(orderItemsModels);
-            adapterBasketItems.notifyDataSetChanged();
-
-            if (orderItemsModels.isEmpty()) {
+            adapterBasketItems.submitList(orderItems);
+                orderItemsModels.addAll(orderItems);
+                if (orderItems.isEmpty()) {
                 fragmentBasketBinding.basketanim.setVisibility(View.VISIBLE);
             } else {
                 fragmentBasketBinding.basketanim.setVisibility(View.GONE);
@@ -163,7 +162,6 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
     }
 
     public void updateOrderItem(OrderItem orderItem, int value) {
-        mainViewModel.getBasketItems();
         int basketPosition = orderItemExistsOnBasket(orderItem);
         orderItemsModels.get(basketPosition).setQuantity(orderItemsModels.get(basketPosition).getQuantity() + value);
         orderItem.setQuantity(orderItemsModels.get(basketPosition).getQuantity());

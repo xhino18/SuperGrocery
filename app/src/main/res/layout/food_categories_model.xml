@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.example.supergrocery.other.Links"/>
         <variable
             name="Category"
             type="com.example.supergrocery.models.CategoriesData" />
@@ -24,6 +25,7 @@
                 android:id="@+id/iv_category_product"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                image="@{Links.categories_images+Category.image}"
                 android:scaleType="fitXY">
 
             </ImageView>

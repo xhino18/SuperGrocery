@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
     public void init() {
         gson = new GsonBuilder().create();
         saveData = new SaveData(getContext());
-        adapterCategories = new AdapterCategories(getContext());
+        adapterCategories = new AdapterCategories(requireActivity());
         binding.recycleviewFoodCategories.setAdapter(adapterCategories);
         adapterBanner = new AdapterBanner(getContext());
         binding.recycleviewBanner.setAdapter(adapterBanner);

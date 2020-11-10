@@ -2,6 +2,7 @@
 
 <layout>
     <data>
+        <import type="com.example.supergrocery.other.Links"/>
         <variable
             name="FreeDeliveryProducts"
             type="com.example.supergrocery.models.AllProductsData" />
@@ -24,6 +25,7 @@
             android:layout_marginRight="@dimen/tv_freeDelivery_leftRight_margin"
             android:layout_marginEnd="@dimen/tv_freeDelivery_leftRight_margin"
             android:layout_marginStart="@dimen/tv_freeDelivery_leftRight_margin"
+            image="@{Links.categories_images+FreeDeliveryProducts.image}"
             android:layout_marginLeft="@dimen/tv_freeDelivery_leftRight_margin"
             android:id="@+id/imageview_free_delivery_product"
             android:scaleType="fitXY">

@@ -144,7 +144,6 @@ public class FreeDeliveryActivity extends AppCompatActivity implements ItemClick
     }
     public OrderItem parseProductToOrderItems(int id,String name,String image,int price) {
         return new OrderItem(
-                new Long(id),
                 id,
                 name,
                 image,

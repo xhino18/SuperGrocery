@@ -38,9 +38,7 @@ public class AdapterShopProducts extends ListAdapter<ShopProductsData, AdapterSh
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         ShopProductsData item = getItem(position);
         holder.binding.ivAddProduct.setOnClickListener(view -> ((AddItemInBasket) context).addtoBasket(item));
-        holder.binding.ivProductsModel.setOnClickListener(view -> {
-            ((ProductClickedInterface) context).productClicked(item);
-        });
+        holder.binding.ivProductsModel.setOnClickListener(view -> ((ProductClickedInterface) context).productClicked(item));
         holder.bind(item);
 
     }

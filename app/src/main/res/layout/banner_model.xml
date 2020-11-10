@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.example.supergrocery.other.Links"/>
         <variable
             name="Banner"
             type="com.example.supergrocery.models.BannerData" />
@@ -23,6 +24,7 @@
             <ImageView
                 android:id="@+id/imageview_discount_product"
                 android:layout_width="match_parent"
+                image="@{Links.categories_images+Banner.image}"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY">
 

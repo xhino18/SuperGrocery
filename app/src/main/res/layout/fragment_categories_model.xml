@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.example.supergrocery.other.Links"/>
         <variable
             name="FragmentCategoriesModel"
             type="com.example.supergrocery.models.CategoriesData" />
@@ -26,6 +27,7 @@
                 android:id="@+id/iv_fragment_categories"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/image_fragment_basket_height"
+                image="@{Links.categories_images+FragmentCategoriesModel.image}"
                 android:scaleType="fitXY">
 
             </ImageView>

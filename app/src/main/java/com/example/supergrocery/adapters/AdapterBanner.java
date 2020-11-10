@@ -33,8 +33,8 @@ public class AdapterBanner extends ListAdapter<BannerData, AdapterBanner.BannerV
     @Override
     public void onBindViewHolder(@NonNull BannerViewHolder holder, int position) {
         BannerData item = getItem(position);
-        holder.bind(item);
         Glide.with(context).load(Links.categories_images + item.getImage()).into(holder.binding.imageviewDiscountProduct);
+        holder.bind(item);
 
     }
 

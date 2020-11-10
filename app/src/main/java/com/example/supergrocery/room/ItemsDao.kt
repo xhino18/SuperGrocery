@@ -18,4 +18,10 @@ interface ItemsDao {
 
     @Delete
     suspend fun delete(itemModel: OrderItem)
+
+    @Query("UPDATE OrderItems SET quantity = quantity + 1 WHERE id = :id")
+    suspend fun incrementQuantity(id: Int)
+
+    @Query("SELECT COUNT(id) FROM OrderItems WHERE id = :id")
+    suspend fun checkInBasket(id: Int): Int
 }

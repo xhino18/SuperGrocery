@@ -37,7 +37,6 @@ public class AdapterFreeDeliveryProducts extends ListAdapter<AllProductsData,Ada
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         AllProductsData item=getItem(position);
-        Glide.with(context).load(Links.categories_images+item.getImage()).into(holder.binding.imageviewFreeDeliveryProduct);
         holder.binding.cardviewFreeDeliveryProducts.setOnClickListener(v -> { ((ItemClickInterface)context).freeDeliveryClicked(item);
         holder.bind(item);
         });

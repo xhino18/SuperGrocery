@@ -36,11 +36,11 @@ public class AdapterCategories extends ListAdapter<CategoriesData, AdapterCatego
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         CategoriesData item = getItem(position);
-        Glide.with(context).load(Links.categories_images + item.getImage()).into(holder.binding.ivCategoryProduct);
-        holder.binding.ivCategoryProduct.setOnClickListener(view -> ((ItemClickInterface) context).categoryClicked(item));
+        holder.binding.ivCategoryProduct.setOnClickListener(v -> ((ItemClickInterface) context).categoryClicked(item));
         holder.bind(item);
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

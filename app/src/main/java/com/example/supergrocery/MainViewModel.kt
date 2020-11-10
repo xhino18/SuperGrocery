@@ -76,9 +76,13 @@ class MainViewModel @ViewModelInject constructor(
             itemsDao.insert(orderItem);
         }
     }
-    fun getAll() {
+    fun incrementQuantity(item: OrderItem) {
         viewModelScope.launch {
-            itemsDao.getAllItems()
+            if (itemsDao.checkInBasket(item.id) > 0) {
+                itemsDao.incrementQuantity(item.id)
+            } else {
+                itemsDao.insert(item)
+            }
         }
     }
     fun getShopProducts(id:Int){

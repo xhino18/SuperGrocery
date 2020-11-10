@@ -154,7 +154,6 @@ public class DiscountedProductsActivity extends AppCompatActivity implements Ite
 
     public OrderItem parseProductToOrderItems(int id,String name,String image,int price) {
         return new OrderItem(
-                new Long(id),
                 id,
                 name,
                 image,
