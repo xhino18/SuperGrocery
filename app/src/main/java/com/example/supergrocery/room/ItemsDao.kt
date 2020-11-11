@@ -22,6 +22,12 @@ interface ItemsDao {
     @Query("UPDATE OrderItems SET quantity = quantity + 1 WHERE id = :id")
     suspend fun incrementQuantity(id: Int)
 
+    @Query("UPDATE OrderItems SET quantity = quantity - 1 WHERE id = :id")
+    suspend fun decrementQuantity(id: Int)
+
     @Query("SELECT COUNT(id) FROM OrderItems WHERE id = :id")
     suspend fun checkInBasket(id: Int): Int
+
+    @Query("SELECT COUNT(quantity) FROM OrderItems WHERE id = :id")
+    suspend fun checkQuantityBasket(id: Int): Int
 }

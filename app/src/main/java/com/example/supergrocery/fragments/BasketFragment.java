@@ -36,9 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
     FragmentBasketBinding fragmentBasketBinding;
 
-    List<OrderItem> orderItemsModels = new ArrayList<>();
     AdapterBasketItems adapterBasketItems;
-    LifecycleOwner owner;
     double total;
     private MainViewModel mainViewModel;
 
@@ -48,7 +46,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         fragmentBasketBinding = FragmentBasketBinding.inflate(inflater, container, false);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(fragmentBasketBinding.recycleviewBasketItems);
-        adapterBasketItems=new AdapterBasketItems(BasketFragment.this);
+        adapterBasketItems = new AdapterBasketItems(BasketFragment.this);
         fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
         init();
 
@@ -58,7 +56,8 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
     private void init() {
 
         fragmentBasketBinding.buttonCheckout.setOnClickListener(v -> {
-            if (!orderItemsModels.isEmpty()) {
+            mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
+            if (!orderItems.isEmpty()) {
                 Intent intent = new Intent(getActivity(), PaymentActivity.class);
                 String total = fragmentBasketBinding.tvFinalTotal.getText().toString();
                 intent.putExtra("payment_type", "checkout");
@@ -68,9 +67,11 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
             } else {
                 Toast.makeText(getContext(), "Basket empty!", Toast.LENGTH_SHORT).show();
             }
+            });
         });
         fragmentBasketBinding.ivDeleteAll.setOnClickListener(view1 -> {
-            if (!orderItemsModels.isEmpty()) {
+            mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
+            if (!orderItems.isEmpty()) {
                 new AlertDialog.Builder(requireContext())
                         .setTitle(R.string.delete_all)
                         .setMessage(R.string.confirmation_logout)
@@ -79,7 +80,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
             } else {
                 Toast.makeText(getContext(), "Basket is already empty!", Toast.LENGTH_SHORT).show();
             }
-
+            });
         });
         mainViewModel.getBasketItems();
         getTotalQuantity();
@@ -90,6 +91,7 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
     private void deleteAll() {
         mainViewModel.deleteAll();
         adapterBasketItems.notifyDataSetChanged();
+        fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
         updateTotal();
         getTotalQuantity();
 
@@ -102,10 +104,9 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
 
 
     public void showBasketItems() {
-            mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
+        mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
             adapterBasketItems.submitList(orderItems);
-                orderItemsModels.addAll(orderItems);
-                if (orderItems.isEmpty()) {
+            if (orderItems.isEmpty()) {
                 fragmentBasketBinding.basketanim.setVisibility(View.VISIBLE);
             } else {
                 fragmentBasketBinding.basketanim.setVisibility(View.GONE);
@@ -114,78 +115,64 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
     }
 
     @Override
-    public void addClicked(OrderItem orderItemsModel, int position) {
-        updateOrderItem(orderItemsModels.get(position), 1);
-        adapterBasketItems.notifyDataSetChanged();
-        fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
-        updateTotal();
+    public void addClicked(OrderItem orderItemsModel) {
+        mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
+        mainViewModel.incrementQuantity(orderItemsModel);
+            adapterBasketItems.notifyDataSetChanged();
+            updateTotal();
         getTotalQuantity();
-
+        });
     }
 
     @Override
-    public void removeClicked(OrderItem orderItemsModel, int position) {
-        if (orderItemsModels.get(position).getQuantity() == 1) {
-            if (orderItemsModels.size() == 0) {
-                OrderItem orderItem = orderItemsModels.get(position);
-                mainViewModel.deleteBasketItem(orderItem);
-                adapterBasketItems.notifyDataSetChanged();
-                fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
-                updateTotal();
-                getTotalQuantity();
-                if (orderItemsModels.isEmpty()) {
-                    fragmentBasketBinding.basketanim.setVisibility(View.VISIBLE);
-                } else {
-                    fragmentBasketBinding.basketanim.setVisibility(View.GONE);
-                }
-            } else {
-                OrderItem orderItem = orderItemsModels.get(position);
-                mainViewModel.deleteBasketItem(orderItem);
-                orderItemsModels.remove(position);
-                adapterBasketItems.notifyDataSetChanged();
-                fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
-                updateTotal();
-                getTotalQuantity();
-                if (orderItemsModels.isEmpty()) {
-                    fragmentBasketBinding.basketanim.setVisibility(View.VISIBLE);
-                } else {
-                    fragmentBasketBinding.basketanim.setVisibility(View.GONE);
-                }
-            }
-        } else {
-            updateOrderItem(orderItemsModels.get(position), -1);
+    public void removeClicked(OrderItem orderItemsModel) {
+        mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
+            mainViewModel.decrementQuantity(orderItemsModel);
             adapterBasketItems.notifyDataSetChanged();
-            fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
             updateTotal();
             getTotalQuantity();
-        }
-    }
-
-    public void updateOrderItem(OrderItem orderItem, int value) {
-        int basketPosition = orderItemExistsOnBasket(orderItem);
-        orderItemsModels.get(basketPosition).setQuantity(orderItemsModels.get(basketPosition).getQuantity() + value);
-        orderItem.setQuantity(orderItemsModels.get(basketPosition).getQuantity());
-        mainViewModel.updateBasket(orderItem);
-        adapterBasketItems = new AdapterBasketItems(BasketFragment.this);
-        fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
-
-    }
-
-    public int orderItemExistsOnBasket(OrderItem productData) {
-        for (int i = 0; i < orderItemsModels.size(); i++) {
-            if (orderItemsModels.get(i).getId() == (productData.getId())) {
-                return i;
+            if (orderItems.isEmpty()) {
+                fragmentBasketBinding.basketanim.setVisibility(View.VISIBLE);
+            } else {
+                fragmentBasketBinding.basketanim.setVisibility(View.GONE);
             }
-        }
-        return -1;
+        });
     }
+//
+//    public void updateOrderItem(OrderItem orderItem, int value) {
+//        mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
+//        int basketPosition = orderItemExistsOnBasket(orderItem);
+//        orderItems.get(basketPosition).setQuantity(orderItems.get(basketPosition).getQuantity() + value);
+////        orderItem.setQuantity(orderItems.get(basketPosition).getQuantity());
+//        mainViewModel.incrementQuantity(orderItem);
+//        mainViewModel.updateBasket(orderItem);
+//        adapterBasketItems = new AdapterBasketItems(BasketFragment.this);
+//        fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
+//        });
+//    }
+//
+//    public int orderItemExistsOnBasket(OrderItem productData) {
+//        mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
+//
+//            for (int i = 0; i < orderItems.size(); i++) {
+//                if (orderItems.get(i).getId() == (productData.getId())) {
+////                    return i;
+//                }
+//            }
+//        });
+//        return -1;
+//
+//
+//    }
 
     public void updateTotal() {
+        mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
         total = 0;
-        for (int i = 0; i < orderItemsModels.size(); i++) {
-            total = total + orderItemsModels.get(i).getPrice() * orderItemsModels.get(i).getQuantity();
+        for (int i = 0; i < orderItems.size(); i++) {
+            total = total + orderItems.get(i).getPrice() * orderItems.get(i).getQuantity();
         }
         fragmentBasketBinding.tvFinalTotal.setText(total + " ALL");
+        });
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
@@ -196,23 +183,25 @@ public class BasketFragment extends Fragment implements AddOrRemoveBasketItem {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            mainViewModel.getOrderItemLiveData().observe(getViewLifecycleOwner(), orderItems -> {
 
-            OrderItem orderItem = orderItemsModels.get(viewHolder.getAdapterPosition());
-            orderItemsModels.remove(viewHolder.getAdapterPosition());
+            OrderItem orderItem = orderItems.get(viewHolder.getAdapterPosition());
+            orderItems.remove(viewHolder.getAdapterPosition());
             Toast.makeText(getActivity(), "Items removed!", Toast.LENGTH_SHORT).show();
             mainViewModel.deleteBasketItem(orderItem);
             adapterBasketItems.notifyDataSetChanged();
             fragmentBasketBinding.recycleviewBasketItems.setAdapter(adapterBasketItems);
             updateTotal();
             getTotalQuantity();
-            if (orderItemsModels.isEmpty()) {
+            if (orderItems.isEmpty()) {
                 fragmentBasketBinding.basketanim.setVisibility(View.VISIBLE);
             } else {
                 fragmentBasketBinding.basketanim.setVisibility(View.GONE);
             }
-
+            });
 
         }
+
     };
 
 }

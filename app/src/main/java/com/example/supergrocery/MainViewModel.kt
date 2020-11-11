@@ -85,11 +85,23 @@ class MainViewModel @ViewModelInject constructor(
             }
         }
     }
+    fun decrementQuantity(item: OrderItem) {
+        viewModelScope.launch {
+            if (itemsDao.checkInBasket(item.id) > 0) {
+                if(itemsDao.checkQuantityBasket(item.quantity)==1){
+                    itemsDao.delete(item)
+                }else {
+                    itemsDao.decrementQuantity(item.id)
+                }
+            } else {
+                itemsDao.delete(item)
+            }
+        }
+    }
     fun getShopProducts(id:Int){
         viewModelScope.launch {
             shopProductsLiveData.value=api.getProducts(id)
         }
-
     }
 
 }

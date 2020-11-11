@@ -4,7 +4,7 @@ import com.example.supergrocery.room.OrderItem;
 
 public interface AddOrRemoveBasketItem {
 
-    void addClicked(OrderItem itemsModel, int position);
+    void addClicked(OrderItem itemsModel);
 
-    void removeClicked(OrderItem itemsModel,int position);
+    void removeClicked(OrderItem itemsModel);
 }

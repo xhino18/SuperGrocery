@@ -38,8 +38,8 @@ public class AdapterBasketItems extends ListAdapter<OrderItem, AdapterBasketItem
     public void onBindViewHolder(@NonNull BasketViewHolder holder, final int position) {
         OrderItem item=getItem(position);
         holder.binding.tvBasketItemQuantity.setText(Integer.toString(item.getQuantity()));
-        holder.binding.ivAddQuantity.setOnClickListener(v -> ((AddOrRemoveBasketItem)basketFragment).addClicked(item,position));
-        holder.binding.ivRemoveQuantity.setOnClickListener(v -> ((AddOrRemoveBasketItem)basketFragment).removeClicked(item,position));
+        holder.binding.ivAddQuantity.setOnClickListener(v -> ((AddOrRemoveBasketItem)basketFragment).addClicked(item));
+        holder.binding.ivRemoveQuantity.setOnClickListener(v -> ((AddOrRemoveBasketItem)basketFragment).removeClicked(item));
         holder.bind(item);
 
     }
