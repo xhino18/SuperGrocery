@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 class MainViewModel @ViewModelInject constructor(
         val preferences: SharedPreferences,
@@ -52,6 +53,7 @@ class MainViewModel @ViewModelInject constructor(
     }
 
     fun getBasketItems() {
+        Timber.e("update")
         viewModelScope.launch {
             orderItemLiveData.value = itemsDao.getAllItems()
         }
@@ -64,6 +66,7 @@ class MainViewModel @ViewModelInject constructor(
     fun deleteBasketItem(orderItem: OrderItem) {
         viewModelScope.launch {
             itemsDao.delete(orderItem);
+            getBasketItems()
         }
     }
     fun updateBasket(orderItem: OrderItem) {
@@ -79,10 +82,13 @@ class MainViewModel @ViewModelInject constructor(
     fun incrementQuantity(item: OrderItem) {
         viewModelScope.launch {
             if (itemsDao.checkInBasket(item.id) > 0) {
+                Timber.e("in basket")
                 itemsDao.incrementQuantity(item.id)
             } else {
+                Timber.e("not in basket")
                 itemsDao.insert(item)
             }
+            getBasketItems()
         }
     }
     fun decrementQuantity(item: OrderItem) {
@@ -96,6 +102,7 @@ class MainViewModel @ViewModelInject constructor(
             } else {
                 itemsDao.delete(item)
             }
+            getBasketItems()
         }
     }
     fun getShopProducts(id:Int){

@@ -8,12 +8,10 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.example.supergrocery.databinding.BasketItemModelBinding;
 import com.example.supergrocery.fragments.BasketFragment;
 import com.example.supergrocery.interfaces.AddOrRemoveBasketItem;
-import com.example.supergrocery.other.Links;
 import com.example.supergrocery.room.OrderItem;
-import com.example.supergrocery.databinding.BasketItemModelBinding;
 
 public class AdapterBasketItems extends ListAdapter<OrderItem, AdapterBasketItems.BasketViewHolder> {
     BasketFragment basketFragment;
@@ -37,11 +35,15 @@ public class AdapterBasketItems extends ListAdapter<OrderItem, AdapterBasketItem
     @Override
     public void onBindViewHolder(@NonNull BasketViewHolder holder, final int position) {
         OrderItem item=getItem(position);
-        holder.binding.tvBasketItemQuantity.setText(Integer.toString(item.getQuantity()));
         holder.binding.ivAddQuantity.setOnClickListener(v -> ((AddOrRemoveBasketItem)basketFragment).addClicked(item));
         holder.binding.ivRemoveQuantity.setOnClickListener(v -> ((AddOrRemoveBasketItem)basketFragment).removeClicked(item));
         holder.bind(item);
 
+    }
+
+    @Override
+    public OrderItem getItem(int position) {
+        return super.getItem(position);
     }
 
     public class BasketViewHolder extends RecyclerView.ViewHolder{
@@ -54,6 +56,7 @@ public class AdapterBasketItems extends ListAdapter<OrderItem, AdapterBasketItem
         }
         public void bind(OrderItem item){
             binding.setBasket(item);
+            binding.executePendingBindings();
 
         }
     }

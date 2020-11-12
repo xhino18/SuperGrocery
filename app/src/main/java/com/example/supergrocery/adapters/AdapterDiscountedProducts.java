@@ -31,7 +31,7 @@ public class AdapterDiscountedProducts extends ListAdapter<DiscountedProductsDat
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         DiscountProductsModelBinding binding = DiscountProductsModelBinding.inflate(inflater, parent, false);
-        return new AdapterDiscountedProducts.ViewHolder(binding);
+        return new ViewHolder(binding);
     }
 
     @Override
@@ -39,7 +39,6 @@ public class AdapterDiscountedProducts extends ListAdapter<DiscountedProductsDat
         DiscountedProductsData item = getItem(position);
         holder.binding.imageviewDiscountProduct.setOnClickListener(v -> ((ItemClickInterface) context).dicountedProductsClicked(item));
         holder.bind(item);
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -38,9 +38,8 @@ public class AdapterFreeDeliveryProducts extends ListAdapter<AllProductsData,Ada
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         AllProductsData item=getItem(position);
         holder.binding.cardviewFreeDeliveryProducts.setOnClickListener(v -> { ((ItemClickInterface)context).freeDeliveryClicked(item);
-        holder.bind(item);
         });
-
+        holder.bind(item);
     }
     
     public class ViewHolder extends RecyclerView.ViewHolder{

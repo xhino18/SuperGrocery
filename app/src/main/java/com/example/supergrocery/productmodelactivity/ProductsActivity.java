@@ -44,9 +44,7 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
     SaveData saveData;
     Gson gson;
     OrderItem orderItemsModel;
-    boolean found = false;
-    //    List<ShopProductsData> modelShopProductsDataList = new ArrayList<>();
-//    List<OrderItem> orderItemsModels = new ArrayList<>();
+
     AdapterShopProducts adapterShopProducts;
     int catId;
     @Inject
@@ -87,21 +85,8 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
         catId = getIntent().getIntExtra("cat_id", -1);
         binding.tvProductCategory.setText(getIntent().getStringExtra("cat_name"));
         System.out.println("Id contoller " + catId);
-        getTotalQuantity();
         mainViewModel.getShopProducts(catId);
 
-//        binding.searchviewMain2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                searchCategory(newText);
-//                return true;
-//            }
-//        });
         mainViewModel.getBasketItems();
 
     }
@@ -137,57 +122,16 @@ public class ProductsActivity extends AppCompatActivity implements AddItemInBask
 
         );
     }
-//    @Override
-//    public void addtoBasket(ShopProductsData data) {
-//
-//        orderItemsModel= parseProductToOrderItems(data);
-//        boolean found = false;
-//
-//
-//        for (OrderItem basketOrderItem : ItemsDB.getInstance(this).orderItemDao().getAllItems()) {
-//                if (basketOrderItem.getId() == (orderItemsModel.getId())) {
-//                    found = true;
-//                    basketOrderItem.incrementQuantity();
-//                    mainViewModel.updateBasket(basketOrderItem);
-//                    getTotalQuantity();
-//                    Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
-//                    break;
-//
-//                }
-//            }
-//            if (!found) {
-//                mainViewModel.insertInBasket(orderItemsModel);
-//                getTotalQuantity();
-//                Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-//    }
+
 
     @Override
     public void addtoBasket(ShopProductsData data) {
         orderItemsModel = parseProductToOrderItems(data);
-        mainViewModel.getOrderItemLiveData().observe(this, orderItems -> {
             mainViewModel.incrementQuantity(orderItemsModel);
-            getTotalQuantity();
             Toast.makeText(this, "Added to basket!", Toast.LENGTH_SHORT).show();
-
-        });
     }
 
-    private void getTotalQuantity() {
-        int totalquantity = 0;
-//        orderItemsModels = ItemsDB.getInstance(this).orderItemDao().allItems;
-//        for (int i = 0; i < orderItemsModels.size(); i++) {
-//            totalquantity = totalquantity + orderItemsModels.get(i).getQuantity();
-//        }
-//        if (totalquantity == 0) {
-//            binding.tvBasketQuantity.setVisibility(View.GONE);
-//        } else {
-//            binding.tvBasketQuantity.setVisibility(View.VISIBLE);
-//        }
-//        binding.tvBasketQuantity.setText(totalquantity + "");
-    }
+
 
     @Override
     public void productClicked(ShopProductsData data) {
